@@ -1,0 +1,129 @@
+﻿<Page x:Class="ECOLOGSemanticViewer.Views.Pages.MainMapPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:u="clr-namespace:ECOLOGSemanticViewer.Utils"
+      Title="MainMapPage"
+      d:DesignHeight="300"
+      d:DesignWidth="300"
+      mc:Ignorable="d">
+
+    <Grid Background="#dddddd">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  ツール バー  -->
+        <Grid Grid.Row="0" Margin="8,4,8,4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.Resources>
+                <LinearGradientBrush x:Key="Brush.Icon" PresentationOptions:Freeze="True" StartPoint="0,0" EndPoint="0,1">
+                    <GradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Offset="0.0" Color="#aaaacc" />
+                            <GradientStop Offset="1.0" Color="#222244" />
+                        </GradientStopCollection>
+                    </GradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </Grid.Resources>
+
+            <!--  マーカーを追加  -->
+            <Button Grid.Column="0"
+                    Width="24"
+                    Height="24"
+                    Command="{Binding AddMarkerCommand}"
+                    IsEnabled="{Binding CanAddMarker}"
+                    ToolTip="マーカーを追加">
+                <Path Width="18"
+                      Height="18"
+                      Data="F1 M 64,8C 81.6731,8 96,23.2596 96,42.0833C 96,51.0463 92.7518,59.2012 87.4407,65.2855L 63.637,120L 39.8037,64.3888C 34.9418,58.411 32,50.6131 32,42.0833C 32,23.2596 46.3269,8 64,8 Z M 64,26C 56.268,26 50,32.268 50,40C 50,47.732 56.268,54 64,54C 71.732,54 78,47.732 78,40C 78,32.268 71.732,26 64,26 Z "
+                      Fill="{StaticResource Brush.Icon}"
+                      Stretch="Fill" />
+            </Button>
+            <!--  選択しているマーカーの位置へ移動  -->
+            <Button Grid.Column="1"
+                    Width="24"
+                    Height="24"
+                    Margin="4,0,0,0"
+                    Command="{Binding ShowMarkerCommand}"
+                    IsEnabled="{Binding IsSelectedMarker}"
+                    ToolTip="選択しているマーカーの位置へ移動">
+                <Path Width="18"
+                      Height="18"
+                      Data="F1 M 16,8L 112,8C 116.418,8 120,11.5817 120,16L 120,112C 120,116.418 116.418,120 112,120L 16,120C 11.5817,120 8,116.418 8,112L 8,16C 8,11.5817 11.5817,8 16,8 Z M 56,16L 32,16L 16,16L 16,32L 16,56L 32,56L 32,32L 56,32L 56,16 Z M 72,16L 72,32L 96,32L 96,56L 112,56L 112,32L 112,16L 96,16L 72,16 Z M 16,72L 16,96L 16,112L 32,112L 56,112L 56,96L 32,96L 32,72L 16,72 Z M 96,72L 96,96L 72,96L 72,112L 96,112L 112,112L 112,96L 112,72L 96,72 Z M 64,48C 55.1634,48 48,55.1634 48,64C 48,72.8365 55.1634,80 64,80C 72.8366,80 80,72.8365 80,64C 80,55.1634 72.8366,48 64,48 Z "
+                      Fill="{StaticResource Brush.Icon}"
+                      Stretch="Fill" />
+            </Button>
+            <!--  選択しているマーカーを削除  -->
+            <Button Grid.Column="2"
+                    Width="24"
+                    Height="24"
+                    Margin="4,0,0,0"
+                    Command="{Binding RemoveMarkerCommand}"
+                    IsEnabled="{Binding IsSelectedMarker}"
+                    ToolTip="選択しているマーカーを削除">
+                <Path Width="18"
+                      Height="18"
+                      Data="F1 M 64,24C 86.0914,24 104,41.9086 104,64C 104,86.0914 86.0914,104 64,104C 41.9086,104 24,86.0914 24,64C 24,41.9086 41.9086,24 64,24 Z M 64,34C 47.4315,34 34,47.4315 34,64C 34,70.0714 35.8036,75.7215 38.9041,80.4439L 80.4439,38.9041C 75.7215,35.8036 70.0714,34 64,34 Z M 64,94C 80.5685,94 94,80.5685 94,64C 94,57.8424 92.1449,52.1182 88.963,47.3556L 47.3556,88.963C 52.1182,92.1449 57.8424,94 64,94 Z "
+                      Fill="{StaticResource Brush.Icon}"
+                      Stretch="Fill" />
+            </Button>
+            <!--  住所  -->
+            <TextBox Grid.Column="3"
+                     Margin="4,0,0,0"
+                     Text="{Binding Address}" />
+            <!--  入力した住所へ移動  -->
+            <Button Grid.Column="4"
+                    Width="24"
+                    Height="24"
+                    Margin="4,0,0,0"
+                    Command="{Binding MoveMapCommand}"
+                    ToolTip="入力した住所へ移動">
+                <Path Width="16"
+                      Height="16"
+                      Data="F1 M 16,40L 80,40L 80,24L 120,56L 80,88L 80,72L 16,72L 16,40 Z "
+                      Fill="{StaticResource Brush.Icon}"
+                      Stretch="Fill" />
+            </Button>
+        </Grid>
+
+
+
+        <!--  ブラウザ ( Google Map 表示 )  -->
+        <Border Grid.Row="1"
+                Margin="8,0,8,0"
+                BorderBrush="#444444"
+                BorderThickness="1">
+            <WebBrowser x:Name="_webBrowser"
+                        u:WebBrowserBehavior.ObjectForScripting="{Binding MapHost}"
+                        u:WebBrowserBehavior.Source="{Binding Uri}" />
+        </Border>
+
+        <!--  ステータス バー  -->
+        <StackPanel Grid.Row="2" Margin="8,4,8,4">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="64"
+                           Text="地図 : "
+                           TextAlignment="Right" />
+                <TextBlock Foreground="Blue" Text="{Binding Location}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="64"
+                           Text="マーカー : "
+                           TextAlignment="Right" />
+                <TextBlock Foreground="Blue" Text="{Binding MarkerLocation}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

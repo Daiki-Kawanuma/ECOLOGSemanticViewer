@@ -1,0 +1,117 @@
+﻿<Page x:Class="ECOLOGSemanticViewer.Views.Pages.MainEnergyPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:oxy="http://oxyplot.org/wpf"
+      xmlns:vm="clr-namespace:ECOLOGSemanticViewer.ViewModels.PageViewModels"
+      Title="MainEnergyPage"
+      Background="{DynamicResource MaterialDesignPaper}"
+      FontFamily="{StaticResource MaterialDesignFont}"
+      TextElement.FontSize="13"
+      TextElement.FontWeight="Regular"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextOptions.TextFormattingMode="Ideal"
+      TextOptions.TextRenderingMode="Auto"
+      d:DesignHeight="300"
+      d:DesignWidth="300"
+      mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:MainEnergyPageViewModel />
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:Card Grid.Column="0" Margin="5,5,5,5">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Vertical">
+
+                        <Label Content="X Axis" />
+
+                        <Button Margin="5,5,5,5"
+                                Content="kWh"
+                                Style="{StaticResource MaterialDesignFlatButton}" />
+
+                        <Button Margin="5,0,5,5"
+                                Content="kWh/km"
+                                Style="{StaticResource MaterialDesignFlatButton}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Vertical">
+
+                        <Label Content="Y Axis" />
+
+                        <Button Margin="0,5,5,5"
+                                Content="Number"
+                                Style="{StaticResource MaterialDesignFlatButton}" />
+
+                        <Button Margin="0,0,5,5"
+                                Content="Percent"
+                                Style="{StaticResource MaterialDesignFlatButton}" />
+                    </StackPanel>
+                </Grid>
+
+            </materialDesign:Card>
+
+            <DataGrid Grid.Column="1"
+                      Margin="0,5,5,5"
+                      VerticalAlignment="Stretch"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding ExtractedSemanticLinks}"
+                      VerticalScrollBarVisibility="Auto">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="1*"
+                                        Binding="{Binding Path=SemanticLinkId}"
+                                        Header="ID" />
+                    <DataGridTextColumn Width="4*"
+                                        Binding="{Binding Path=Semantics}"
+                                        Header="Semantics" />
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+        </Grid>
+
+        <Grid Grid.Row="1">
+
+            <Button Margin="0,0,10,10"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}">
+
+                <Viewbox Width="24" Height="24">
+                    <Canvas Width="24" Height="24">
+                        <Path Data="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" Fill="Black" />
+                    </Canvas>
+                </Viewbox>
+
+            </Button>
+
+            <oxy:PlotView Grid.Row="0"
+                          Margin="5,0,5,5"
+                          Model="{Binding PlotModel}" />
+
+        </Grid>
+
+    </Grid>
+</Page>
