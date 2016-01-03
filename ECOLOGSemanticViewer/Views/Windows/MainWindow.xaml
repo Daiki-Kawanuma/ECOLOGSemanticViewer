@@ -1,4 +1,5 @@
-﻿<Window x:Class="ECOLOGSemanticViewer.Views.Windows.MainWindow"
+﻿<controls:MetroWindow x:Class="ECOLOGSemanticViewer.Views.Windows.MainWindow"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
@@ -133,7 +134,7 @@
             <Button Grid.Row="4"
                     Margin="10, 0,10, 10"
                     VerticalAlignment="Bottom"
-                    Content="Display" />
+                    Content="Display" Click="Button_Click_4" />
 
         </Grid>
 
@@ -144,4 +145,4 @@
 
     </Grid>
 
-</Window>
+</controls:MetroWindow>

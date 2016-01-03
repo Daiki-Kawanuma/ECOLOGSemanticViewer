@@ -1,5 +1,6 @@
 ﻿using ECOLOGSemanticViewer.ViewModels.WindowViewModels;
 using ECOLOGSemanticViewer.Views.Pages;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace ECOLOGSemanticViewer.Views.Windows
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
@@ -69,6 +70,12 @@ namespace ECOLOGSemanticViewer.Views.Windows
                 Console.WriteLine("Add called ...");
                 context.ExtractedSemanticLinks.Add(context.SelectedSemanticLink);
             }
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            SemanticDetailWindow window = new SemanticDetailWindow();
+            window.Show();
         }
     }
 }
