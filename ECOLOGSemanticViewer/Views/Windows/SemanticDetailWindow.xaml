@@ -5,7 +5,7 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
         xmlns:v="clr-namespace:ECOLOGSemanticViewer.Views"
-        xmlns:vm="clr-namespace:ECOLOGSemanticViewer.ViewModels"
+        xmlns:vm="clr-namespace:ECOLOGSemanticViewer.ViewModels.WindowViewModels"
         Title="SemanticDetailWindow" Height="350" Width="525">
     
     <Window.DataContext>
