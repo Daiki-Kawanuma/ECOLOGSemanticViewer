@@ -93,6 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\PageViewModels\DetailEnergyPageViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModels\SemanticDetailWindowViewModel.cs" />
     <Compile Include="Views\Pages\DetailEnergyPage.xaml.cs">
       <DependentUpon>DetailEnergyPage.xaml</DependentUpon>
@@ -131,7 +132,7 @@
     <Compile Include="Models\EcologModels\Driver.cs" />
     <Compile Include="Models\EcologModels\Ecolog.cs" />
     <Compile Include="Models\GraphModels\GraphEcolog.cs" />
-    <Compile Include="Models\GraphModels\Histogram.cs" />
+    <Compile Include="Models\GraphModels\LevelAndValue.cs" />
     <Compile Include="Models\GraphModels\Hour.cs" />
     <Compile Include="Models\GraphModels\Month.cs" />
     <Compile Include="Models\EcologModels\PhotographicImage.cs" />
@@ -145,7 +146,6 @@
     <Compile Include="Utils\DatabaseAccesserEcolog.cs" />
     <Compile Include="Utils\LogWriter.cs" />
     <Compile Include="Utils\WebBrowserBehavior.cs" />
-    <Compile Include="ViewModels\PageViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\PageViewModels\MainEnergyPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\MainMapPageViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModels\MainWindowViewModel.cs" />

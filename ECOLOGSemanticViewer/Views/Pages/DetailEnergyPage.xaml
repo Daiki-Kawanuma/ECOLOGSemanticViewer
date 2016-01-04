@@ -18,6 +18,10 @@
       d:DesignWidth="300"
       mc:Ignorable="d">
 
+    <Page.DataContext>
+        <vm:DetailEnergyPageViewModel />
+    </Page.DataContext>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
@@ -25,6 +29,8 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
+
+            <oxy:PlotView Margin ="10" Grid.Row="0" Model="{Binding PlotModel}" />
 
             <Button Margin="0,0,10,10"
                     HorizontalAlignment="Right"
@@ -38,8 +44,6 @@
                 </Viewbox>
 
             </Button>
-
-            <oxy:PlotView Grid.Row="0" Model="{Binding PlotModel}" />
 
         </Grid>
 
