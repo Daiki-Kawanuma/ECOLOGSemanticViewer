@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace ECOLOGSemanticViewer.Views.Windows
     /// <summary>
     /// SemanticDetailWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class SemanticDetailWindow : Window
+    public partial class SemanticDetailWindow : MetroWindow
     {
         public SemanticDetailWindow()
         {
