@@ -56,6 +56,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             LinearAxis axisX = new LinearAxis();
             LinearAxis axisY = new LinearAxis();
             axisX.Position = AxisPosition.Bottom;
+            axisX.Title = "Lost energy [kWh]";
+            axisY.Title = "Number";
             plotModel.Axes.Add(axisX);
             plotModel.Axes.Add(axisY);
 
@@ -72,12 +74,12 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         private AreaSeries createAreaSeries(int i)
         {
             AreaSeries series = new AreaSeries();
-            series.Title = "Semantic";
             series.TrackerFormatString = series.TrackerFormatString + "\nSemantic : {Tag}";
 
             switch (i)
             {
                 case 0:
+                    series.Title = "自宅～綾瀬市役所前";
                     series.Color = OxyColors.OrangeRed;
 
                     series.Points.Add(new DataPoint(0.18043131, 0));
@@ -97,6 +99,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                     break;
 
                 case 1:
+                    series.Title = "綾瀬市役所前～与蔵山下";
                     series.Color = OxyColors.SkyBlue;
 
                     series.Points.Add(new DataPoint(0.103455455, 0));
@@ -117,6 +120,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                     break;
 
                 case 2:
+                    series.Title = "与蔵山下～代官二丁目";
                     series.Color = OxyColors.GreenYellow;
 
                     series.Points.Add(new DataPoint(0.164779303, 0));
