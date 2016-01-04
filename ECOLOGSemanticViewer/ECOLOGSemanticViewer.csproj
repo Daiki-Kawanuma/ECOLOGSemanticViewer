@@ -94,9 +94,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\WindowViewModels\SemanticDetailWindowViewModel.cs" />
+    <Compile Include="Views\Pages\DetailEnergyPage.xaml.cs">
+      <DependentUpon>DetailEnergyPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\SemanticDetailWindow.xaml.cs">
       <DependentUpon>SemanticDetailWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Pages\DetailEnergyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\MainEnergyPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
