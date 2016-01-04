@@ -124,7 +124,7 @@
                     <DataGridTextColumn Width="1*"
                                         Binding="{Binding Path=SemanticLinkId}"
                                         Header="ID" />
-                    <DataGridTextColumn Width="4*"
+                    <DataGridTextColumn Width="2*"
                                         Binding="{Binding Path=Semantics}"
                                         Header="Semantics" />
                 </DataGrid.Columns>

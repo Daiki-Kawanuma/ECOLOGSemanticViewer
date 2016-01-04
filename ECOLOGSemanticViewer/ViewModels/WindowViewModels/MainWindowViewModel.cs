@@ -54,13 +54,19 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
             
             this.SemanticLinks = new List<SemanticLink>
             {
-                new SemanticLink(){SemanticLinkId = 1, Semantics = "Semantics 1"},
-                new SemanticLink(){SemanticLinkId = 2, Semantics = "Semantics 2"},
-                new SemanticLink(){SemanticLinkId = 3, Semantics = "Semantics 3"},
-                new SemanticLink(){SemanticLinkId = 4, Semantics = "Semantics 4"}
+                new SemanticLink(){SemanticLinkId = 187, Semantics = "自宅～綾瀬市役所前"},
+                new SemanticLink(){SemanticLinkId = 188, Semantics = "綾瀬市役所前～与蔵山下"},
+                new SemanticLink(){SemanticLinkId = 189, Semantics = "与蔵山下～代官二丁目"},
+                new SemanticLink(){SemanticLinkId = 190, Semantics = "代官二丁目～福田入口"},
+                new SemanticLink(){SemanticLinkId = 191, Semantics = "福田入口～下和田"},
+                new SemanticLink(){SemanticLinkId = 191, Semantics = "下和田～いちょう小学校入口"},
             };
 
             this.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>();
+            foreach(SemanticLink link in this.SemanticLinks){
+                this.ExtractedSemanticLinks.Add(link);
+            }
+
         }
 
         #region SemanticLinks変更通知プロパティ

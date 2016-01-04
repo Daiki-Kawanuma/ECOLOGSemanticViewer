@@ -48,24 +48,23 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         }
         #endregion
 
-        private PlotModel createPlotModel(){
-            
+        private PlotModel createPlotModel()
+        {
+
             PlotModel plotModel = new PlotModel();
 
             LinearAxis axisX = new LinearAxis();
             LinearAxis axisY = new LinearAxis();
             axisX.Position = AxisPosition.Bottom;
-            //axisY.Position = AxisPosition.Left;
             plotModel.Axes.Add(axisX);
             plotModel.Axes.Add(axisY);
 
-            for (int i = 1; i < 6; i++)
+            for (int i = 0; i < 3; i++)
             {
                 plotModel.Series.Add(createAreaSeries(i));
-                Thread.Sleep(100);
             }
 
-            
+
 
             return plotModel;
         }
@@ -74,28 +73,71 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         {
             AreaSeries series = new AreaSeries();
             series.Title = "Semantic";
-            Random random = new Random();
-            Random randomR = new Random((int)DateTime.Now.Ticks);
-            Random randomG = new Random((int)DateTime.Now.Ticks + random.Next() * 10);
-            Random randomB = new Random((int)DateTime.Now.Ticks * random.Next());
-            series.Color = OxyColor.FromArgb((byte)random.Next(0, 255), (byte)randomR.Next(0, 255), (byte)randomG.Next(0, 255), (byte)randomB.Next(0, 255));
             series.TrackerFormatString = series.TrackerFormatString + "\nSemantic : {Tag}";
 
-            int range = random.Next();
+            switch (i)
+            {
+                case 0:
+                    series.Color = OxyColors.OrangeRed;
 
-            series.Points.Add(new DataPoint(0 * i, 0));
-            series.Points.Add(new DataPoint(1 * i, 2));
-            series.Points.Add(new DataPoint(2 * i, 3));
-            series.Points.Add(new DataPoint(3 * i, 5));
-            series.Points.Add(new DataPoint(4 * i, 5));
-            series.Points.Add(new DataPoint(5 * i, 10));
-            series.Points.Add(new DataPoint(6 * i, 20));
-            series.Points.Add(new DataPoint(7 * i, 30));
-            series.Points.Add(new DataPoint(8 * i, 20));
-            series.Points.Add(new DataPoint(9 * i, 10));
-            series.Points.Add(new DataPoint(10 * i, 3));
-            series.Points.Add(new DataPoint(11 * i, 0));
-      
+                    series.Points.Add(new DataPoint(0.18043131, 0));
+                    series.Points.Add(new DataPoint(0.186795715, 4));
+                    series.Points.Add(new DataPoint(0.19316012, 3));
+                    series.Points.Add(new DataPoint(0.199524525, 9));
+                    series.Points.Add(new DataPoint(0.20588893, 30));
+                    series.Points.Add(new DataPoint(0.212253335, 65));
+                    series.Points.Add(new DataPoint(0.218617741, 64));
+                    series.Points.Add(new DataPoint(0.224982146, 51));
+                    series.Points.Add(new DataPoint(0.231346551, 48));
+                    series.Points.Add(new DataPoint(0.237710956, 20));
+                    series.Points.Add(new DataPoint(0.244075361, 14));
+                    series.Points.Add(new DataPoint(0.250439767, 9));
+                    series.Points.Add(new DataPoint(0.256804172, 0));
+
+                    break;
+
+                case 1:
+                    series.Color = OxyColors.SkyBlue;
+
+                    series.Points.Add(new DataPoint(0.103455455, 0));
+                    series.Points.Add(new DataPoint(0.110529318, 2));
+                    series.Points.Add(new DataPoint(0.117603181, 3));
+                    series.Points.Add(new DataPoint(0.124677043, 4));
+                    series.Points.Add(new DataPoint(0.131750906, 55));
+                    series.Points.Add(new DataPoint(0.138824769, 91));
+                    series.Points.Add(new DataPoint(0.145898632, 79));
+                    series.Points.Add(new DataPoint(0.152972494, 104));
+                    series.Points.Add(new DataPoint(0.160046357, 82));
+                    series.Points.Add(new DataPoint(0.16712022, 40));
+                    series.Points.Add(new DataPoint(0.174194083, 27));
+                    series.Points.Add(new DataPoint(0.181267945, 25));
+                    series.Points.Add(new DataPoint(0.188341808, 9));
+                    series.Points.Add(new DataPoint(0.195415671, 0));
+
+                    break;
+
+                case 2:
+                    series.Color = OxyColors.GreenYellow;
+
+                    series.Points.Add(new DataPoint(0.164779303, 0));
+                    series.Points.Add(new DataPoint(0.169821257, 6));
+                    series.Points.Add(new DataPoint(0.174863211, 6));
+                    series.Points.Add(new DataPoint(0.179905164, 25));
+                    series.Points.Add(new DataPoint(0.184947118, 31));
+                    series.Points.Add(new DataPoint(0.189989071, 78));
+                    series.Points.Add(new DataPoint(0.195031025, 124));
+                    series.Points.Add(new DataPoint(0.200072979, 114));
+                    series.Points.Add(new DataPoint(0.205114932, 96));
+                    series.Points.Add(new DataPoint(0.210156886, 74));
+                    series.Points.Add(new DataPoint(0.21519884, 27));
+                    series.Points.Add(new DataPoint(0.220240793, 21));
+                    series.Points.Add(new DataPoint(0.225282747, 0));
+                        break;
+
+            }
+
+
+
             return series;
         }
     }
