@@ -53,7 +53,8 @@
                                  HorizontalAlignment="Stretch"
                                  VerticalAlignment="Stretch">
 
-                <StackPanel>
+                <StackPanel
+                    >
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -97,10 +98,12 @@
                                 HorizontalContentAlignment="Left"
                                 Content="Under mode: 11%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
+                        
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
                                 Content="Mode: 63%"
+                                Foreground="Orange"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                         <Button Margin="5,0,0,0"
@@ -147,7 +150,6 @@
                     </StackPanel>
 
                 </StackPanel>
-
 
             </materialDesign:Card>
 
