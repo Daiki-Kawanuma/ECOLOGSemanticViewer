@@ -54,5 +54,13 @@ namespace ECOLOGSemanticViewer.Views.Windows
             context.CurrentPage = new DetailTimePage();
         }
 
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as SemanticDetailWindowViewModel;
+            if (context == null) { return; }
+
+            context.CurrentPage = new DetailCamparePage();
+        }
+
     }
 }
