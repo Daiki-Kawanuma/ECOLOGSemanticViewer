@@ -22,153 +22,39 @@
         <vm:DetailComparePageViewModel />
     </Page.DataContext>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="1*" />
-        </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
+    <Grid >
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
             <ComboBox Margin="10,10,10,0" />
+            <ComboBox Margin="10,10,10,0" />
+            <ComboBox Margin="10,10,10,0" />
+        </StackPanel>
+        
+        <Grid Grid.Row="1">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
 
-            <oxy:PlotView Grid.Row="1"
-                          Margin="10"
+            <oxy:PlotView Grid.Row="0"
+                          Grid.Column="0"
+                          Margin="10, 10, 5, 5"
                           Model="{Binding PlotModel}" />
-
-            <Button Grid.Row="1"
-                    Margin="0,0,10,10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Style="{StaticResource MaterialDesignFloatingActionButton}">
-
-                <Viewbox Width="24" Height="24">
-                    <Canvas Width="24" Height="24">
-                        <Path Data="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" Fill="White" />
-                    </Canvas>
-                </Viewbox>
-
-            </Button>
-
-        </Grid>
-
-        <Grid Grid.Column="1">
-
-            <materialDesign:Card Margin="5,5,5,5"
-                                 HorizontalAlignment="Stretch"
-                                 VerticalAlignment="Stretch">
-
-                <StackPanel>
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Button Grid.Column="0" Content="Number" />
-                        <Button Grid.Column="1" Content="Percent" />
-
-                    </Grid>
-
-                    <Label Margin="10, 10, 10, 0" Content="Representative value" />
-
-                    <StackPanel Margin="10,0,10,0" Background="#eeeeee">
-
-                        <Button Margin="5,0,0,0"
-                                HorizontalContentAlignment="Left"
-                                Content="Min: 0.146kWh"
-                                Style="{StaticResource MaterialDesignToolButton}" />
-
-                        <Button Margin="5,0,0,0"
-                                HorizontalContentAlignment="Left"
-                                Content="Mode: 0.176kwh"
-                                Style="{StaticResource MaterialDesignToolButton}" />
-
-                        <Button Margin="5,0,0,0"
-                                HorizontalContentAlignment="Left"
-                                Content="Median: 0.173kWh"
-                                Style="{StaticResource MaterialDesignToolButton}" />
-
-
-                        <Button Margin="5,0,0,0"
-                                HorizontalContentAlignment="Left"
-                                Content="Max: 0.196kWh"
-                                Style="{StaticResource MaterialDesignToolButton}" />
-
-                    </StackPanel>
-
-                    <Label Margin="10,10,10,0" Content="Distribution" />
-
-                    <StackPanel Margin="10,0,10,0" Background="#eeeeee">
-
-                        <Button Margin="5,0,0,0"
-                                HorizontalContentAlignment="Left"
-                                Content="Under mode: 26%"
-                                Style="{StaticResource MaterialDesignToolButton}" />
-
-
-                        <Button Margin="5,0,0,0"
-                                HorizontalContentAlignment="Left"
-                                Content="Mode: 55%"
-                                Style="{StaticResource MaterialDesignToolButton}" />
-
-                        <Button Margin="5,0,0,0"
-                                HorizontalContentAlignment="Left"
-                                Content="Upper mode: 19%"
-                                Style="{StaticResource MaterialDesignToolButton}" />
-
-                    </StackPanel>
-
-                    <Label Margin="10,10,10,0" Content="Comparison" />
-
-                    <StackPanel Margin="10,0,10,10" Background="#eeeeee">
-
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="1*" />
-                            </Grid.ColumnDefinitions>
-
-                            <Button Grid.Column="0"
-                                    Content="Absolute"
-                                    Padding="0"
-                                    Style="{StaticResource MaterialDesignFlatButton}" />
-                            <Button Grid.Column="1"
-                                    Content="Relative"
-                                    Padding="0"
-                                    Style="{StaticResource MaterialDesignFlatButton}" />
-
-                        </Grid>
-
-                        <Button Margin="5,0,0,0"
-                                HorizontalContentAlignment="Left"
-                                Content="Min-Max: 33%"
-                                Style="{StaticResource MaterialDesignToolButton}" />
-
-                        <Button Margin="5,0,0,0"
-                                HorizontalContentAlignment="Left"
-                                Content="Min-Mode: 20%"
-                                Style="{StaticResource MaterialDesignToolButton}" />
-
-                        <Button Margin="5,0,0,0"
-                                HorizontalContentAlignment="Left"
-                                Content="Mode-Max: 12%"
-                                Foreground="Orange"
-                                Style="{StaticResource MaterialDesignToolButton}" />
-
-                    </StackPanel>
-
-                </StackPanel>
-
-            </materialDesign:Card>
 
         </Grid>
 
     </Grid>
+
 </Page>
