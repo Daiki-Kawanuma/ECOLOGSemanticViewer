@@ -53,6 +53,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         private PlotModel createPlotModel()
         {
             List<LevelAndValue> source = new List<LevelAndValue>() { 
+
+                
                 new LevelAndValue(){Level = 0.146050845, Value = 6},
                 new LevelAndValue(){Level = 0.15101523, Value = 8},
                 new LevelAndValue(){Level = 0.155979616, Value = 20},
@@ -64,6 +66,21 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 new LevelAndValue(){Level = 0.185765928, Value = 69},
                 new LevelAndValue(){Level = 0.190730313, Value = 24},
                 new LevelAndValue(){Level = 0.195694698, Value = 17},
+                 
+                /*
+                new LevelAndValue(){Level = 120, Value = 1},
+                new LevelAndValue(){Level = 143, Value = 15},
+                new LevelAndValue(){Level = 167, Value = 49},
+                new LevelAndValue(){Level = 190, Value = 87},
+                new LevelAndValue(){Level = 214, Value = 107},
+                new LevelAndValue(){Level = 237, Value = 105},
+                new LevelAndValue(){Level = 261, Value = 81},
+                new LevelAndValue(){Level = 284, Value = 57},
+                new LevelAndValue(){Level = 308, Value = 34},
+                new LevelAndValue(){Level = 331, Value = 31},
+                new LevelAndValue(){Level = 354, Value = 15},
+                new LevelAndValue(){Level = 378, Value = 18},
+                 */
             };
 
             PlotModel plotModel = new PlotModel();
@@ -86,15 +103,25 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             rectAannotation.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
             rectAannotation.MinimumY = axisY.Minimum;
             rectAannotation.MaximumY = axisY.Maximum;
-            rectAannotation.MinimumX = 4.5;
-            rectAannotation.MaximumX = 7.5;
+            rectAannotation.MinimumX = 5.5;
+            rectAannotation.MaximumX = 6.5;
             rectAannotation.Layer = AnnotationLayer.BelowSeries;
 
             plotModel.Annotations.Add(rectAannotation);
 
+            RectangleAnnotation rectAannotation2 = new RectangleAnnotation();
+            rectAannotation2.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
+            rectAannotation2.MinimumY = axisY.Minimum;
+            rectAannotation2.MaximumY = axisY.Maximum;
+            rectAannotation2.MinimumX = 9.5;
+            rectAannotation2.MaximumX = 10.5;
+            rectAannotation2.Layer = AnnotationLayer.BelowSeries;
+
+            plotModel.Annotations.Add(rectAannotation2);
+
             var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint(6, 60);
-            textAnnotation.Text = "63%";
+            textAnnotation.TextPosition = new DataPoint(8, 75);
+            textAnnotation.Text = "12%";
             textAnnotation.TextColor = OxyColors.Orange;
             textAnnotation.FontSize = 50;
             textAnnotation.FontWeight = FontWeights.Bold;

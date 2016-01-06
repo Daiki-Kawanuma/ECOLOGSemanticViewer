@@ -32,7 +32,7 @@
 
             <oxy:PlotView Margin ="10" Grid.Row="0" Model="{Binding PlotModel}" />
 
-            <Button Margin="0,0,10,10"
+            <!--<Button Margin="0,0,10,10"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Style="{StaticResource MaterialDesignFloatingActionButton}">
@@ -43,7 +43,7 @@
                     </Canvas>
                 </Viewbox>
 
-            </Button>
+            </Button>-->
 
         </Grid>
 
@@ -71,23 +71,23 @@
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Min: 0.134kWh"
+                                Content="Min: 0.146kWh"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Mode: 0.510kWh"
+                                Content="Mode: 0.176kwh"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Median: 0.622kWh"
+                                Content="Median: 0.173kWh"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Max: 1.134kWh"
+                                Content="Max: 0.196kWh"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                     </StackPanel>
@@ -96,19 +96,19 @@
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Under mode: 11%"
+                                Content="Under mode: 26%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
                         
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Mode: 63%"
+                                Content="Mode: 55%"
                                 Foreground="Orange"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Upper mode: 26%"
+                                Content="Upper mode: 19%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                     </StackPanel>
@@ -134,17 +134,17 @@
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Min-Max: 52%"
+                                Content="Min-Max: 133%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Min-Mode: 26%"
+                                Content="Min-Mode: 120%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Mode-Max: 11%"
+                                Content="Mode-Max: 12%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                     </StackPanel>
