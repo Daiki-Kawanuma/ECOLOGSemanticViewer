@@ -1,4 +1,4 @@
-﻿<Page x:Class="ECOLOGSemanticViewer.Views.Pages.DetailEnergyPage"
+﻿<Page x:Class="ECOLOGSemanticViewer.Views.Pages.DetailTimePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -19,7 +19,7 @@
       mc:Ignorable="d">
 
     <Page.DataContext>
-        <vm:DetailEnergyPageViewModel />
+        <vm:DetailTimePageViewModel />
     </Page.DataContext>
 
     <Grid>
@@ -74,23 +74,23 @@
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Min: 0.146kWh"
+                                Content="Min: 120s"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Mode: 0.176kwh"
+                                Content="Mode: 214s"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Median: 0.173kWh"
+                                Content="Median: 227s"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Max: 0.196kWh"
+                                Content="Max: 378s"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                     </StackPanel>
@@ -101,18 +101,19 @@
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Under mode: 26%"
+                                Content="Under mode: 11%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Mode: 55%"
+                                Content="Mode: 63%"
+                                Foreground="Orange"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Upper mode: 19%"
+                                Content="Upper mode: 26%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                     </StackPanel>
@@ -140,18 +141,17 @@
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Min-Max: 33%"
+                                Content="Min-Max: 315%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Min-Mode: 20%"
+                                Content="Min-Mode: 187%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                         <Button Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Mode-Max: 12%"
-                                Foreground="Orange"
+                                Content="Mode-Max: 168%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                     </StackPanel>
