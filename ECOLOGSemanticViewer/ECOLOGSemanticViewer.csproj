@@ -95,6 +95,7 @@
     </ApplicationDefinition>
     <Compile Include="ViewModels\PageViewModels\DetailEnergyPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\DetailComparePageViewModel.cs" />
+    <Compile Include="ViewModels\PageViewModels\DetailHeatMapPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\DetailTimePageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\DetailTripDetailPageViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModels\SemanticDetailWindowViewModel.cs" />
@@ -103,6 +104,9 @@
     </Compile>
     <Compile Include="Views\Pages\DetailComparePage.xaml.cs">
       <DependentUpon>DetailComparePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\DetailHeatMapPage.xaml.cs">
+      <DependentUpon>DetailHeatMapPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\DetailTimePage.xaml.cs">
       <DependentUpon>DetailTimePage.xaml</DependentUpon>
@@ -118,6 +122,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\DetailComparePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\DetailHeatMapPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

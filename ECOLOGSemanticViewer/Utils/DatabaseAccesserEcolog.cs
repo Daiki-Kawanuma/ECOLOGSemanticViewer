@@ -13,7 +13,8 @@ namespace ECOLOGSemanticViewer.Utils
 {
     public class DatabaseAccesserEcolog
     {
-        public static string ConnectionString = "";
+        // TODO 
+        public static string ConnectionString = "Data Source=" + "ECOLOGDB" + ";Initial Catalog=ECOLOGDBver2;Integrated Security=Yes;Connect Timeout=15;";
        
         /// <summary>
         /// DBにアクセスして、データを取得する

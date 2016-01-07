@@ -1,4 +1,6 @@
-﻿using ECOLOGSemanticViewer.ViewModels.WindowViewModels;
+﻿using ECOLOGSemanticViewer.Models.EcologModels;
+using ECOLOGSemanticViewer.ViewModels.PageViewModels;
+using ECOLOGSemanticViewer.ViewModels.WindowViewModels;
 using ECOLOGSemanticViewer.Views.Pages;
 using MahApps.Metro.Controls;
 using System;
@@ -59,10 +61,22 @@ namespace ECOLOGSemanticViewer.Views.Windows
             var context = this.DataContext as SemanticDetailWindowViewModel;
             if (context == null) { return; }
 
-            context.CurrentPage = new DetailCamparePage();
+
+            DetailHeatMapPage page = new DetailHeatMapPage();
+            page.DataContext = new DetailHeatMapPageViewModel(new SemanticLink() { SemanticLinkId = 189}, new TripDirection() { Direction = "Outward" }, new List<Driver> { new Driver() { DriverId = 1 } }, new List<Car>() { new Car() { CarId = 1 }, new Car() { CarId = 3 } }, new List<Sensor>() { new Sensor() { SensorId = 12 } });
+
+            context.CurrentPage = page;
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as SemanticDetailWindowViewModel;
+            if (context == null) { return; }
+
+            context.CurrentPage = new DetailCamparePage();
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             var context = this.DataContext as SemanticDetailWindowViewModel;
             if (context == null) { return; }
