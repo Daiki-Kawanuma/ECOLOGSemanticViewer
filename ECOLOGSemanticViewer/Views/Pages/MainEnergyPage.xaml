@@ -71,45 +71,48 @@
 
             </materialDesign:Card>
 
-            <DataGrid Grid.Column="1"
-                      Margin="0,5,5,5"
-                      VerticalAlignment="Stretch"
-                      AutoGenerateColumns="False"
-                      IsReadOnly="True"
-                      ItemsSource="{Binding ExtractedSemanticLinks}"
-                      VerticalScrollBarVisibility="Auto">
+            <materialDesign:Card Grid.Column="1"
+                                 Margin="0,5,5,5"
+                                 VerticalAlignment="Stretch">
 
-                <DataGrid.Columns>
-                    <DataGridTextColumn Width="1*"
-                                        Binding="{Binding Path=SemanticLinkId}"
-                                        Header="ID" />
-                    <DataGridTextColumn Width="4*"
-                                        Binding="{Binding Path=Semantics}"
-                                        Header="Semantics" />
-                </DataGrid.Columns>
+                <DataGrid AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          ItemsSource="{Binding ExtractedSemanticLinks}"
+                          VerticalScrollBarVisibility="Auto">
 
-            </DataGrid>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="1*"
+                                            Binding="{Binding Path=SemanticLinkId}"
+                                            Header="ID" />
+                        <DataGridTextColumn Width="4*"
+                                            Binding="{Binding Path=Semantics}"
+                                            Header="Semantics" />
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </materialDesign:Card>
 
         </Grid>
 
         <Grid Grid.Row="1">
-
-            <oxy:PlotView Grid.Row="0"
-                          Margin="5,0,5,5"
-                          Model="{Binding PlotModel}" />
 
             <Button Margin="0,0,10,10"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Style="{StaticResource MaterialDesignFloatingActionButton}">
 
-                <Viewbox Width="24" Height="24" >
-                    <Canvas Width="24" Height="24" >
+                <Viewbox Width="24" Height="24">
+                    <Canvas Width="24" Height="24">
                         <Path Data="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" Fill="White" />
                     </Canvas>
                 </Viewbox>
 
             </Button>
+
+            <oxy:PlotView Grid.Row="0"
+                          Margin="5,0,5,5"
+                          Model="{Binding PlotModel}" />
 
         </Grid>
 
