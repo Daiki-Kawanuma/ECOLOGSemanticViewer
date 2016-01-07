@@ -57,12 +57,22 @@
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="2*" />
                         <RowDefinition Height="2*" />
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0">
+                    <ComboBox Grid.Row="0"
+                              Margin="10,10,10,0"
+                              HorizontalAlignment="Stretch">
+                        <ComboBoxItem Content="Min" />
+                        <ComboBoxItem Content="Mode" />
+                        <ComboBoxItem Content="Median" />
+                        <ComboBoxItem Content="Max" />
+                    </ComboBox>
+
+                    <Grid Grid.Row="1">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
@@ -102,7 +112,7 @@
 
                     </Grid>
 
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="2">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
@@ -142,7 +152,7 @@
 
                     </Grid>
 
-                    <Border Grid.Row="2"
+                    <Border Grid.Row="3"
                             Margin="10,0,10,10"
                             BorderBrush="{StaticResource AccentColorBrush}"
                             BorderThickness="2">
@@ -184,8 +194,7 @@
                                      HorizontalAlignment="Stretch"
                                      VerticalAlignment="Stretch">
 
-                    <oxy:Plot Grid.Row="1"
-                              LegendOrientation="Vertical">
+                    <oxy:Plot Grid.Row="1" LegendOrientation="Vertical">
 
                         <oxy:Plot.Axes>
                             <oxy:CategoryAxis GapWidth="0.5"
@@ -197,11 +206,11 @@
                             <oxy:LinearAxis Title="Power[kW]"
                                             IntervalLength="50"
                                             MajorGridlineStyle="Solid"
-                                            TextBlock.BaselineOffset="50"
                                             Maximum="100"
                                             Minimum="-100"
                                             MinorGridlineStyle="Solid"
-                                            Position="Left" />
+                                            Position="Left"
+                                            TextBlock.BaselineOffset="50" />
                         </oxy:Plot.Axes>
 
                         <oxy:Plot.Annotations>
