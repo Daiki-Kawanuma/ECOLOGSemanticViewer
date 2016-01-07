@@ -6,7 +6,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:oxy="http://oxyplot.org/wpf"
       xmlns:vm="clr-namespace:ECOLOGSemanticViewer.ViewModels.PageViewModels"
-      Title="MainEnergyPage"
+      Title="DetailComparePage"
       Background="{DynamicResource MaterialDesignPaper}"
       FontFamily="{StaticResource MaterialDesignFont}"
       TextElement.FontSize="13"
