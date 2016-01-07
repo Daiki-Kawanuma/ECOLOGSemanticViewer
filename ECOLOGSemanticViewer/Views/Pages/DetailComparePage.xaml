@@ -23,35 +23,134 @@
     </Page.DataContext>
 
 
-    <Grid >
+    <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <ComboBox Margin="10,10,10,0" />
-            <ComboBox Margin="10,10,10,0" />
-            <ComboBox Margin="10,10,10,0" />
-        </StackPanel>
         
+        <materialDesign:Card Grid.Row="0" Margin="5">
+
+            <Grid >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="5">
+
+                    <Label HorizontalAlignment="Center"
+                       Content="Grap type"
+                       Padding="0" />
+                    <ComboBox HorizontalAlignment="Center"
+                          ItemsSource="{Binding GrapTypes}"
+                          SelectedIndex="0"
+                          SelectedValue="{Binding CurrentGraphType}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5">
+
+                    <Label HorizontalAlignment="Center"
+                       Content="Axis X type"
+                       Padding="0" />
+                    <ComboBox HorizontalAlignment="Center"
+                          ItemsSource="{Binding AxisXTypes}"
+                          SelectedIndex="0"
+                          SelectedValue="{Binding CurrentAxisX}" />
+
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Vertical" Margin="5">
+
+                    <Label HorizontalAlignment="Center"
+                       Content="Aixs Y type"
+                       Padding="0" />
+                    <ComboBox HorizontalAlignment="Center"
+                          ItemsSource="{Binding AxisYTypes}"
+                          SelectedIndex="0"
+                          SelectedValue="{Binding CurrentAxisY}" />
+
+                </StackPanel>
+
+            </Grid>
+
+        </materialDesign:Card>
+
         <Grid Grid.Row="1">
-            
+
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
-            
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <oxy:PlotView Grid.Row="0"
-                          Grid.Column="0"
-                          Margin="10, 10, 5, 5"
-                          Model="{Binding PlotModel}" />
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0"
+                       HorizontalAlignment="Center"
+                       Content="Min trip: 205-07-12" />
+                <oxy:PlotView Name="PlotViewMin"
+                              Grid.Row="1"
+                              Model="{Binding PlotModelMin}" />
+
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0"
+                       HorizontalAlignment="Center"
+                       Content="Min trip: 205-07-12" />
+                <oxy:PlotView Name="PlotViewMedian"
+                              Grid.Row="1"
+                              Model="{Binding PlotModelMedian}" />
+
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0"
+                       HorizontalAlignment="Center"
+                       Content="Min trip: 205-07-12" />
+                <oxy:PlotView Name="PlotViewMode"
+                              Grid.Row="1"
+                              Model="{Binding PlotModelMode}" />
+
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0"
+                       HorizontalAlignment="Center"
+                       Content="Min trip: 205-07-12" />
+                <oxy:PlotView Name="PlotViewMax"
+                              Grid.Row="1"
+                              Model="{Binding PlotModelMax}" />
+
+            </Grid>
+
 
         </Grid>
 
