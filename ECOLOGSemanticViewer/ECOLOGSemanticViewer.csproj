@@ -229,6 +229,7 @@
     <Content Include="Resources\map.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\rin.jpg" />
     <Content Include="Resources\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

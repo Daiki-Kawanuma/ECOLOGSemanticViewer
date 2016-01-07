@@ -5,6 +5,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:oxy="http://oxyplot.org/wpf"
+      xmlns:u="clr-namespace:ECOLOGSemanticViewer.Utils"
       xmlns:vm="clr-namespace:ECOLOGSemanticViewer.ViewModels.PageViewModels"
       Title="DetailTripDetailPage"
       Background="{DynamicResource MaterialDesignPaper}"
@@ -22,7 +23,248 @@
         <vm:DetailTripDetailPageViewModel />
     </Page.DataContext>
 
+
     <Grid>
-        
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <materialDesign:Card Grid.Row="0"
+                                 Margin="10, 10, 5, 5"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch">
+
+                <!--  ブラウザ ( Google Map 表示 )  -->
+                <WebBrowser x:Name="_webBrowser"
+                            u:WebBrowserBehavior.ObjectForScripting="{Binding MapHost}"
+                            u:WebBrowserBehavior.Source="{Binding Uri}" />
+
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Row="1"
+                                 Margin="10, 5, 5, 10"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch">
+
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <GroupBox Grid.Column="0" Margin="10,10,5,5">
+
+                            <GroupBox.Header>
+                                <Label Content="Datetime" />
+                            </GroupBox.Header>
+
+                            <Label Content="{Binding DateTime}" />
+
+                        </GroupBox>
+
+                        <GroupBox Grid.Column="1" Margin="5,10,5,5">
+
+                            <GroupBox.Header>
+                                <Label Content="Consumed energy" />
+                            </GroupBox.Header>
+
+                            <Label Content="{Binding ConsumedEnergy}" />
+
+                        </GroupBox>
+
+                        <GroupBox Grid.Column="2" Margin="5,10,10,5">
+
+                            <GroupBox.Header>
+                                <Label Content="Lost energy" />
+                            </GroupBox.Header>
+
+                            <Label Content="{Binding LostEnergy}" />
+
+                        </GroupBox>
+
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <GroupBox Grid.Column="0" Margin="10,5,5,10">
+
+                            <GroupBox.Header>
+                                <Label Content="Speed" />
+                            </GroupBox.Header>
+
+                            <Label Content="{Binding Speed}" />
+
+                        </GroupBox>
+
+                        <GroupBox Grid.Column="1" Margin="5,5,5,10">
+
+                            <GroupBox.Header>
+                                <Label Content="Longitudinal Acc" />
+                            </GroupBox.Header>
+
+                            <Label Content="{Binding LongitudinalAcc}" />
+
+                        </GroupBox>
+
+                        <GroupBox Grid.Column="3" Margin="5,5,10,10">
+
+                            <GroupBox.Header>
+                                <Label Content="Altitude" />
+                            </GroupBox.Header>
+
+                            <Label Content="{Binding Altitude}" />
+
+                        </GroupBox>
+
+                    </Grid>
+
+                    <Border Grid.Row="2"
+                            Margin="10,0,10,10"
+                            BorderBrush="{StaticResource AccentColorBrush}"
+                            BorderThickness="2">
+
+                        <Slider Margin="10,0,10,0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center" />
+
+                    </Border>
+
+                </Grid>
+
+            </materialDesign:Card>
+
+        </Grid>
+
+        <Grid Grid.Column="1">
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <materialDesign:Card Grid.Row="0"
+                                     Margin="5,10,10,5"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Stretch"
+                                     Background="SkyBlue">
+
+                    <Image HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Source="/ECOLOGSemanticViewer;component/Resources/rin.jpg" />
+
+                </materialDesign:Card>
+
+                <materialDesign:Card Grid.Row="1"
+                                     Margin="5,5,10,10"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Stretch">
+
+                    <oxy:Plot Grid.Row="1"
+                              LegendOrientation="Vertical">
+
+                        <oxy:Plot.Axes>
+                            <oxy:CategoryAxis GapWidth="0.5"
+                                              IsTickCentered="True"
+                                              ItemsSource="{Binding DisplayedGraphEcologs}"
+                                              LabelField="Jst"
+                                              MajorStep="10"
+                                              StringFormat="HH:mm:ss" />
+                            <oxy:LinearAxis Title="Power[kW]"
+                                            IntervalLength="50"
+                                            MajorGridlineStyle="Solid"
+                                            TextBlock.BaselineOffset="50"
+                                            Maximum="100"
+                                            Minimum="-100"
+                                            MinorGridlineStyle="Solid"
+                                            Position="Left" />
+                        </oxy:Plot.Axes>
+
+                        <oxy:Plot.Annotations>
+                            <oxy:LineAnnotation MaximumY="100"
+                                                MinimumY="-100"
+                                                Type="Vertical"
+                                                X="30"
+                                                Color="Black" />
+                        </oxy:Plot.Annotations>
+
+                        <oxy:ColumnSeries FillColor="DeepPink"
+                                          IsStacked="True"
+                                          ItemsSource="{Binding DisplayedGraphEcologs}"
+                                          ValueField="RegeneLoss" />
+
+                        <oxy:ColumnSeries FillColor="Yellow"
+                                          IsStacked="True"
+                                          ItemsSource="{Binding DisplayedGraphEcologs}"
+                                          ValueField="EnergyByAirResistancePlus" />
+
+                        <oxy:ColumnSeries FillColor="LightGray"
+                                          IsStacked="True"
+                                          ItemsSource="{Binding DisplayedGraphEcologs}"
+                                          ValueField="EnergyByAirResistanceMinus" />
+
+                        <oxy:ColumnSeries FillColor="Orange"
+                                          IsStacked="True"
+                                          ItemsSource="{Binding DisplayedGraphEcologs}"
+                                          ValueField="EnergyByRollingResistancePlus" />
+
+                        <oxy:ColumnSeries FillColor="DarkGray"
+                                          IsStacked="True"
+                                          ItemsSource="{Binding DisplayedGraphEcologs}"
+                                          ValueField="EnergyByRollingResistanceMinus" />
+
+                        <oxy:ColumnSeries FillColor="Red"
+                                          IsStacked="True"
+                                          ItemsSource="{Binding DisplayedGraphEcologs}"
+                                          ValueField="ConvertLoss" />
+
+                        <oxy:ColumnSeries FillColor="LimeGreen"
+                                          IsStacked="True"
+                                          ItemsSource="{Binding DisplayedGraphEcologs}"
+                                          ValueField="RegeneEnergy" />
+
+                        <oxy:ColumnSeries FillColor="Blue"
+                                          IsStacked="True"
+                                          ItemsSource="{Binding DisplayedGraphEcologs}"
+                                          ValueField="EnergyByClimbingResistance" />
+
+                        <oxy:ColumnSeries FillColor="Green"
+                                          IsStacked="True"
+                                          ItemsSource="{Binding DisplayedGraphEcologs}"
+                                          ValueField="EnergyByAccResistance" />
+
+                    </oxy:Plot>
+
+                </materialDesign:Card>
+
+            </Grid>
+
+        </Grid>
+
     </Grid>
+
 </Page>
