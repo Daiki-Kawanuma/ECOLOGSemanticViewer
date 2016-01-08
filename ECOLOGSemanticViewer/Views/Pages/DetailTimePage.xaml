@@ -33,6 +33,8 @@
             <oxy:PlotView Grid.Row="0"
                           Margin="10"
                           Model="{Binding PlotModel}" />
+            
+            <!-- for resolve conflict -->
 
             <!--<Button Margin="0,0,10,10"
                     HorizontalAlignment="Right"
