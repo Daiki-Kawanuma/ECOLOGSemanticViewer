@@ -1,8 +1,10 @@
-﻿using ECOLOGSemanticViewer.ViewModels.WindowViewModels;
+﻿using ECOLOGSemanticViewer.Models.EcologModels;
+using ECOLOGSemanticViewer.ViewModels.WindowViewModels;
 using ECOLOGSemanticViewer.Views.Pages;
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -77,6 +79,22 @@ namespace ECOLOGSemanticViewer.Views.Windows
             //SemanticDetailWindow window = new SemanticDetailWindow();
             SemanticCompareWindow window = new SemanticCompareWindow();
             window.Show();
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as MainWindowViewModel;
+            if (context == null) { return; }
+
+            context.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetDefaultOutwardSemanticLinks());
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as MainWindowViewModel;
+            if (context == null) { return; }
+
+            context.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetDefaultHomewardSemanticLinks());
         }
     }
 }

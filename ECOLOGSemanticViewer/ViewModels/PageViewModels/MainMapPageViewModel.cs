@@ -19,7 +19,7 @@ using ECOLOGSemanticViewer.Models.MapModels;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
-    public class MainMapPageViewModel : ViewModel
+    public class MainMapPageViewModel : AbstMainPageViewModel
     {
         public void Initialize()
         {

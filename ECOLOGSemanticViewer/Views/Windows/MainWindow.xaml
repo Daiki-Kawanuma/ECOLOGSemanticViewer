@@ -84,10 +84,10 @@
 
                     <Button Margin="5,5,5,0"
                             Content="Outward"
-                            Style="{StaticResource MaterialDesignFlatButton}" />
+                            Style="{StaticResource MaterialDesignFlatButton}" Click="Button_Click_5" />
                     <Button Margin="5,5,5,5"
                             Content="Homeward"
-                            Style="{StaticResource MaterialDesignFlatButton}" />
+                            Style="{StaticResource MaterialDesignFlatButton}" Click="Button_Click_6" />
 
                 </StackPanel>
 

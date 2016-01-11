@@ -19,7 +19,7 @@ using System.Threading;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
-    public class MainEnergyPageViewModel : ViewModel
+    public class MainEnergyPageViewModel : AbstMainPageViewModel
     {
 
         public void Initialize()

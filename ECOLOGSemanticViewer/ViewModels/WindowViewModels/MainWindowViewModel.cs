@@ -17,6 +17,7 @@ using ECOLOGSemanticViewer.Views;
 using System.Collections.ObjectModel;
 using ECOLOGSemanticViewer.Views.Pages;
 using ECOLOGSemanticViewer.Models.EcologModels;
+using ECOLOGSemanticViewer.ViewModels.PageViewModels;
 
 namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
 {
@@ -43,13 +44,22 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
         public MainWindowViewModel()
         {
             this.CurrentPage = new MainMapPage();
-            testGenerator();
+            var context = this.CurrentPage.DataContext as MainMapPageViewModel;
+            context.SelectedSemanticLinks = this.ExtractedSemanticLinks;
+
+            this.SemanticLinks = SemanticLink.GetDefaultOutwardSemanticLinks();
+            this.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetDefaultOutwardSemanticLinks());
+
+            
+            //TODO clear this function
+            // testGenerator();
         }
 
         public void Initialize()
         {
         }
 
+        // TODO clear this function
         private void testGenerator(){
             
             this.SemanticLinks = new List<SemanticLink>
