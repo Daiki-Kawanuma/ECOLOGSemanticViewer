@@ -93,6 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\GraphModels\SemanticHistogramDatum.cs" />
     <Compile Include="ViewModels\PageViewModels\AbstMainPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\CompareEnergyPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\DetailEnergyPageViewModel.cs" />
