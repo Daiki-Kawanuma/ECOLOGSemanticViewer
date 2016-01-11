@@ -93,12 +93,32 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\PageViewModels\CompareEnergyPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\DetailEnergyPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\DetailComparePageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\DetailHeatMapPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\DetailTimePageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\DetailTripDetailPageViewModel.cs" />
+    <Compile Include="ViewModels\WindowViewModels\SemanticCompareWindowViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModels\SemanticDetailWindowViewModel.cs" />
+    <Compile Include="Views\Items\CompareNumberItem.xaml.cs">
+      <DependentUpon>CompareNumberItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Items\CompareStackItem.xaml.cs">
+      <DependentUpon>CompareStackItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Items\CompareStackNormalizedItem.xaml.cs">
+      <DependentUpon>CompareStackNormalizedItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\CompareEnergyPage.xaml.cs">
+      <DependentUpon>CompareEnergyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\CompareHeatMapPage.xaml.cs">
+      <DependentUpon>CompareHeatMapPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\CompareTimePage.xaml.cs">
+      <DependentUpon>CompareTimePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\DetailEnergyPage.xaml.cs">
       <DependentUpon>DetailEnergyPage.xaml</DependentUpon>
     </Compile>
@@ -114,9 +134,36 @@
     <Compile Include="Views\Pages\DetailTripDetailPage.xaml.cs">
       <DependentUpon>DetailTripDetailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Windows\SemanticCompareWindow.xaml.cs">
+      <DependentUpon>SemanticCompareWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\SemanticDetailWindow.xaml.cs">
       <DependentUpon>SemanticDetailWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Items\CompareNumberItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Items\CompareStackItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Items\CompareStackNormalizedItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\CompareEnergyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\CompareHeatMapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\CompareTimePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\DetailEnergyPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -194,6 +241,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Windows\SemanticCompareWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Windows\SemanticDetailWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

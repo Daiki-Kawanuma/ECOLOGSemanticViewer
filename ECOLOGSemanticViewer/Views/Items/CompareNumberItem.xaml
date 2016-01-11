@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="ECOLOGSemanticViewer.Views.Items.CompareNumberItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="800"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+
+    <StackPanel>
+
+        <Grid Margin="10,10,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Number" Padding="5"/>
+            <Button Grid.Column="1" Content="Percent" Padding="5" />
+
+        </Grid>
+
+        <StackPanel Margin="10,10,10,0" Background="#eeeeee">
+
+            <Button HorizontalContentAlignment="Left"
+                    Content="Min"
+                    Style="{StaticResource MaterialDesignFlatButton}" />
+
+            <Label Margin="15,0,0,0"
+                   HorizontalAlignment="Left"
+                   Content="Semantic A: 0.111lkWh" />
+
+            <Label Margin="15,0,0,0"
+                   HorizontalAlignment="Left"
+                   Content="Semantic B: 0.222kWh" />
+
+        </StackPanel>
+
+        <StackPanel Margin="10,10,10,0" Background="#eeeeee">
+
+            <Button HorizontalContentAlignment="Left"
+                    Content="Mode"
+                    Style="{StaticResource MaterialDesignFlatButton}" />
+
+            <Label Margin="15,0,0,0"
+                   HorizontalAlignment="Left"
+                   Content="Semantic A: 0.111lkWh" />
+
+            <Label Margin="15,0,0,0"
+                   HorizontalAlignment="Left"
+                   Content="Semantic B: 0.222kWh" />
+
+        </StackPanel>
+
+        <StackPanel Margin="10,10,10,0" Background="#eeeeee">
+
+            <Button HorizontalContentAlignment="Left"
+                    Content="Max"
+                    Style="{StaticResource MaterialDesignFlatButton}" />
+
+            <Label Margin="15,0,0,0"
+                   HorizontalAlignment="Left"
+                   Content="Semantic A: 0.111lkWh" />
+
+            <Label Margin="15,0,0,0"
+                   HorizontalAlignment="Left"
+                   Content="Semantic B: 0.222kWh" />
+
+        </StackPanel>
+
+        <StackPanel Margin="10,10,10,0" Background="#eeeeee">
+
+            <Button HorizontalContentAlignment="Left"
+                    Content="Average"
+                    Style="{StaticResource MaterialDesignFlatButton}" />
+
+            <Label Margin="15,0,0,0"
+                   HorizontalAlignment="Left"
+                   Content="Semantic A: 0.111lkWh" />
+
+            <Label Margin="15,0,0,0"
+                   HorizontalAlignment="Left"
+                   Content="Semantic B: 0.222kWh" />
+
+        </StackPanel>
+
+    </StackPanel>
+
+</UserControl>
