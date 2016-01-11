@@ -80,7 +80,7 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
         }
         #endregion
 
-        public static List<SemanticLink> CreateSemanticLinks(){
+        public static List<SemanticLink> GetAllSemanticLinks(){
 
             var ret = new List<SemanticLink>();
 
@@ -91,7 +91,67 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("  DISTINCT semantic_link_id,");
             query.AppendLine("  driver_id,");
             query.AppendLine("  semantics");
-            query.AppendLine("From semantic_links");
+            query.AppendLine("FROM semantic_links");
+            query.AppendLine("ORDER BY semantic_link_id");
+
+            semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
+
+            for (int i = 0; i < semanticLinkTable.Rows.Count; i++)
+            {
+                ret.Add(new SemanticLink()
+                {
+                    SemanticLinkId = (int)semanticLinkTable.Rows[i]["semantic_link_id"],
+                    DriverId = (int)semanticLinkTable.Rows[i]["driver_id"],
+                    Semantics = (string)semanticLinkTable.Rows[i]["semantics"],
+                });
+            }
+
+            return ret;
+        }
+
+        public static List<SemanticLink> GetDefaultOutwardSemanticLinks()
+        {
+
+            var ret = new List<SemanticLink>();
+
+            DataTable semanticLinkTable = new DataTable();
+
+            StringBuilder query = new StringBuilder();
+            query.AppendLine("SELECT");
+            query.AppendLine("  DISTINCT semantic_link_id,");
+            query.AppendLine("  driver_id,");
+            query.AppendLine("  semantics");
+            query.AppendLine("FROM defaukt_Outward_SemanticLinks");
+            query.AppendLine("ORDER BY semantic_link_id");
+
+            semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
+
+            for (int i = 0; i < semanticLinkTable.Rows.Count; i++)
+            {
+                ret.Add(new SemanticLink()
+                {
+                    SemanticLinkId = (int)semanticLinkTable.Rows[i]["semantic_link_id"],
+                    DriverId = (int)semanticLinkTable.Rows[i]["driver_id"],
+                    Semantics = (string)semanticLinkTable.Rows[i]["semantics"],
+                });
+            }
+
+            return ret;
+        }
+
+        public static List<SemanticLink> GetDefaultHomewardSemanticLinks()
+        {
+
+            var ret = new List<SemanticLink>();
+
+            DataTable semanticLinkTable = new DataTable();
+
+            StringBuilder query = new StringBuilder();
+            query.AppendLine("SELECT");
+            query.AppendLine("  DISTINCT semantic_link_id,");
+            query.AppendLine("  driver_id,");
+            query.AppendLine("  semantics");
+            query.AppendLine("From default_Homeward_SemanticLinks");
             query.AppendLine("ORDER BY semantic_link_id");
 
             semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
