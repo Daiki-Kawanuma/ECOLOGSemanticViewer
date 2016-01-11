@@ -1,0 +1,78 @@
+﻿<Page x:Class="ECOLOGSemanticViewer.Views.Pages.CompareEnergyPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:oxy="http://oxyplot.org/wpf"
+      xmlns:vi="clr-namespace:ECOLOGSemanticViewer.Views.Items"
+      xmlns:vm="clr-namespace:ECOLOGSemanticViewer.ViewModels.PageViewModels"
+      Title="MainEnergyPage"
+      Background="{DynamicResource MaterialDesignPaper}"
+      FontFamily="{StaticResource MaterialDesignFont}"
+      TextElement.FontSize="13"
+      TextElement.FontWeight="Regular"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextOptions.TextFormattingMode="Ideal"
+      TextOptions.TextRenderingMode="Auto"
+      d:DesignHeight="300"
+      d:DesignWidth="300"
+      mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:CompareEnergyPageViewModel />
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+
+            <oxy:PlotView Grid.Row="0"
+                          Margin="10,10,5,10"
+                          Model="{Binding PlotModel}" />
+
+            <!--<Button Margin="0,0,10,10"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}">
+
+                <Viewbox Width="24" Height="24">
+                    <Canvas Width="24" Height="24">
+                        <Path Data="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" Fill="White" />
+                    </Canvas>
+                </Viewbox>
+
+            </Button>-->
+
+        </Grid>
+
+        <Grid Grid.Column="1">
+
+            <materialDesign:Card Margin="5,5,5,5"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch">
+
+                <StackPanel>
+
+                    <ComboBox Margin="10,10,10,0">
+                        <ComboBoxItem Content="Number &amp; Percent" />
+                        <ComboBoxItem Content="Distance normalization" />
+                        <ComboBoxItem Content="Stack" />
+                        <ComboBoxItem Content="Stack-number normalization" />
+
+                    </ComboBox>
+
+                    <vi:CompareStackNormalizedItem HorizontalAlignment="Stretch"/>
+
+                </StackPanel>
+
+            </materialDesign:Card>
+
+        </Grid>
+
+    </Grid>
+</Page>

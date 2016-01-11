@@ -16,6 +16,7 @@ using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using System.Threading;
+using ECOLOGSemanticViewer.Models.EcologModels;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
@@ -61,65 +62,22 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             plotModel.Axes.Add(axisX);
             plotModel.Axes.Add(axisY);
 
-            for (int i = 0; i < 3; i++)
-            {
-                plotModel.Series.Add(createAreaSeries(i));
+            foreach(SemanticLink link in SelectedSemanticLinks){
+                plotModel.Series.Add(createAreaSeries(link));
             }
-
-
 
             return plotModel;
         }
 
-        private AreaSeries createAreaSeries(int i)
+        private AreaSeries createAreaSeries(SemanticLink link)
         {
             AreaSeries series = new AreaSeries();
-            series.TrackerFormatString = series.TrackerFormatString + "\nSemantic : {Tag}";
+            // TODO 意味確認
+            series.TrackerFormatString = series.TrackerFormatString + "\n" + link.Semantics + " : {Tag}";
+            series.Title = link.Semantics;
 
-            switch (i)
-            {
-                case 0:
-                    series.Title = "自宅～綾瀬市役所前";
-                    series.Color = OxyColors.OrangeRed;
+            
 
-                    series.Points.Add(new DataPoint(0.18043131, 0));
-                    series.Points.Add(new DataPoint(0.186795715, 4));
-                    series.Points.Add(new DataPoint(0.19316012, 3));
-                    series.Points.Add(new DataPoint(0.199524525, 9));
-                    series.Points.Add(new DataPoint(0.20588893, 30));
-                    series.Points.Add(new DataPoint(0.212253335, 65));
-                    series.Points.Add(new DataPoint(0.218617741, 64));
-                    series.Points.Add(new DataPoint(0.224982146, 51));
-                    series.Points.Add(new DataPoint(0.231346551, 48));
-                    series.Points.Add(new DataPoint(0.237710956, 20));
-                    series.Points.Add(new DataPoint(0.244075361, 14));
-                    series.Points.Add(new DataPoint(0.250439767, 9));
-                    series.Points.Add(new DataPoint(0.256804172, 0));
-
-                    break;
-
-                case 1:
-                    series.Title = "綾瀬市役所前～与蔵山下";
-                    series.Color = OxyColors.SkyBlue;
-
-                    series.Points.Add(new DataPoint(0.103455455, 0));
-                    series.Points.Add(new DataPoint(0.110529318, 2));
-                    series.Points.Add(new DataPoint(0.117603181, 3));
-                    series.Points.Add(new DataPoint(0.124677043, 4));
-                    series.Points.Add(new DataPoint(0.131750906, 55));
-                    series.Points.Add(new DataPoint(0.138824769, 91));
-                    series.Points.Add(new DataPoint(0.145898632, 79));
-                    series.Points.Add(new DataPoint(0.152972494, 104));
-                    series.Points.Add(new DataPoint(0.160046357, 82));
-                    series.Points.Add(new DataPoint(0.16712022, 40));
-                    series.Points.Add(new DataPoint(0.174194083, 27));
-                    series.Points.Add(new DataPoint(0.181267945, 25));
-                    series.Points.Add(new DataPoint(0.188341808, 9));
-                    series.Points.Add(new DataPoint(0.195415671, 0));
-
-                    break;
-
-                case 2:
                     series.Title = "与蔵山下～代官二丁目";
                     series.Color = OxyColors.GreenYellow;
 
@@ -136,9 +94,9 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                     series.Points.Add(new DataPoint(0.21519884, 27));
                     series.Points.Add(new DataPoint(0.220240793, 21));
                     series.Points.Add(new DataPoint(0.225282747, 0));
-                        break;
+              
 
-            }
+            
 
 
 
