@@ -121,7 +121,7 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("  DISTINCT semantic_link_id,");
             query.AppendLine("  driver_id,");
             query.AppendLine("  semantics");
-            query.AppendLine("FROM defaukt_Outward_SemanticLinks");
+            query.AppendLine("FROM default_Outward_SemanticLinks");
             query.AppendLine("ORDER BY semantic_link_id");
 
             semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());

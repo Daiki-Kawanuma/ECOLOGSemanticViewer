@@ -41,7 +41,8 @@ namespace ECOLOGSemanticViewer.Utils
                 }
                 catch (SqlException sqlException)
                 {
-                    LogWriter.Write(System.Reflection.MethodBase.GetCurrentMethod().Name + ":" + sqlException.ToString());
+                    Console.WriteLine(sqlException);
+                    //LogWriter.Write(System.Reflection.MethodBase.GetCurrentMethod().Name + ":" + sqlException.ToString());
                     // MessageBox.Show(sqlException.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
