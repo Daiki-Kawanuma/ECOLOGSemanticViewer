@@ -47,7 +47,7 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
             var context = this.CurrentPage.DataContext as MainMapPageViewModel;
             context.SelectedSemanticLinks = this.ExtractedSemanticLinks;
 
-            this.SemanticLinks = SemanticLink.GetDefaultOutwardSemanticLinks();
+            this.SemanticLinks = SemanticLink.GetAllSemanticLinks();
             this.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetDefaultOutwardSemanticLinks());
 
             

@@ -118,21 +118,22 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
 
             StringBuilder query = new StringBuilder();
             query.AppendLine("SELECT");
-            query.AppendLine("  DISTINCT semantic_link_id,");
-            query.AppendLine("  driver_id,");
-            query.AppendLine("  semantics");
+            query.AppendLine("  DISTINCT SemanticLinkID,");
+            query.AppendLine("  DriverID,");
+            query.AppendLine("  Semantics");
             query.AppendLine("FROM default_Outward_SemanticLinks");
-            query.AppendLine("ORDER BY semantic_link_id");
+            query.AppendLine("ORDER BY SemanticLinkID");
 
             semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
+            Console.WriteLine("O COUNT: " + semanticLinkTable.Rows.Count);
 
             for (int i = 0; i < semanticLinkTable.Rows.Count; i++)
             {
                 ret.Add(new SemanticLink()
                 {
-                    SemanticLinkId = (int)semanticLinkTable.Rows[i]["semantic_link_id"],
-                    DriverId = (int)semanticLinkTable.Rows[i]["driver_id"],
-                    Semantics = (string)semanticLinkTable.Rows[i]["semantics"],
+                    SemanticLinkId = (int)semanticLinkTable.Rows[i]["SemanticLinkID"],
+                    DriverId = (int)semanticLinkTable.Rows[i]["DriverID"],
+                    Semantics = (string)semanticLinkTable.Rows[i]["Semantics"],
                 });
             }
 
@@ -148,21 +149,22 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
 
             StringBuilder query = new StringBuilder();
             query.AppendLine("SELECT");
-            query.AppendLine("  DISTINCT semantic_link_id,");
-            query.AppendLine("  driver_id,");
+            query.AppendLine("  DISTINCT SemanticLinkID,");
+            query.AppendLine("  DriverID,");
             query.AppendLine("  semantics");
             query.AppendLine("From default_Homeward_SemanticLinks");
-            query.AppendLine("ORDER BY semantic_link_id");
+            query.AppendLine("ORDER BY SemanticLinkID");
 
             semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
+            Console.WriteLine("H COUNT: " + semanticLinkTable.Rows.Count);
 
             for (int i = 0; i < semanticLinkTable.Rows.Count; i++)
             {
                 ret.Add(new SemanticLink()
                 {
-                    SemanticLinkId = (int)semanticLinkTable.Rows[i]["semantic_link_id"],
-                    DriverId = (int)semanticLinkTable.Rows[i]["driver_id"],
-                    Semantics = (string)semanticLinkTable.Rows[i]["semantics"],
+                    SemanticLinkId = (int)semanticLinkTable.Rows[i]["SemanticLinkID"],
+                    DriverId = (int)semanticLinkTable.Rows[i]["DriverID"],
+                    Semantics = (string)semanticLinkTable.Rows[i]["Semantics"],
                 });
             }
 
