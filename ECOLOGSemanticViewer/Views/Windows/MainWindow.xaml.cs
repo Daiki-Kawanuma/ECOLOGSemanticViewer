@@ -76,8 +76,8 @@ namespace ECOLOGSemanticViewer.Views.Windows
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            //SemanticDetailWindow window = new SemanticDetailWindow();
-            SemanticCompareWindow window = new SemanticCompareWindow();
+            SemanticDetailWindow window = new SemanticDetailWindow();
+            //SemanticCompareWindow window = new SemanticCompareWindow();
             window.Show();
         }
 
