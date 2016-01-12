@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace ECOLOGSemanticViewer.Views.Pages
 {
     /// <summary>
-    /// DetailEnergyPage.xaml の相互作用ロジック
+    /// DetailTimePage.xaml の相互作用ロジック
     /// </summary>
     public partial class DetailTimePage : Page
     {
