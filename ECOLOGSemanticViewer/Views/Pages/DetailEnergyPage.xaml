@@ -84,24 +84,32 @@
 
                     <StackPanel Margin="10,0,10,0" Background="#eeeeee">
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonMin"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click_Min"
                                 Content="Min: 0.146kWh"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonMode"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click_Mode"
                                 Content="Mode: 0.176kwh"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonMedian"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click_Median"
                                 Content="Median: 0.173kWh"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonMax"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click_Max"
                                 Content="Max: 0.196kWh"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
@@ -111,19 +119,25 @@
 
                     <StackPanel Margin="10,0,10,0" Background="#eeeeee">
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonDistUnderMode"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click_UnderMode"
                                 Content="Under mode: 26%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonDistMode"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click_DistMode"
                                 Content="Mode: 55%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonDistUpperMode"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click_UpperMode"
                                 Content="Upper mode: 19%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
@@ -150,17 +164,20 @@
 
                         </Grid>
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonComMinMax"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
                                 Content="Min-Max: 33%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonComMinMode"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
                                 Content="Min-Mode: 20%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonComModeMax"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
                                 Content="Mode-Max: 12%"
                                 Foreground="Orange"

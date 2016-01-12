@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECOLOGSemanticViewer.ViewModels.PageViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,69 @@ namespace ECOLOGSemanticViewer.Views.Pages
         public DetailEnergyPage()
         {
             InitializeComponent();
+        }
+
+        private void clearButtonCalar()
+        {
+            this.ButtonMin.Foreground = SystemColors.ControlDarkDarkBrush;
+        }
+
+        private void Button_Click_Min(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as DetailEnergyPageViewModel ;
+            if (context == null) { return; }
+
+            context.SetMinAnnotation();
+        }
+
+        private void Button_Click_Mode(object sender, RoutedEventArgs e)
+        {
+            clearButtonCalar();
+            this.ButtonMode.Foreground = Brushes.Orange;
+            var context = this.DataContext as DetailEnergyPageViewModel;
+            if (context == null) { return; }
+
+            context.SetModeAnnotation();
+        }
+
+        private void Button_Click_Median(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as DetailEnergyPageViewModel;
+            if (context == null) { return; }
+
+            context.SetMedianAnnotation();
+        }
+
+        private void Button_Click_Max(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as DetailEnergyPageViewModel;
+            if (context == null) { return; }
+
+            context.SetMaxAnnotation();
+        }
+
+        private void Button_Click_UnderMode(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as DetailEnergyPageViewModel;
+            if (context == null) { return; }
+
+            context.SetUnderModeAnnotation();
+        }
+
+        private void Button_Click_DistMode(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as DetailEnergyPageViewModel;
+            if (context == null) { return; }
+
+            context.SetDistModeAnnotation();
+        }
+
+        private void Button_Click_UpperMode(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as DetailEnergyPageViewModel;
+            if (context == null) { return; }
+
+            context.SetUpperModeAnnotation();
         }
     }
 }
