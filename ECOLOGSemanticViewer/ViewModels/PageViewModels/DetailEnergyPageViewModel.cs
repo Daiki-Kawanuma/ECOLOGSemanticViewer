@@ -99,6 +99,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             plotModel.Axes.Add(axisX);
             plotModel.Axes.Add(axisY);
 
+            /*
             RectangleAnnotation rectAannotation = new RectangleAnnotation();
             rectAannotation.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
             rectAannotation.MinimumY = axisY.Minimum;
@@ -128,6 +129,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             textAnnotation.Stroke = OxyColors.Transparent;
 
             plotModel.Annotations.Add(textAnnotation);
+            */
 
             ColumnSeries series = new ColumnSeries();
             series.ItemsSource = source;
@@ -304,6 +306,105 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             var textAnnotation = new TextAnnotation();
             textAnnotation.TextPosition = new DataPoint(9, 65);
             textAnnotation.Text = "19%";
+            textAnnotation.TextColor = OxyColors.Orange;
+            textAnnotation.FontSize = 50;
+            textAnnotation.FontWeight = FontWeights.Bold;
+            textAnnotation.Stroke = OxyColors.Transparent;
+
+            this.PlotModel.Annotations.Add(textAnnotation);
+
+            this.PlotModel.InvalidatePlot(true);
+        }
+
+        public void SetComMinMaxAnnotation()
+        {
+            this.PlotModel.Annotations.Clear();
+
+            RectangleAnnotation rectAannotationMin = new RectangleAnnotation();
+            rectAannotationMin.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
+            rectAannotationMin.MinimumX = -0.5;
+            rectAannotationMin.MaximumX = 0.5;
+            rectAannotationMin.Layer = AnnotationLayer.BelowSeries;
+
+            this.PlotModel.Annotations.Add(rectAannotationMin);
+
+            RectangleAnnotation rectAannotationMax = new RectangleAnnotation();
+            rectAannotationMax.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
+            rectAannotationMax.MinimumX = 9.5;
+            rectAannotationMax.MaximumX = 10.5;
+            rectAannotationMax.Layer = AnnotationLayer.BelowSeries;
+
+            this.PlotModel.Annotations.Add(rectAannotationMax);
+
+            var textAnnotation = new TextAnnotation();
+            textAnnotation.TextPosition = new DataPoint(5, 65);
+            textAnnotation.Text = "33%";
+            textAnnotation.TextColor = OxyColors.Orange;
+            textAnnotation.FontSize = 50;
+            textAnnotation.FontWeight = FontWeights.Bold;
+            textAnnotation.Stroke = OxyColors.Transparent;
+
+            this.PlotModel.Annotations.Add(textAnnotation);
+
+            this.PlotModel.InvalidatePlot(true);
+        }
+
+        public void SetComMinModeAnnotation()
+        {
+            this.PlotModel.Annotations.Clear();
+
+            RectangleAnnotation rectAannotationMin = new RectangleAnnotation();
+            rectAannotationMin.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
+            rectAannotationMin.MinimumX = -0.5;
+            rectAannotationMin.MaximumX = 0.5;
+            rectAannotationMin.Layer = AnnotationLayer.BelowSeries;
+
+            this.PlotModel.Annotations.Add(rectAannotationMin);
+
+            RectangleAnnotation rectAannotationMax = new RectangleAnnotation();
+            rectAannotationMax.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
+            rectAannotationMax.MinimumX = 5.5;
+            rectAannotationMax.MaximumX = 6.5;
+            rectAannotationMax.Layer = AnnotationLayer.BelowSeries;
+
+            this.PlotModel.Annotations.Add(rectAannotationMax);
+
+            var textAnnotation = new TextAnnotation();
+            textAnnotation.TextPosition = new DataPoint(3, 65);
+            textAnnotation.Text = "20%";
+            textAnnotation.TextColor = OxyColors.Orange;
+            textAnnotation.FontSize = 50;
+            textAnnotation.FontWeight = FontWeights.Bold;
+            textAnnotation.Stroke = OxyColors.Transparent;
+
+            this.PlotModel.Annotations.Add(textAnnotation);
+
+            this.PlotModel.InvalidatePlot(true);
+        }
+
+        public void SetComModeMaxAnnotation()
+        {
+            this.PlotModel.Annotations.Clear();
+
+            RectangleAnnotation rectAannotationMin = new RectangleAnnotation();
+            rectAannotationMin.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
+            rectAannotationMin.MinimumX = 9.5;
+            rectAannotationMin.MaximumX = 10.5;
+            rectAannotationMin.Layer = AnnotationLayer.BelowSeries;
+
+            this.PlotModel.Annotations.Add(rectAannotationMin);
+
+            RectangleAnnotation rectAannotationMax = new RectangleAnnotation();
+            rectAannotationMax.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
+            rectAannotationMax.MinimumX = 5.5;
+            rectAannotationMax.MaximumX = 6.5;
+            rectAannotationMax.Layer = AnnotationLayer.BelowSeries;
+
+            this.PlotModel.Annotations.Add(rectAannotationMax);
+
+            var textAnnotation = new TextAnnotation();
+            textAnnotation.TextPosition = new DataPoint(8, 65);
+            textAnnotation.Text = "12%";
             textAnnotation.TextColor = OxyColors.Orange;
             textAnnotation.FontSize = 50;
             textAnnotation.FontWeight = FontWeights.Bold;

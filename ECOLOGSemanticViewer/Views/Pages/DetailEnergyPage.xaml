@@ -167,20 +167,22 @@
                         <Button Name="ButtonComMinMax"
                                 Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click_ComMinMax"
                                 Content="Min-Max: 33%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                         <Button Name="ButtonComMinMode"
                                 Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click_ComMinMode"
                                 Content="Min-Mode: 20%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                         <Button Name="ButtonComModeMax"
                                 Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click_ComModeMax"
                                 Content="Mode-Max: 12%"
-                                Foreground="Orange"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                     </StackPanel>
