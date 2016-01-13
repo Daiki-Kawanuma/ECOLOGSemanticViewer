@@ -122,7 +122,6 @@
                                 HorizontalContentAlignment="Left"
                                 Click="Button_Click"
                                 Content="Mode: 63%"
-                                Foreground="Orange"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                         <Button Name="ButtonDistUpperMode"

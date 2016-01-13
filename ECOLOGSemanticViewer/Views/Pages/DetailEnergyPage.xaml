@@ -40,7 +40,7 @@
                     HorizontalAlignment="Left"
                     Content="Show map"
                     Foreground="{StaticResource AccentColorBrush}"
-                    Style="{StaticResource MaterialDesignToolButton}" />
+                    Style="{StaticResource MaterialDesignToolButton}" Click="Button_Click" />
 
             <oxy:PlotView Grid.Row="1"
                           Margin="10"

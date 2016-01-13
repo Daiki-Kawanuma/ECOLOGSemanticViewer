@@ -82,6 +82,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             plotModel.Axes.Add(axisX);
             plotModel.Axes.Add(axisY);
 
+            /*
             RectangleAnnotation rectAannotation = new RectangleAnnotation();
             rectAannotation.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
             rectAannotation.MinimumY = axisY.Minimum;
@@ -101,6 +102,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             textAnnotation.Stroke = OxyColors.Transparent;
 
             plotModel.Annotations.Add(textAnnotation);
+            */
 
             ColumnSeries series = new ColumnSeries();
             series.ItemsSource = source;

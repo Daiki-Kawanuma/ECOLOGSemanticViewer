@@ -136,6 +136,9 @@
     <Compile Include="Views\Pages\DetailTripDetailPage.xaml.cs">
       <DependentUpon>DetailTripDetailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Windows\MapWindow.xaml.cs">
+      <DependentUpon>MapWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\SemanticCompareWindow.xaml.cs">
       <DependentUpon>SemanticCompareWindow.xaml</DependentUpon>
     </Compile>
@@ -243,6 +246,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Windows\MapWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Windows\SemanticCompareWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -284,6 +291,9 @@
     <Content Include="InfrastructureAssemblies\Livet.XML" />
     <Content Include="InfrastructureAssemblies\Microsoft.Expression.Interactions.dll" />
     <Content Include="InfrastructureAssemblies\System.Windows.Interactivity.dll" />
+    <Resource Include="Resources\icon_black.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -291,6 +301,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\rin.jpg" />
+    <Content Include="Resources\SemanticLink.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

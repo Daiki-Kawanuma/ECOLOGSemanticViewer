@@ -1,4 +1,5 @@
 ﻿using ECOLOGSemanticViewer.ViewModels.PageViewModels;
+using ECOLOGSemanticViewer.Views.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -148,6 +149,12 @@ namespace ECOLOGSemanticViewer.Views.Pages
             if (context == null) { return; }
 
             context.SetComModeMaxAnnotation();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MapWindow window = new MapWindow();
+            window.Show();
         }
     }
 }
