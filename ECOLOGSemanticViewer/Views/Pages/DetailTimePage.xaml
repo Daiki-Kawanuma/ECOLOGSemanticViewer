@@ -33,8 +33,8 @@
             <oxy:PlotView Grid.Row="0"
                           Margin="10"
                           Model="{Binding PlotModel}" />
-            
-            <!-- for resolve conflict -->
+
+            <!--  for resolve conflict  -->
 
             <!--<Button Margin="0,0,10,10"
                     HorizontalAlignment="Right"
@@ -74,24 +74,32 @@
 
                     <StackPanel Margin="10,0,10,0" Background="#eeeeee">
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonMin"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click"
                                 Content="Min: 120s"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonMode"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click"
                                 Content="Mode: 214s"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonMedian"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click"
                                 Content="Median: 227s"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonMax"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click"
                                 Content="Max: 378s"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
@@ -101,20 +109,26 @@
 
                     <StackPanel Margin="10,0,10,0" Background="#eeeeee">
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonDistUnderMode"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click"
                                 Content="Under mode: 11%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonDistMode"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click"
                                 Content="Mode: 63%"
                                 Foreground="Orange"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonDistUpperMode"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
+                                Click="Button_Click"
                                 Content="Upper mode: 26%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
@@ -141,19 +155,25 @@
 
                         </Grid>
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonComMinMax"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Min-Max: 315%"
+                                Click="Button_Click"
+                                Content="Min-Max: 215%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonComMinMode"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Min-Mode: 187%"
+                                Click="Button_Click"
+                                Content="Min-Mode: 78%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
-                        <Button Margin="5,0,0,0"
+                        <Button Name="ButtonComModeMax"
+                                Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
-                                Content="Mode-Max: 168%"
+                                Click="Button_Click"
+                                Content="Mode-Max: 76%"
                                 Style="{StaticResource MaterialDesignToolButton}" />
 
                     </StackPanel>
