@@ -24,7 +24,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="125" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -113,6 +113,8 @@
             <oxy:PlotView Grid.Row="0"
                           Margin="5,0,5,5"
                           Model="{Binding PlotModel}" />
+
+            <ProgressBar Visibility="{Binding ProgressBarVisibility}"/>
 
         </Grid>
 

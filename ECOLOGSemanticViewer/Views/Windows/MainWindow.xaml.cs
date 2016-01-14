@@ -1,4 +1,5 @@
 ﻿using ECOLOGSemanticViewer.Models.EcologModels;
+using ECOLOGSemanticViewer.ViewModels.PageViewModels;
 using ECOLOGSemanticViewer.ViewModels.WindowViewModels;
 using ECOLOGSemanticViewer.Views.Pages;
 using MahApps.Metro.Controls;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -51,7 +53,10 @@ namespace ECOLOGSemanticViewer.Views.Windows
             var context = this.DataContext as MainWindowViewModel;
             if (context == null) { return; }
 
-            context.CurrentPage = new MainEnergyPage();
+            MainEnergyPage page = new MainEnergyPage();
+            page.DataContext = new MainEnergyPageViewModel(context.ExtractedSemanticLinks.ToList());
+
+            context.CurrentPage = page;
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

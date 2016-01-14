@@ -152,7 +152,38 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("  DISTINCT SemanticLinkID,");
             query.AppendLine("  DriverID,");
             query.AppendLine("  semantics");
-            query.AppendLine("From default_Homeward_SemanticLinks");
+            query.AppendLine("FROM default_Homeward_SemanticLinks");
+            query.AppendLine("ORDER BY SemanticLinkID");
+
+            semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
+            Console.WriteLine("H COUNT: " + semanticLinkTable.Rows.Count);
+
+            for (int i = 0; i < semanticLinkTable.Rows.Count; i++)
+            {
+                ret.Add(new SemanticLink()
+                {
+                    SemanticLinkId = (int)semanticLinkTable.Rows[i]["SemanticLinkID"],
+                    DriverId = (int)semanticLinkTable.Rows[i]["DriverID"],
+                    Semantics = (string)semanticLinkTable.Rows[i]["Semantics"],
+                });
+            }
+
+            return ret;
+        }
+
+        public static List<SemanticLink> GetTestSemanticLinks()
+        {
+            var ret = new List<SemanticLink>();
+
+            DataTable semanticLinkTable = new DataTable();
+
+            StringBuilder query = new StringBuilder();
+            query.AppendLine("SELECT");
+            query.AppendLine("  DISTINCT SemanticLinkID,");
+            query.AppendLine("  DriverID,");
+            query.AppendLine("  semantics");
+            query.AppendLine("FROM default_Outward_SemanticLinks");
+            query.AppendLine("WHERE SemanticLinkID = 187 OR SemanticLinkID = 188 OR SemanticLinkID = 189 OR SemanticLinkID = 190");
             query.AppendLine("ORDER BY SemanticLinkID");
 
             semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());

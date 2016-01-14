@@ -36,7 +36,7 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 
         private SemanticHistogramDatum()
         {
-          
+
         }
 
         public static SemanticHistogramDatum GetEnergyInstance(SemanticLink semanticLink, TripDirection direction)
@@ -46,9 +46,11 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
             datum.SemanticLink = semanticLink;
             datum.Direction = direction;
 
+            
             DataTable table = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyHistogramOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')");
+            datum.HistogramData = new List<LevelAndValue>();
             foreach(DataRow row in table.Rows){
-                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<double>("Level"), Value = row.Field<double>("Number") });
+                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<double>("Level"), Value = row.Field<int>("Number") });
             }
 
             datum.MaxLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMaxOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")

@@ -17,6 +17,8 @@ using OxyPlot.Axes;
 using OxyPlot.Series;
 using System.Threading;
 using ECOLOGSemanticViewer.Models.EcologModels;
+using ECOLOGSemanticViewer.Models.GraphModels;
+using System.Threading.Tasks;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
@@ -29,8 +31,67 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         public MainEnergyPageViewModel()
         {
-            PlotModel = createPlotModel();
+
         }
+
+        public MainEnergyPageViewModel(List<SemanticLink> extractedSemanticLinks)
+        {
+            this.ProgressBarVisibility = true;
+            this.ExtractedSemanticLinks = extractedSemanticLinks;
+            this.SelectedSemanticLinks = new List<SemanticLink>();
+            createPlotModel();
+        }
+
+        #region ExtractedSemanticLinks変更通知プロパティ
+        private List<SemanticLink> _ExtractedSemanticLinks;
+
+        public List<SemanticLink> ExtractedSemanticLinks
+        {
+            get
+            { return _ExtractedSemanticLinks; }
+            set
+            {
+                if (_ExtractedSemanticLinks == value)
+                    return;
+                _ExtractedSemanticLinks = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region SelectedSemanticLinks変更通知プロパティ
+        private List<SemanticLink> _SelectedSemanticLinks;
+
+        public List<SemanticLink> SelectedSemanticLinks
+        {
+            get
+            { return _SelectedSemanticLinks; }
+            set
+            {
+                if (_SelectedSemanticLinks == value)
+                    return;
+                _SelectedSemanticLinks = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region ProgressBarVisibility変更通知プロパティ
+        private bool _ProgressBarVisibility;
+
+        public bool ProgressBarVisibility
+        {
+            get
+            { return _ProgressBarVisibility; }
+            set
+            { 
+                if (_ProgressBarVisibility == value)
+                    return;
+                _ProgressBarVisibility = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
 
         #region PlotModel変更通知プロパティ
         private PlotModel _PlotModel;
@@ -49,9 +110,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         }
         #endregion
 
-        private PlotModel createPlotModel()
+        private async void createPlotModel()
         {
-
             PlotModel plotModel = new PlotModel();
 
             LinearAxis axisX = new LinearAxis();
@@ -62,11 +122,16 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             plotModel.Axes.Add(axisX);
             plotModel.Axes.Add(axisY);
 
-            foreach(SemanticLink link in SelectedSemanticLinks){
-                plotModel.Series.Add(createAreaSeries(link));
-            }
+            await Task.Run(() =>
+            {
+                foreach (SemanticLink link in ExtractedSemanticLinks)
+                {
+                    plotModel.Series.Add(createAreaSeries(link));
+                }
+            });
 
-            return plotModel;
+            ProgressBarVisibility = false;
+            this.PlotModel = plotModel;
         }
 
         private AreaSeries createAreaSeries(SemanticLink link)
@@ -76,29 +141,22 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             series.TrackerFormatString = series.TrackerFormatString + "\n" + link.Semantics + " : {Tag}";
             series.Title = link.Semantics;
 
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+
+            SemanticHistogramDatum datum = SemanticHistogramDatum.GetEnergyInstance(link, new TripDirection() { Direction = "outward" });
+
+            sw.Stop();
+            Console.WriteLine("COST: " + sw.Elapsed);
+
+            series.Points.Add(new DataPoint(datum.MinLevel - datum.ClassWidth, 0));
             
+            foreach (LevelAndValue item in datum.HistogramData)
+            {
+                series.Points.Add(new DataPoint(item.Level, item.Value));
+            }
 
-                    series.Title = "与蔵山下～代官二丁目";
-                    series.Color = OxyColors.GreenYellow;
-
-                    series.Points.Add(new DataPoint(0.164779303, 0));
-                    series.Points.Add(new DataPoint(0.169821257, 6));
-                    series.Points.Add(new DataPoint(0.174863211, 6));
-                    series.Points.Add(new DataPoint(0.179905164, 25));
-                    series.Points.Add(new DataPoint(0.184947118, 31));
-                    series.Points.Add(new DataPoint(0.189989071, 78));
-                    series.Points.Add(new DataPoint(0.195031025, 124));
-                    series.Points.Add(new DataPoint(0.200072979, 114));
-                    series.Points.Add(new DataPoint(0.205114932, 96));
-                    series.Points.Add(new DataPoint(0.210156886, 74));
-                    series.Points.Add(new DataPoint(0.21519884, 27));
-                    series.Points.Add(new DataPoint(0.220240793, 21));
-                    series.Points.Add(new DataPoint(0.225282747, 0));
-              
-
-            
-
-
+            series.Points.Add(new DataPoint(datum.MaxLevel + datum.ClassWidth, 0));
 
             return series;
         }
