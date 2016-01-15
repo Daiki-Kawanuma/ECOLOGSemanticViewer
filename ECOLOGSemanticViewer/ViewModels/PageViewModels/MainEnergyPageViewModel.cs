@@ -19,6 +19,7 @@ using System.Threading;
 using ECOLOGSemanticViewer.Models.EcologModels;
 using ECOLOGSemanticViewer.Models.GraphModels;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
@@ -36,7 +37,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         public MainEnergyPageViewModel(List<SemanticLink> extractedSemanticLinks)
         {
-            this.ProgressBarVisibility = true;
+            this.ProgressBarVisibility = Visibility.Visible;
             this.ExtractedSemanticLinks = extractedSemanticLinks;
             this.SelectedSemanticLinks = new List<SemanticLink>();
             createPlotModel();
@@ -77,9 +78,9 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         #endregion
 
         #region ProgressBarVisibility変更通知プロパティ
-        private bool _ProgressBarVisibility;
+        private System.Windows.Visibility _ProgressBarVisibility;
 
-        public bool ProgressBarVisibility
+        public System.Windows.Visibility ProgressBarVisibility
         {
             get
             { return _ProgressBarVisibility; }
@@ -130,7 +131,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 }
             });
 
-            ProgressBarVisibility = false;
+            ProgressBarVisibility = Visibility.Collapsed;
             this.PlotModel = plotModel;
         }
 
