@@ -30,8 +30,8 @@
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
             <materialDesign:Card Grid.Column="0" Margin="5,5,5,5">
@@ -77,15 +77,31 @@
 
                 <DataGrid AutoGenerateColumns="False"
                           IsReadOnly="True"
-                          ItemsSource="{Binding ExtractedSemanticLinks}"
+                          ItemsSource="{Binding SemanticGraphs}"
                           VerticalScrollBarVisibility="Auto">
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="1*"
-                                            Binding="{Binding Path=SemanticLinkId}"
+
+                        <DataGridTemplateColumn Width="Auto"
+                                                Header="Visibility"
+                                                IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              IsChecked="{Binding SeriesVisibility,
+                                                                  Mode=TwoWay,
+                                                                  UpdateSourceTrigger=PropertyChanged}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Width="Auto"
+                                            Binding="{Binding SemanticLink.SemanticLinkId}"
                                             Header="ID" />
-                        <DataGridTextColumn Width="4*"
-                                            Binding="{Binding Path=Semantics}"
+
+                        <DataGridTextColumn Width="*"
+                                            Binding="{Binding SemanticLink.Semantics}"
                                             Header="Semantics" />
                     </DataGrid.Columns>
 
@@ -117,8 +133,8 @@
                          HorizontalAlignment="Center"
                          VerticalAlignment="Center"
                          IsIndeterminate="True"
-                         Visibility="{Binding ProgressBarVisibility}"
-                         Style="{StaticResource MaterialDesignCircularProgressBar}" />
+                         Style="{StaticResource MaterialDesignCircularProgressBar}"
+                         Visibility="{Binding ProgressBarVisibility}" />
 
         </Grid>
 

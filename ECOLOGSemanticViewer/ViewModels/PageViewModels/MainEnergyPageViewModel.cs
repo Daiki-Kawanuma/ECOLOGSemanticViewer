@@ -20,6 +20,7 @@ using ECOLOGSemanticViewer.Models.EcologModels;
 using ECOLOGSemanticViewer.Models.GraphModels;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
@@ -39,8 +40,15 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         {
             this.ProgressBarVisibility = Visibility.Visible;
             this.TripDirection = direction;
-            this.ExtractedSemanticLinks = extractedSemanticLinks;
-            this.SelectedSemanticLinks = new List<SemanticLink>();
+
+            this.SemanticGraphs = new List<SemanticGraph>();
+            foreach (SemanticLink link in extractedSemanticLinks)
+            {
+                this.SemanticGraphs.Add(new SemanticGraph() { SemanticLink = link, SeriesVisibility = true});
+            }
+
+            this.AreaSeriesList = new List<AreaSeries>();    
+
             createPlotModel();
         }
 
@@ -61,18 +69,18 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         }
         #endregion
 
-        #region ExtractedSemanticLinks変更通知プロパティ
-        private List<SemanticLink> _ExtractedSemanticLinks;
+        #region SemanticGraphs変更通知プロパティ
+        private List<SemanticGraph> _SemanticGraphs;
 
-        public List<SemanticLink> ExtractedSemanticLinks
+        public List<SemanticGraph> SemanticGraphs
         {
             get
-            { return _ExtractedSemanticLinks; }
+            { return _SemanticGraphs; }
             set
             {
-                if (_ExtractedSemanticLinks == value)
+                if (_SemanticGraphs == value)
                     return;
-                _ExtractedSemanticLinks = value;
+                _SemanticGraphs = value;
                 RaisePropertyChanged();
             }
         }
@@ -112,6 +120,25 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         }
         #endregion
 
+
+        #region AreaSeriesList変更通知プロパティ
+        private List<AreaSeries> _AreaSeriesList;
+
+        public List<AreaSeries> AreaSeriesList
+        {
+            get
+            { return _AreaSeriesList; }
+            set
+            { 
+                if (_AreaSeriesList == value)
+                    return;
+                _AreaSeriesList = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+
         #region PlotModel変更通知プロパティ
         private PlotModel _PlotModel;
 
@@ -132,6 +159,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         private async void createPlotModel()
         {
             PlotModel plotModel = new PlotModel();
+            // plotModel.LegendPlacement = LegendPlacement.Outside;
+            // plotModel.LegendPosition = LegendPosition.TopRight;
 
             LinearAxis axisX = new LinearAxis();
             LinearAxis axisY = new LinearAxis();
@@ -143,7 +172,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             await Task.Run(() =>
             {
-                foreach (SemanticLink link in ExtractedSemanticLinks)
+                foreach (SemanticGraph link in SemanticGraphs)
                 {
                     plotModel.Series.Add(createAreaSeries(link));
                 }
@@ -153,17 +182,28 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             this.PlotModel = plotModel;
         }
 
-        private AreaSeries createAreaSeries(SemanticLink link)
+        private AreaSeries createAreaSeries(SemanticGraph semanticGraph)
         {
             AreaSeries series = new AreaSeries();
-            // TODO 意味確認
-            series.TrackerFormatString = series.TrackerFormatString + "\n" + link.Semantics + " : {Tag}";
-            series.Title = link.Semantics;
+            //series.TrackerFormatString = series.TrackerFormatString + "\n" + link.Semantics + " : {Tag}";
+            series.Title = semanticGraph.SemanticLink.Semantics;
+
+            series.MouseDown += (s, e) =>
+            {
+                if (series.IsVisible)
+                {
+                    series.IsVisible = false;
+                }
+                else
+                {
+                    series.IsVisible = true;
+                }
+            };
 
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
 
-            SemanticHistogramDatum datum = SemanticHistogramDatum.GetEnergyInstance(link, this.TripDirection);
+            SemanticHistogramDatum datum = SemanticHistogramDatum.GetEnergyInstance(semanticGraph.SemanticLink, this.TripDirection);
 
             sw.Stop();
             Console.WriteLine("COST: " + sw.Elapsed);
@@ -176,6 +216,9 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             }
 
             series.Points.Add(new DataPoint(datum.MaxLevel + datum.ClassWidth, 0));
+
+            AreaSeriesList.Add(series);
+            semanticGraph.Series = series;
 
             return series;
         }

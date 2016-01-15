@@ -49,7 +49,7 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
             context.SelectedSemanticLinks = this.ExtractedSemanticLinks;
 
             this.SemanticLinks = SemanticLink.GetAllSemanticLinks();
-            this.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetDefaultOutwardSemanticLinks());
+            this.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetTestSemanticLinks());
         }
 
         public void Initialize()

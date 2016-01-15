@@ -6,6 +6,7 @@ using System.Text;
 using Livet;
 using System.Data;
 using ECOLOGSemanticViewer.Utils;
+using OxyPlot.Series;
 
 namespace ECOLOGSemanticViewer.Models.EcologModels
 {
