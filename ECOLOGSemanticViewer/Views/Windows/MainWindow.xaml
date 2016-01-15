@@ -59,6 +59,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
@@ -68,11 +69,11 @@
                         Background="White"
                         Orientation="Vertical">
 
-                <Button Click="Button_Click" Content="Map" />
+                <Button Click="Button_Click_Map" Content="Map" />
                 <Button Margin="0,1,0,1"
-                        Click="Button_Click_1"
+                        Click="Button_Click_Energy"
                         Content="Energy distribution" />
-                <Button Click="Button_Click_2" Content="Time distribution" />
+                <Button Click="Button_Click_Time" Content="Time distribution" />
 
             </StackPanel>
 
@@ -80,20 +81,41 @@
 
                 <StackPanel Orientation="Vertical">
 
-                    <Label Content="Default semantic links" FontSize="16" />
+                    <Label Content="Trip direction" FontSize="16" />
 
-                    <Button Margin="5,5,5,0"
+                    <Button Name="ButtonOutward" Margin="5,5,5,0"
+                            Click="Button_Click_Outward"
                             Content="Outward"
-                            Style="{StaticResource MaterialDesignFlatButton}" Click="Button_Click_5" />
-                    <Button Margin="5,5,5,5"
+                            Style="{StaticResource MaterialDesignFlatButton}" />
+                    <Button Name="ButtonHomeward" Margin="5,5,5,5"
+                            Click="Button_Click_Homeward"
                             Content="Homeward"
-                            Style="{StaticResource MaterialDesignFlatButton}" Click="Button_Click_6" />
+                            Style="{StaticResource MaterialDesignFlatButton}" />
 
                 </StackPanel>
 
             </materialDesign:Card>
 
-            <materialDesign:Card Grid.Row="2" Margin="5,0,5,5">
+            <materialDesign:Card Grid.Row="2" Margin="5,5,5,5">
+
+                <StackPanel Orientation="Vertical">
+
+                    <Label Content="Default semantic links" FontSize="16" />
+
+                    <Button Margin="5,5,5,0"
+                            Click="Button_Click_OutwardLinks"
+                            Content="Outward"
+                            Style="{StaticResource MaterialDesignFlatButton}" />
+                    <Button Margin="5,5,5,5"
+                            Click="Button_Click_HomewardLinks"
+                            Content="Homeward"
+                            Style="{StaticResource MaterialDesignFlatButton}" />
+
+                </StackPanel>
+
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Row="3" Margin="5,0,5,5">
 
                 <StackPanel Orientation="Vertical">
 
@@ -104,7 +126,7 @@
 
                     <Button Grid.Row="1"
                             Margin="5,0,5,5"
-                            Click="Button_Click_3"
+                            Click="Button_Click_AddLink"
                             Content="Add"
                             Style="{StaticResource MaterialDesignFlatButton}" />
 
@@ -112,7 +134,7 @@
 
             </materialDesign:Card>
 
-            <materialDesign:Card Grid.Row="3"
+            <materialDesign:Card Grid.Row="4"
                                  Margin="5, 0,5, 5"
                                  VerticalAlignment="Stretch">
 
@@ -134,10 +156,10 @@
 
             </materialDesign:Card>
 
-            <Button Grid.Row="4"
+            <Button Grid.Row="5"
                     Margin="10, 0,10, 10"
                     VerticalAlignment="Bottom"
-                    Click="Button_Click_4"
+                    Click="Button_Click_ShowDetailWindow"
                     Content="Display" />
 
         </Grid>

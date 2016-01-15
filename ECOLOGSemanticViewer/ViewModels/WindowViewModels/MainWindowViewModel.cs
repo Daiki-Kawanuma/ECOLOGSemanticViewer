@@ -44,40 +44,34 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
         public MainWindowViewModel()
         {
             this.CurrentPage = new MainMapPage();
+            this.TripDirection = new TripDirection(){Direction = "outward"};
             var context = this.CurrentPage.DataContext as MainMapPageViewModel;
             context.SelectedSemanticLinks = this.ExtractedSemanticLinks;
 
             this.SemanticLinks = SemanticLink.GetAllSemanticLinks();
             this.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetDefaultOutwardSemanticLinks());
-
-            
-            //TODO clear this function
-            // testGenerator();
         }
 
         public void Initialize()
         {
         }
 
-        // TODO clear this function
-        private void testGenerator(){
-            
-            this.SemanticLinks = new List<SemanticLink>
-            {
-                new SemanticLink(){SemanticLinkId = 187, Semantics = "自宅～綾瀬市役所前"},
-                new SemanticLink(){SemanticLinkId = 188, Semantics = "綾瀬市役所前～与蔵山下"},
-                new SemanticLink(){SemanticLinkId = 189, Semantics = "与蔵山下～代官二丁目"},
-                new SemanticLink(){SemanticLinkId = 190, Semantics = "代官二丁目～福田入口"},
-                new SemanticLink(){SemanticLinkId = 191, Semantics = "福田入口～下和田"},
-                new SemanticLink(){SemanticLinkId = 191, Semantics = "下和田～いちょう小学校入口"},
-            };
+        #region TripDirection変更通知プロパティ
+        private TripDirection _TripDirection;
 
-            this.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>();
-            foreach(SemanticLink link in this.SemanticLinks){
-                this.ExtractedSemanticLinks.Add(link);
+        public TripDirection TripDirection
+        {
+            get
+            { return _TripDirection; }
+            set
+            { 
+                if (_TripDirection == value)
+                    return;
+                _TripDirection = value;
+                RaisePropertyChanged();
             }
-
         }
+        #endregion
 
         #region SemanticLinks変更通知プロパティ
         private List<SemanticLink> _SemanticLinks;

@@ -35,13 +35,31 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         }
 
-        public MainEnergyPageViewModel(List<SemanticLink> extractedSemanticLinks)
+        public MainEnergyPageViewModel(List<SemanticLink> extractedSemanticLinks, TripDirection direction)
         {
             this.ProgressBarVisibility = Visibility.Visible;
+            this.TripDirection = direction;
             this.ExtractedSemanticLinks = extractedSemanticLinks;
             this.SelectedSemanticLinks = new List<SemanticLink>();
             createPlotModel();
         }
+
+        #region TripDirection変更通知プロパティ
+        private TripDirection _TripDirection;
+
+        public TripDirection TripDirection
+        {
+            get
+            { return _TripDirection; }
+            set
+            { 
+                if (_TripDirection == value)
+                    return;
+                _TripDirection = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
 
         #region ExtractedSemanticLinks変更通知プロパティ
         private List<SemanticLink> _ExtractedSemanticLinks;
@@ -145,7 +163,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
 
-            SemanticHistogramDatum datum = SemanticHistogramDatum.GetEnergyInstance(link, new TripDirection() { Direction = "outward" });
+            SemanticHistogramDatum datum = SemanticHistogramDatum.GetEnergyInstance(link, this.TripDirection);
 
             sw.Stop();
             Console.WriteLine("COST: " + sw.Elapsed);

@@ -40,7 +40,7 @@ namespace ECOLOGSemanticViewer.Views.Windows
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_Map(object sender, RoutedEventArgs e)
         {
             var context = this.DataContext as MainWindowViewModel;
             if (context == null) { return; }
@@ -48,18 +48,18 @@ namespace ECOLOGSemanticViewer.Views.Windows
             context.CurrentPage = new MainMapPage();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_Click_Energy(object sender, RoutedEventArgs e)
         {
             var context = this.DataContext as MainWindowViewModel;
             if (context == null) { return; }
 
             MainEnergyPage page = new MainEnergyPage();
-            page.DataContext = new MainEnergyPageViewModel(context.ExtractedSemanticLinks.ToList());
+            page.DataContext = new MainEnergyPageViewModel(context.ExtractedSemanticLinks.ToList(), context.TripDirection);
 
             context.CurrentPage = page;
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_Click_Time(object sender, RoutedEventArgs e)
         {
             var context = this.DataContext as MainWindowViewModel;
             if (context == null) { return; }
@@ -67,7 +67,51 @@ namespace ECOLOGSemanticViewer.Views.Windows
             context.CurrentPage = new MainTimePage();
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void Button_Click_Outward(object sender, RoutedEventArgs e)
+        {
+            this.ButtonOutward.Foreground = Brushes.Orange;
+            this.ButtonHomeward.ClearValue(Button.ForegroundProperty);
+            
+            var context = this.DataContext as MainWindowViewModel;
+            if (context == null) { return; }
+
+            if (context.TripDirection != null)
+            {
+                context.TripDirection.Direction = "outward";
+            }
+        }
+
+        private void Button_Click_Homeward(object sender, RoutedEventArgs e)
+        {
+            this.ButtonOutward.ClearValue(Button.ForegroundProperty);
+            this.ButtonHomeward.Foreground = Brushes.Orange;
+
+            var context = this.DataContext as MainWindowViewModel;
+            if (context == null) { return; }
+
+            if (context.TripDirection != null)
+            {
+                context.TripDirection.Direction = "homeward";
+            }
+        }
+
+        private void Button_Click_OutwardLinks(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as MainWindowViewModel;
+            if (context == null) { return; }
+
+            context.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetDefaultOutwardSemanticLinks());
+        }
+
+        private void Button_Click_HomewardLinks(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as MainWindowViewModel;
+            if (context == null) { return; }
+
+            context.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetDefaultHomewardSemanticLinks());
+        }
+
+        private void Button_Click_AddLink(object sender, RoutedEventArgs e)
         {
             var context = this.DataContext as MainWindowViewModel;
             if (context == null) { return; }
@@ -79,27 +123,11 @@ namespace ECOLOGSemanticViewer.Views.Windows
             }
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private void Button_Click_ShowDetailWindow(object sender, RoutedEventArgs e)
         {
             SemanticDetailWindow window = new SemanticDetailWindow();
             //SemanticCompareWindow window = new SemanticCompareWindow();
             window.Show();
-        }
-
-        private void Button_Click_5(object sender, RoutedEventArgs e)
-        {
-            var context = this.DataContext as MainWindowViewModel;
-            if (context == null) { return; }
-
-            context.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetDefaultOutwardSemanticLinks());
-        }
-
-        private void Button_Click_6(object sender, RoutedEventArgs e)
-        {
-            var context = this.DataContext as MainWindowViewModel;
-            if (context == null) { return; }
-
-            context.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetDefaultHomewardSemanticLinks());
         }
     }
 }
