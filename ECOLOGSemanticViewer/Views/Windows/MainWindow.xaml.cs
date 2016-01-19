@@ -64,7 +64,10 @@ namespace ECOLOGSemanticViewer.Views.Windows
             var context = this.DataContext as MainWindowViewModel;
             if (context == null) { return; }
 
-            context.CurrentPage = new MainTimePage();
+            MainTimePage page = new MainTimePage();
+            page.DataContext = new MainTimePageViewModel(context.ExtractedSemanticLinks.ToList(), context.TripDirection);
+
+            context.CurrentPage = page;
         }
 
         private void Button_Click_Outward(object sender, RoutedEventArgs e)

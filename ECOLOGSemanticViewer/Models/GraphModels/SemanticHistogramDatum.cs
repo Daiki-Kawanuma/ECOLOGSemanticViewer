@@ -91,7 +91,7 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
             return datum;
         }
 
-        public static SemanticHistogramDatum GetTimenstance(SemanticLink semanticLink, TripDirection direction)
+        public static SemanticHistogramDatum GetTimeInstance(SemanticLink semanticLink, TripDirection direction)
         {
             SemanticHistogramDatum datum = new SemanticHistogramDatum();
 
@@ -99,24 +99,25 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
             datum.Direction = direction;
 
             DataTable table = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeHistogramOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')");
+            datum.HistogramData = new List<LevelAndValue>();
             foreach (DataRow row in table.Rows)
             {
-                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<double>("Level"), Value = row.Field<double>("Number") });
+                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<int>("Level"), Value = row.Field<int>("Number") });
             }
 
             datum.MaxLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMaxOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
-                .Select(x => x.Field<double>("Max"))
+                .Select(x => x.Field<int>("Max"))
                 .ElementAt(0);
 
             datum.MinLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMinOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
-                .Select(x => x.Field<double>("Min"))
+                .Select(x => x.Field<int>("Min"))
                 .ElementAt(0);
 
             datum.MedianLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMedianOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
-                .Select(x => x.Field<double>("Median"))
+                .Select(x => x.Field<int>("Median"))
                 .ElementAt(0);
 
             datum.ModeLevel = datum.HistogramData.First(v => v.Value.Equals(datum.HistogramData.Select(m => m.Value).Max())).Level;
