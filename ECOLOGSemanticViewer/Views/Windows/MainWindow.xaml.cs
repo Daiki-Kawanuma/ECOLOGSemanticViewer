@@ -45,6 +45,7 @@ namespace ECOLOGSemanticViewer.Views.Windows
             var context = this.DataContext as MainWindowViewModel;
             if (context == null) { return; }
 
+
             context.CurrentPage = new MainMapPage();
         }
 

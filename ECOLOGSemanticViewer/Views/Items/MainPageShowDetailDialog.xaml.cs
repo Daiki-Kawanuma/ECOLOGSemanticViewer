@@ -1,4 +1,5 @@
 ﻿using ECOLOGSemanticViewer.Models.EcologModels;
+using ECOLOGSemanticViewer.ViewModels.PageViewModels;
 using ECOLOGSemanticViewer.ViewModels.WindowViewModels;
 using ECOLOGSemanticViewer.Views.Windows;
 using MaterialDesignThemes.Wpf;
@@ -23,11 +24,15 @@ namespace ECOLOGSemanticViewer.Views.Items
     /// <summary>
     /// Dialog.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainPageDialog : UserControl
+    public partial class MainPageShowDetailDialog : UserControl
     {
         public SemanticLink SemanticLink { get; set; }
 
-        public MainPageDialog()
+        public TripDirection TripDirection { get; set; }
+
+        public AbstMainPageViewModel ViewModel;
+
+        public MainPageShowDetailDialog()
         {
             InitializeComponent();
         }
@@ -35,9 +40,14 @@ namespace ECOLOGSemanticViewer.Views.Items
         private void Button_ShowDetail(object sender, RoutedEventArgs e)
         {
             SemanticDetailWindow window = new SemanticDetailWindow();
-            window.DataContext = new SemanticDetailWindowViewModel() { SemanticLink = this.SemanticLink };
+            window.DataContext = new SemanticDetailWindowViewModel() { SemanticLink = this.SemanticLink, TripDirection = this.TripDirection };
 
             window.Show();
+        }
+
+        private void Button_CompareWith(object sender, RoutedEventArgs e)
+        {
+            ViewModel.SelectedSemanticLinks.Add(SemanticLink);
         }
     }
 }

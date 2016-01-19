@@ -23,12 +23,12 @@ using System.Windows;
 using System.Windows.Data;
 using ECOLOGSemanticViewer.Views.Items;
 using MaterialDesignThemes.Wpf;
+using System.Collections.ObjectModel;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
     public class MainEnergyPageViewModel : AbstMainPageViewModel
     {
-
         public void Initialize()
         {
         }
@@ -40,6 +40,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         public MainEnergyPageViewModel(List<SemanticLink> extractedSemanticLinks, TripDirection direction)
         {
+            SelectedSemanticLinks = new ObservableCollection<SemanticLink>();
+
             this.ProgressBarVisibility = Visibility.Visible;
             this.TripDirection = direction;
 
@@ -88,23 +90,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         }
         #endregion
 
-        #region SelectedSemanticLinks変更通知プロパティ
-        private List<SemanticLink> _SelectedSemanticLinks;
-
-        public List<SemanticLink> SelectedSemanticLinks
-        {
-            get
-            { return _SelectedSemanticLinks; }
-            set
-            {
-                if (_SelectedSemanticLinks == value)
-                    return;
-                _SelectedSemanticLinks = value;
-                RaisePropertyChanged();
-            }
-        }
-        #endregion
-
         #region ProgressBarVisibility変更通知プロパティ
         private System.Windows.Visibility _ProgressBarVisibility;
 
@@ -122,7 +107,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         }
         #endregion
 
-
         #region AreaSeriesList変更通知プロパティ
         private List<AreaSeries> _AreaSeriesList;
 
@@ -139,7 +123,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             }
         }
         #endregion
-
 
         #region PlotModel変更通知プロパティ
         private PlotModel _PlotModel;
@@ -196,13 +179,31 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 {
                     Console.WriteLine("SEMANTICS: " + semanticGraph.SemanticLink.Semantics);
 
-                    var dialog = new MainPageDialog
+                    if (SelectedSemanticLinks.Count > 0)
                     {
-                        Message = { Text = semanticGraph.SemanticLink.Semantics },
-                        SemanticLink = semanticGraph.SemanticLink
-                    };
+                        var dialog = new MainPageCompareDialog
+                        {
+                            Message = { Text = semanticGraph.SemanticLink.Semantics },
+                            TripDirection = this.TripDirection,
+                            SelectedSemanticLinks = this.SelectedSemanticLinks.ToList(),
+                            SemanticLink = semanticGraph.SemanticLink,
+                            ViewModel = this
+                        };
 
-                    DialogHost.Show(dialog, "RootDialog");     
+                        DialogHost.Show(dialog, "RootDialog");
+                    }
+                    else
+                    {
+                        var dialog = new MainPageShowDetailDialog
+                        {
+                            Message = { Text = semanticGraph.SemanticLink.Semantics },
+                            TripDirection = this.TripDirection,
+                            SemanticLink = semanticGraph.SemanticLink,
+                            ViewModel = this
+                        };
+
+                        DialogHost.Show(dialog, "RootDialog");
+                    }  
                 }
             };
 

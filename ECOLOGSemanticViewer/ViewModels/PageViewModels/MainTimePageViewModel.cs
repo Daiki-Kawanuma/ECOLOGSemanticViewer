@@ -22,10 +22,11 @@ using System.Threading.Tasks;
 using ECOLOGSemanticViewer.Views.Items;
 using MaterialDesignThemes.Wpf;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
-    public class MainTimePageViewModel : ViewModel
+    public class MainTimePageViewModel : AbstMainPageViewModel
     {
 
         public void Initialize()
@@ -34,6 +35,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         public MainTimePageViewModel(List<SemanticLink> extractedSemanticLinks, TripDirection direction)
         {
+            SelectedSemanticLinks = new ObservableCollection<SemanticLink>();
+
             this.ProgressBarVisibility = Visibility.Visible;
             this.TripDirection = direction;
 
@@ -77,23 +80,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 if (_SemanticGraphs == value)
                     return;
                 _SemanticGraphs = value;
-                RaisePropertyChanged();
-            }
-        }
-        #endregion
-
-        #region SelectedSemanticLinks変更通知プロパティ
-        private List<SemanticLink> _SelectedSemanticLinks;
-
-        public List<SemanticLink> SelectedSemanticLinks
-        {
-            get
-            { return _SelectedSemanticLinks; }
-            set
-            {
-                if (_SelectedSemanticLinks == value)
-                    return;
-                _SelectedSemanticLinks = value;
                 RaisePropertyChanged();
             }
         }
@@ -185,10 +171,12 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 {
                     Console.WriteLine("SEMANTICS: " + semanticGraph.SemanticLink.Semantics);
 
-                    var dialog = new MainPageDialog
+                    var dialog = new MainPageShowDetailDialog
                     {
                         Message = { Text = semanticGraph.SemanticLink.Semantics },
-                        SemanticLink = semanticGraph.SemanticLink
+                        TripDirection = this.TripDirection,
+                        SemanticLink = semanticGraph.SemanticLink,
+                        ViewModel = this
                     };
 
                     DialogHost.Show(dialog, "RootDialog");
