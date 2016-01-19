@@ -113,6 +113,9 @@
     <Compile Include="Views\Items\CompareStackNormalizedItem.xaml.cs">
       <DependentUpon>CompareStackNormalizedItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Items\MainPageDialog.xaml.cs">
+      <DependentUpon>MainPageDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\CompareEnergyPage.xaml.cs">
       <DependentUpon>CompareEnergyPage.xaml</DependentUpon>
     </Compile>
@@ -155,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Items\CompareStackNormalizedItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Items\MainPageDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

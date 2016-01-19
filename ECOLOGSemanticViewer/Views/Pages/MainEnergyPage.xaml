@@ -136,6 +136,11 @@
                          Style="{StaticResource MaterialDesignCircularProgressBar}"
                          Visibility="{Binding ProgressBarVisibility}" />
 
+            <materialDesign:DialogHost Grid.Row="1"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Identifier="RootDialog" />
+
         </Grid>
 
     </Grid>

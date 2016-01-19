@@ -21,6 +21,8 @@ using ECOLOGSemanticViewer.Models.GraphModels;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using ECOLOGSemanticViewer.Views.Items;
+using MaterialDesignThemes.Wpf;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
@@ -190,13 +192,17 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             series.MouseDown += (s, e) =>
             {
-                if (series.IsVisible)
+                if (e.ChangedButton == OxyMouseButton.Left)
                 {
-                    series.IsVisible = false;
-                }
-                else
-                {
-                    series.IsVisible = true;
+                    Console.WriteLine("SEMANTICS: " + semanticGraph.SemanticLink.Semantics);
+
+                    var dialog = new MainPageDialog
+                    {
+                        Message = { Text = semanticGraph.SemanticLink.Semantics },
+                        SemanticLink = semanticGraph.SemanticLink
+                    };
+
+                    DialogHost.Show(dialog, "RootDialog");     
                 }
             };
 
