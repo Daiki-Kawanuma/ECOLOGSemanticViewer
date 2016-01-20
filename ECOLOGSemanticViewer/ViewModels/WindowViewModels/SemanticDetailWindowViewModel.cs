@@ -15,6 +15,8 @@ using ECOLOGSemanticViewer.Models;
 using ECOLOGSemanticViewer.Views.Pages;
 using System.Windows.Controls;
 using ECOLOGSemanticViewer.Models.EcologModels;
+using ECOLOGSemanticViewer.ViewModels.PageViewModels;
+using System.Diagnostics;
 
 namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
 {
@@ -74,11 +76,23 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
 
         public SemanticDetailWindowViewModel()
         {
-            this.CurrentPage = new DetailEnergyPage();
+        }
+
+        public SemanticDetailWindowViewModel(SemanticLink link, TripDirection direction)
+        {
+            this.SemanticLink = link;
+            this.TripDirection = direction;
+
+            Initialize();
         }
 
         public void Initialize()
         {
+            Debug.WriteLine("SEMANTIC: " + this.SemanticLink + ", DIRECTION: " + this.TripDirection);
+
+            DetailEnergyPage page = new DetailEnergyPage();
+            page.DataContext = new DetailEnergyPageViewModel(this.SemanticLink, this.TripDirection);
+            this.CurrentPage = page;
         }
     }
 }

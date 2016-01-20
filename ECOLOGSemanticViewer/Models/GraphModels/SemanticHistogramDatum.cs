@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ECOLOGSemanticViewer.Models.GraphModels
 {
-    class SemanticHistogramDatum : NotificationObject
+    public class SemanticHistogramDatum : NotificationObject
     {
         public SemanticLink SemanticLink { get; set; }
 
@@ -33,6 +33,18 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
         public List<LevelAndValue> ModeData { get; set; }
 
         public List<LevelAndValue> UpperModeData { get; set; }
+
+        public double DistUnderMode { get; set; }
+
+        public double DistMode { get; set; }
+
+        public double DistUpperMode { get; set; }
+
+        public double CompMinMax { get; set; }
+
+        public double CompMinMode { get; set; }
+
+        public double CompModeMax { get; set; }
 
         private SemanticHistogramDatum()
         {
@@ -88,6 +100,14 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
                 .Where(v => v.Level > datum.ModeLevel)
                 .ToList();
 
+            datum.DistUnderMode = datum.UnderModeData.Sum(x => x.Value) * 100 / datum.HistogramData.Sum(x => x.Value);
+            datum.DistMode = datum.ModeData.Sum(x => x.Value) * 100 / datum.HistogramData.Sum(x => x.Value);
+            datum.DistUpperMode = datum.UpperModeData.Sum(x => x.Value) * 100 / datum.HistogramData.Sum(x => x.Value);
+
+            datum.CompMinMax = datum.MaxLevel * 100 / datum.MinLevel;
+            datum.CompMinMode = datum.ModeLevel * 100 / datum.MinLevel;
+            datum.CompModeMax = datum.MaxLevel * 100 / datum.ModeLevel;
+
             return datum;
         }
 
@@ -139,6 +159,14 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
                 .Where(v => v.Value <= datum.HistogramData.Max(x => x.Value) * 0.75)
                 .Where(v => v.Level > datum.ModeLevel)
                 .ToList();
+
+            datum.DistUnderMode = datum.UnderModeData.Sum(x => x.Value) * 100 / datum.HistogramData.Sum(x => x.Value);
+            datum.DistMode = datum.ModeData.Sum(x => x.Value) * 100 / datum.HistogramData.Sum(x => x.Value);
+            datum.DistUpperMode = datum.UpperModeData.Sum(x => x.Value) * 100 / datum.HistogramData.Sum(x => x.Value);
+
+            datum.CompMinMax = datum.MaxLevel * 100 / datum.MinLevel;
+            datum.CompMinMode = datum.ModeLevel * 100 / datum.MinLevel;
+            datum.CompModeMax = datum.MaxLevel * 100 / datum.ModeLevel;
 
             return datum;
         }

@@ -49,7 +49,7 @@ namespace ECOLOGSemanticViewer.Views.Pages
             var context = this.DataContext as DetailEnergyPageViewModel ;
             if (context == null) { return; }
 
-            context.SetMinAnnotation();
+            context.SetLevelAnnotation(context.EnergyHistogramDatum.MinLevel);
         }
 
         private void Button_Click_Mode(object sender, RoutedEventArgs e)
@@ -60,7 +60,7 @@ namespace ECOLOGSemanticViewer.Views.Pages
             var context = this.DataContext as DetailEnergyPageViewModel;
             if (context == null) { return; }
 
-            context.SetModeAnnotation();
+            context.SetLevelAnnotation(context.EnergyHistogramDatum.ModeLevel);
         }
 
         private void Button_Click_Median(object sender, RoutedEventArgs e)
@@ -71,7 +71,7 @@ namespace ECOLOGSemanticViewer.Views.Pages
             var context = this.DataContext as DetailEnergyPageViewModel;
             if (context == null) { return; }
 
-            context.SetMedianAnnotation();
+            context.SetLevelAnnotation(context.EnergyHistogramDatum.MedianLevel);
         }
 
         private void Button_Click_Max(object sender, RoutedEventArgs e)
@@ -82,7 +82,7 @@ namespace ECOLOGSemanticViewer.Views.Pages
             var context = this.DataContext as DetailEnergyPageViewModel;
             if (context == null) { return; }
 
-            context.SetMaxAnnotation();
+            context.SetLevelAnnotation(context.EnergyHistogramDatum.MaxLevel);
         }
 
         private void Button_Click_UnderMode(object sender, RoutedEventArgs e)
@@ -93,7 +93,7 @@ namespace ECOLOGSemanticViewer.Views.Pages
             var context = this.DataContext as DetailEnergyPageViewModel;
             if (context == null) { return; }
 
-            context.SetUnderModeAnnotation();
+            context.SetDistAnnotation(context.EnergyHistogramDatum.UnderModeData, context.DistUnderMode);
         }
 
         private void Button_Click_DistMode(object sender, RoutedEventArgs e)
@@ -104,7 +104,7 @@ namespace ECOLOGSemanticViewer.Views.Pages
             var context = this.DataContext as DetailEnergyPageViewModel;
             if (context == null) { return; }
 
-            context.SetDistModeAnnotation();
+            context.SetDistAnnotation(context.EnergyHistogramDatum.ModeData, context.DistMode);
         }
 
         private void Button_Click_UpperMode(object sender, RoutedEventArgs e)
@@ -115,7 +115,7 @@ namespace ECOLOGSemanticViewer.Views.Pages
             var context = this.DataContext as DetailEnergyPageViewModel;
             if (context == null) { return; }
 
-            context.SetUpperModeAnnotation();
+            context.SetDistAnnotation(context.EnergyHistogramDatum.UpperModeData, context.DistUpperMode);
         }
 
         private void Button_Click_ComMinMax(object sender, RoutedEventArgs e)
@@ -126,7 +126,7 @@ namespace ECOLOGSemanticViewer.Views.Pages
             var context = this.DataContext as DetailEnergyPageViewModel;
             if (context == null) { return; }
 
-            context.SetComMinMaxAnnotation();
+            context.SetCompAnnotation(context.EnergyHistogramDatum.MinLevel, context.EnergyHistogramDatum.MaxLevel);
         }
 
         private void Button_Click_ComMinMode(object sender, RoutedEventArgs e)
@@ -137,7 +137,7 @@ namespace ECOLOGSemanticViewer.Views.Pages
             var context = this.DataContext as DetailEnergyPageViewModel;
             if (context == null) { return; }
 
-            context.SetComMinModeAnnotation();
+            context.SetCompAnnotation(context.EnergyHistogramDatum.MinLevel, context.EnergyHistogramDatum.ModeLevel);
         }
 
         private void Button_Click_ComModeMax(object sender, RoutedEventArgs e)
@@ -148,7 +148,7 @@ namespace ECOLOGSemanticViewer.Views.Pages
             var context = this.DataContext as DetailEnergyPageViewModel;
             if (context == null) { return; }
 
-            context.SetComModeMaxAnnotation();
+            context.SetCompAnnotation(context.EnergyHistogramDatum.ModeLevel, context.EnergyHistogramDatum.MaxLevel);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

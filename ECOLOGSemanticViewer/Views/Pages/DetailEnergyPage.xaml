@@ -38,9 +38,10 @@
             <Button Grid.Row="0"
                     Margin="10,0,0,0"
                     HorizontalAlignment="Left"
+                    Click="Button_Click"
                     Content="Show map"
                     Foreground="{StaticResource AccentColorBrush}"
-                    Style="{StaticResource MaterialDesignToolButton}" Click="Button_Click" />
+                    Style="{StaticResource MaterialDesignToolButton}" />
 
             <oxy:PlotView Grid.Row="1"
                           Margin="10"
@@ -58,6 +59,15 @@
                 </Viewbox>
 
             </Button>-->
+
+            <ProgressBar Grid.Row="1"
+                         Width="100"
+                         Height="100"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         IsIndeterminate="True"
+                         Style="{StaticResource MaterialDesignCircularProgressBar}"
+                         Visibility="{Binding ProgressBarVisibility}" />
 
         </Grid>
 
@@ -88,30 +98,46 @@
                                 Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
                                 Click="Button_Click_Min"
-                                Content="Min: 0.146kWh"
-                                Style="{StaticResource MaterialDesignToolButton}" />
+                                Style="{StaticResource MaterialDesignToolButton}">
+
+                            <Button.Content>
+                                <TextBlock Text="{Binding Min, StringFormat='Min：{0:N3}kWh'}" />
+                            </Button.Content>
+                        </Button>
 
                         <Button Name="ButtonMode"
                                 Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
                                 Click="Button_Click_Mode"
-                                Content="Mode: 0.176kwh"
-                                Style="{StaticResource MaterialDesignToolButton}" />
+                                Style="{StaticResource MaterialDesignToolButton}">
+
+                            <Button.Content>
+                                <TextBlock Text="{Binding Mode, StringFormat='Mode：{0:N3}kWh'}" />
+                            </Button.Content>
+                        </Button>
 
                         <Button Name="ButtonMedian"
                                 Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
                                 Click="Button_Click_Median"
-                                Content="Median: 0.173kWh"
-                                Style="{StaticResource MaterialDesignToolButton}" />
+                                Style="{StaticResource MaterialDesignToolButton}">
+
+                            <Button.Content>
+                                <TextBlock Text="{Binding Median, StringFormat='Median：{0:N3}kWh'}" />
+                            </Button.Content>
+                        </Button>
 
 
                         <Button Name="ButtonMax"
                                 Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
                                 Click="Button_Click_Max"
-                                Content="Max: 0.196kWh"
-                                Style="{StaticResource MaterialDesignToolButton}" />
+                                Style="{StaticResource MaterialDesignToolButton}">
+
+                            <Button.Content>
+                                <TextBlock Text="{Binding Max, StringFormat='Max：{0:N3}kWh'}" />
+                            </Button.Content>
+                        </Button>
 
                     </StackPanel>
 
@@ -123,23 +149,35 @@
                                 Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
                                 Click="Button_Click_UnderMode"
-                                Content="Under mode: 26%"
-                                Style="{StaticResource MaterialDesignToolButton}" />
+                                Style="{StaticResource MaterialDesignToolButton}">
+
+                            <Button.Content>
+                                <TextBlock Text="{Binding DistUnderMode, StringFormat='Under mode：{0:N1}%'}" />
+                            </Button.Content>
+                        </Button>
 
 
                         <Button Name="ButtonDistMode"
                                 Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
                                 Click="Button_Click_DistMode"
-                                Content="Mode: 55%"
-                                Style="{StaticResource MaterialDesignToolButton}" />
+                                Style="{StaticResource MaterialDesignToolButton}">
+
+                            <Button.Content>
+                                <TextBlock Text="{Binding DistMode, StringFormat='Mode：{0:N1}%'}" />
+                            </Button.Content>
+                        </Button>
 
                         <Button Name="ButtonDistUpperMode"
                                 Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
                                 Click="Button_Click_UpperMode"
-                                Content="Upper mode: 19%"
-                                Style="{StaticResource MaterialDesignToolButton}" />
+                                Style="{StaticResource MaterialDesignToolButton}">
+
+                            <Button.Content>
+                                <TextBlock Text="{Binding DistUpperMode, StringFormat='Upper mode：{0:N1}%'}" />
+                            </Button.Content>
+                        </Button>
 
                     </StackPanel>
 
@@ -168,22 +206,34 @@
                                 Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
                                 Click="Button_Click_ComMinMax"
-                                Content="Min-Max: 33%"
-                                Style="{StaticResource MaterialDesignToolButton}" />
+                                Style="{StaticResource MaterialDesignToolButton}">
+
+                            <Button.Content>
+                                <TextBlock Text="{Binding CompMinMax, StringFormat='Min-Max：{0:N0}%'}" />
+                            </Button.Content>
+                        </Button>
 
                         <Button Name="ButtonComMinMode"
                                 Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
                                 Click="Button_Click_ComMinMode"
-                                Content="Min-Mode: 20%"
-                                Style="{StaticResource MaterialDesignToolButton}" />
+                                Style="{StaticResource MaterialDesignToolButton}">
+
+                            <Button.Content>
+                                <TextBlock Text="{Binding CompMinMode, StringFormat='Min-Mode：{0:N0}%'}" />
+                            </Button.Content>
+                        </Button>
 
                         <Button Name="ButtonComModeMax"
                                 Margin="5,0,0,0"
                                 HorizontalContentAlignment="Left"
                                 Click="Button_Click_ComModeMax"
-                                Content="Mode-Max: 12%"
-                                Style="{StaticResource MaterialDesignToolButton}" />
+                                Style="{StaticResource MaterialDesignToolButton}">
+
+                            <Button.Content>
+                                <TextBlock Text="{Binding CompModeMax, StringFormat='Mode-Max：{0:N0}%'}" />
+                            </Button.Content>
+                        </Button>
 
                     </StackPanel>
 

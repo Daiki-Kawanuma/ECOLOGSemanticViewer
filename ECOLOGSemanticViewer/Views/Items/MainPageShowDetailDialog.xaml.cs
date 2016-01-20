@@ -40,7 +40,7 @@ namespace ECOLOGSemanticViewer.Views.Items
         private void Button_ShowDetail(object sender, RoutedEventArgs e)
         {
             SemanticDetailWindow window = new SemanticDetailWindow();
-            window.DataContext = new SemanticDetailWindowViewModel() { SemanticLink = this.SemanticLink, TripDirection = this.TripDirection };
+            window.DataContext = new SemanticDetailWindowViewModel(this.SemanticLink, this.TripDirection);
 
             window.Show();
         }
