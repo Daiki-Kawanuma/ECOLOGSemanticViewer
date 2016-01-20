@@ -186,11 +186,15 @@
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
 
-                            <Button Grid.Column="0"
+                            <Button Name="ButtonAbsolute"
+                                    Grid.Column="0"
+                                    Click="Button_Click"
                                     Content="Absolute"
                                     Padding="0"
                                     Style="{StaticResource MaterialDesignFlatButton}" />
-                            <Button Grid.Column="1"
+                            <Button Name="ButtonRelative"
+                                    Grid.Column="1"
+                                    Click="Button_Click"
                                     Content="Relative"
                                     Padding="0"
                                     Style="{StaticResource MaterialDesignFlatButton}" />
@@ -204,7 +208,7 @@
                                 Style="{StaticResource MaterialDesignToolButton}">
 
                             <Button.Content>
-                                <TextBlock Text="{Binding CompMinMax, StringFormat='Min-Max：{0:N0}%'}" />
+                                <TextBlock Name="TextBlockCompMinMax" Text="{Binding CompMinMax, StringFormat='Min-Max：{0:N0}%'}" />
                             </Button.Content>
                         </Button>
 
@@ -215,7 +219,7 @@
                                 Style="{StaticResource MaterialDesignToolButton}">
 
                             <Button.Content>
-                                <TextBlock Text="{Binding CompMinMode, StringFormat='Min-Mode：{0:N0}%'}" />
+                                <TextBlock Name="TextBlockCompMinMode" Text="{Binding CompMinMode, StringFormat='Min-Mode：{0:N0}%'}" />
                             </Button.Content>
                         </Button>
 
@@ -226,7 +230,7 @@
                                 Style="{StaticResource MaterialDesignToolButton}">
 
                             <Button.Content>
-                                <TextBlock Text="{Binding CompModeMax, StringFormat='Mode-Max：{0:N0}%'}" />
+                                <TextBlock Name="TextBlockCompModeMax" Text="{Binding CompModeMax, StringFormat='Mode-Max：{0:N0}%'}" />
                             </Button.Content>
                         </Button>
 

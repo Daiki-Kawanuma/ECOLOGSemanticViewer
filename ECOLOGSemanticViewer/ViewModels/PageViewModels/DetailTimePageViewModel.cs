@@ -463,7 +463,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             this.PlotModel.InvalidatePlot(true);
         }
 
-        public void SetCompAnnotation(double low, double high)
+        public void SetCompAnnotation(double low, double high, bool isAbsolute)
         {
             this.PlotModel.Annotations.Clear();
 
@@ -491,7 +491,13 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             var textAnnotation = new TextAnnotation();
             textAnnotation.TextPosition = new DataPoint((float)(indexHigh + indexLow) / 2, this.PlotModel.Axes[1].ActualMaximum / 2);
-            textAnnotation.Text = String.Format("{0:f0}%", high * 100 / low);
+
+            if (isAbsolute)
+                textAnnotation.Text = String.Format("{0:f0}s", high - low);
+            else
+                textAnnotation.Text = String.Format("{0:f0}%", high * 100 / low);
+                
+
             textAnnotation.TextColor = OxyColors.Orange;
             textAnnotation.FontSize = 50;
             textAnnotation.FontWeight = FontWeights.Bold;
@@ -500,6 +506,11 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             this.PlotModel.Annotations.Add(textAnnotation);
 
             this.PlotModel.InvalidatePlot(true);
+        }
+
+        public void SetAbsoluteCompare()
+        {
+
         }
     }
 }

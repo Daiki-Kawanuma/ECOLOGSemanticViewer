@@ -198,10 +198,12 @@
                             <Button Grid.Column="0"
                                     Content="Absolute"
                                     Padding="0"
+                                    Click="Button_Click_Absolute"
                                     Style="{StaticResource MaterialDesignFlatButton}" />
                             <Button Grid.Column="1"
                                     Content="Relative"
                                     Padding="0"
+                                    Click="Button_Click_Relative"
                                     Style="{StaticResource MaterialDesignFlatButton}" />
 
                         </Grid>
@@ -213,7 +215,7 @@
                                 Style="{StaticResource MaterialDesignToolButton}">
 
                             <Button.Content>
-                                <TextBlock Text="{Binding CompMinMax, StringFormat='Min-Max：{0:N0}%'}" />
+                                <TextBlock Name="TextBlockCompMinMax" Text="{Binding CompMinMax, StringFormat='Min-Max：{0:N0}%'}" />
                             </Button.Content>
                         </Button>
 
@@ -224,7 +226,7 @@
                                 Style="{StaticResource MaterialDesignToolButton}">
 
                             <Button.Content>
-                                <TextBlock Text="{Binding CompMinMode, StringFormat='Min-Mode：{0:N0}%'}" />
+                                <TextBlock Name="TextBlockCompMinMode" Text="{Binding CompMinMode, StringFormat='Min-Mode：{0:N0}%'}" />
                             </Button.Content>
                         </Button>
 
@@ -235,7 +237,7 @@
                                 Style="{StaticResource MaterialDesignToolButton}">
 
                             <Button.Content>
-                                <TextBlock Text="{Binding CompModeMax, StringFormat='Mode-Max：{0:N0}%'}" />
+                                <TextBlock Name="TextBlockCompModeMax" Text="{Binding CompModeMax, StringFormat='Mode-Max：{0:N0}%'}" />
                             </Button.Content>
                         </Button>
 

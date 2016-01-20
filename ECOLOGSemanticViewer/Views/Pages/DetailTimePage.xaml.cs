@@ -21,6 +21,8 @@ namespace ECOLOGSemanticViewer.Views.Pages
     /// </summary>
     public partial class DetailTimePage : Page
     {
+        private bool isAbsolute = false;
+
         public DetailTimePage()
         {
             InitializeComponent();
@@ -45,6 +47,7 @@ namespace ECOLOGSemanticViewer.Views.Pages
             clearButtonCalar();
 
             Button button = (Button)sender;
+            if(button != this.ButtonAbsolute && button != this.ButtonRelative)
             button.Foreground = Brushes.Orange;
 
             var context = this.DataContext as DetailTimePageViewModel;
@@ -80,15 +83,15 @@ namespace ECOLOGSemanticViewer.Views.Pages
             }
             else if (button == this.ButtonComMinMax)
             {
-                context.SetCompAnnotation(context.TimeHistogramDatum.MinLevel, context.TimeHistogramDatum.MaxLevel);
+                context.SetCompAnnotation(context.TimeHistogramDatum.MinLevel, context.TimeHistogramDatum.MaxLevel, this.isAbsolute);
             }
             else if (button == this.ButtonComMinMode)
             {
-                context.SetCompAnnotation(context.TimeHistogramDatum.MinLevel, context.TimeHistogramDatum.ModeLevel);
+                context.SetCompAnnotation(context.TimeHistogramDatum.MinLevel, context.TimeHistogramDatum.ModeLevel, this.isAbsolute);
             }
             else if (button == this.ButtonComModeMax)
             {
-                context.SetCompAnnotation(context.TimeHistogramDatum.ModeLevel, context.TimeHistogramDatum.MaxLevel);
+                context.SetCompAnnotation(context.TimeHistogramDatum.ModeLevel, context.TimeHistogramDatum.MaxLevel, this.isAbsolute);
             }
             else if (button == this.ButtonNumber)
             {
@@ -97,6 +100,60 @@ namespace ECOLOGSemanticViewer.Views.Pages
             else if (button == this.ButtonPercent)
             {
                 context.createPercentModel();
+            }
+            else if (button == this.ButtonAbsolute)
+            {
+                this.isAbsolute = true;
+                context.CompMinMax = context.Max - context.Min;
+                context.CompMinMode = context.Mode - context.Min;
+                context.CompModeMax = context.Max - context.Mode;
+
+                var bindingMinMax = new Binding("CompMinMax")
+                {
+                    StringFormat = "Min-Max：{0:N0}s"
+                };
+                this.TextBlockCompMinMax.SetBinding(TextBlock.TextProperty, bindingMinMax);
+
+                var bindingMinMode = new Binding("CompMinMode")
+                {
+                    StringFormat = "Min-Mode：{0:N0}s"
+                };
+                this.TextBlockCompMinMode.SetBinding(TextBlock.TextProperty, bindingMinMode);
+
+                var bindingModeMax = new Binding("CompModeMax")
+                {
+                    StringFormat = "Mode-Max：{0:N0}s"
+                };
+                this.TextBlockCompModeMax.SetBinding(TextBlock.TextProperty, bindingModeMax);
+
+                this.InvalidateVisual();
+            }
+            else if (button == this.ButtonRelative)
+            {
+                this.isAbsolute = false;
+                context.CompMinMax = context.Max * 100 / context.Min;
+                context.CompMinMode = context.Mode * 100 / context.Min;
+                context.CompModeMax = context.Max * 100 / context.Mode;
+
+                var bindingMinMax = new Binding("CompMinMax")
+                {
+                    StringFormat = "Min-Max：{0:N0}%"
+                };
+                this.TextBlockCompMinMax.SetBinding(TextBlock.TextProperty, bindingMinMax);
+
+                var bindingMinMode = new Binding("CompMinMode")
+                {
+                    StringFormat = "Min-Mode：{0:N0}%"
+                };
+                this.TextBlockCompMinMode.SetBinding(TextBlock.TextProperty, bindingMinMode);
+
+                var bindingModeMax = new Binding("CompModeMax")
+                {
+                    StringFormat = "Mode-Max：{0:N0}%"
+                };
+                this.TextBlockCompModeMax.SetBinding(TextBlock.TextProperty, bindingModeMax);
+
+                this.InvalidateVisual();
             }
         }
     }

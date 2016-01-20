@@ -22,6 +22,8 @@ namespace ECOLOGSemanticViewer.Views.Pages
     /// </summary>
     public partial class DetailEnergyPage : Page
     {
+        private bool isAbsolute = false;
+
         public DetailEnergyPage()
         {
             InitializeComponent();
@@ -134,6 +136,68 @@ namespace ECOLOGSemanticViewer.Views.Pages
             context.SetDistAnnotation(context.EnergyHistogramDatum.UpperModeData, context.DistUpperMode);
         }
 
+        private void Button_Click_Absolute(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as DetailEnergyPageViewModel;
+            if (context == null) { return; }
+
+            this.isAbsolute = true;
+            context.CompMinMax = context.Max - context.Min;
+            context.CompMinMode = context.Mode - context.Min;
+            context.CompModeMax = context.Max - context.Mode;
+
+            var bindingMinMax = new Binding("CompMinMax")
+            {
+                StringFormat = "Min-Max：{0:N3}kWh"
+            };
+            this.TextBlockCompMinMax.SetBinding(TextBlock.TextProperty, bindingMinMax);
+
+            var bindingMinMode = new Binding("CompMinMode")
+            {
+                StringFormat = "Min-Mode：{0:N3}kWh"
+            };
+            this.TextBlockCompMinMode.SetBinding(TextBlock.TextProperty, bindingMinMode);
+
+            var bindingModeMax = new Binding("CompModeMax")
+            {
+                StringFormat = "Mode-Max：{0:N3}kWh"
+            };
+            this.TextBlockCompModeMax.SetBinding(TextBlock.TextProperty, bindingModeMax);
+
+            this.InvalidateVisual();
+        }
+
+        private void Button_Click_Relative(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as DetailEnergyPageViewModel;
+            if (context == null) { return; }
+
+            this.isAbsolute = false;
+            context.CompMinMax = context.Max * 100 / context.Min;
+            context.CompMinMode = context.Mode * 100 / context.Min;
+            context.CompModeMax = context.Max * 100 / context.Mode;
+
+            var bindingMinMax = new Binding("CompMinMax")
+            {
+                StringFormat = "Min-Max：{0:N0}%"
+            };
+            this.TextBlockCompMinMax.SetBinding(TextBlock.TextProperty, bindingMinMax);
+
+            var bindingMinMode = new Binding("CompMinMode")
+            {
+                StringFormat = "Min-Mode：{0:N0}%"
+            };
+            this.TextBlockCompMinMode.SetBinding(TextBlock.TextProperty, bindingMinMode);
+
+            var bindingModeMax = new Binding("CompModeMax")
+            {
+                StringFormat = "Mode-Max：{0:N0}%"
+            };
+            this.TextBlockCompModeMax.SetBinding(TextBlock.TextProperty, bindingModeMax);
+
+            this.InvalidateVisual();
+        }
+
         private void Button_Click_ComMinMax(object sender, RoutedEventArgs e)
         {
             clearButtonCalar();
@@ -142,7 +206,7 @@ namespace ECOLOGSemanticViewer.Views.Pages
             var context = this.DataContext as DetailEnergyPageViewModel;
             if (context == null) { return; }
 
-            context.SetCompAnnotation(context.EnergyHistogramDatum.MinLevel, context.EnergyHistogramDatum.MaxLevel);
+            context.SetCompAnnotation(context.EnergyHistogramDatum.MinLevel, context.EnergyHistogramDatum.MaxLevel, this.isAbsolute);
         }
 
         private void Button_Click_ComMinMode(object sender, RoutedEventArgs e)
@@ -153,7 +217,7 @@ namespace ECOLOGSemanticViewer.Views.Pages
             var context = this.DataContext as DetailEnergyPageViewModel;
             if (context == null) { return; }
 
-            context.SetCompAnnotation(context.EnergyHistogramDatum.MinLevel, context.EnergyHistogramDatum.ModeLevel);
+            context.SetCompAnnotation(context.EnergyHistogramDatum.MinLevel, context.EnergyHistogramDatum.ModeLevel, this.isAbsolute);
         }
 
         private void Button_Click_ComModeMax(object sender, RoutedEventArgs e)
@@ -164,7 +228,7 @@ namespace ECOLOGSemanticViewer.Views.Pages
             var context = this.DataContext as DetailEnergyPageViewModel;
             if (context == null) { return; }
 
-            context.SetCompAnnotation(context.EnergyHistogramDatum.ModeLevel, context.EnergyHistogramDatum.MaxLevel);
+            context.SetCompAnnotation(context.EnergyHistogramDatum.ModeLevel, context.EnergyHistogramDatum.MaxLevel, this.isAbsolute);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
