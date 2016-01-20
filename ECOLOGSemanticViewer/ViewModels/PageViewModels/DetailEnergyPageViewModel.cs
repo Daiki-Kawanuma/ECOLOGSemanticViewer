@@ -347,7 +347,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             plotModel.Axes.Add(axisY);
 
             ColumnSeries series = new ColumnSeries();
-            series.ItemsSource = _EnergyHistogramDatum.HistogramData;
+            series.ItemsSource = EnergyHistogramDatum.HistogramData;
             series.ValueField = "Value";
             series.FillColor = OxyColors.SkyBlue;
 

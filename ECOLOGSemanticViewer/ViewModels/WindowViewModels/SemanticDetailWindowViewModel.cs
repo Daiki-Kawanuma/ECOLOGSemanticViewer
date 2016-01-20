@@ -88,8 +88,6 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
 
         public void Initialize()
         {
-            Debug.WriteLine("SEMANTIC: " + this.SemanticLink + ", DIRECTION: " + this.TripDirection);
-
             DetailEnergyPage page = new DetailEnergyPage();
             page.DataContext = new DetailEnergyPageViewModel(this.SemanticLink, this.TripDirection);
             this.CurrentPage = page;

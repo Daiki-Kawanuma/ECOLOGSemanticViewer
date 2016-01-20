@@ -52,43 +52,51 @@ namespace ECOLOGSemanticViewer.Views.Pages
 
             if (button == this.ButtonMin)
             {
-                context.SetMinAnnotation();
+                context.SetLevelAnnotation(context.TimeHistogramDatum.MinLevel);
             }
             else if (button == this.ButtonMode)
             {
-                context.SetModeAnnotation();
+                context.SetLevelAnnotation(context.TimeHistogramDatum.ModeLevel);
             }
             else if (button == this.ButtonMedian)
             {
-                context.SetMedianAnnotation();
+                context.SetLevelAnnotation(context.TimeHistogramDatum.MedianLevel);
             }
             else if (button == this.ButtonMax)
             {
-                context.SetMaxAnnotation();
+                context.SetLevelAnnotation(context.TimeHistogramDatum.MaxLevel);
             }
             else if (button == this.ButtonDistUnderMode)
             {
-                context.SetDistUnderModeAnnotation();
+                context.SetDistAnnotation(context.TimeHistogramDatum.UnderModeData, context.DistUnderMode);
             }
             else if (button == this.ButtonDistMode)
             {
-                context.SetDistModeAnnotation();
+                context.SetDistAnnotation(context.TimeHistogramDatum.ModeData, context.DistMode);
             }
             else if (button == this.ButtonDistUpperMode)
             {
-                context.SetDistUpperModeAnnotation();
+                context.SetDistAnnotation(context.TimeHistogramDatum.UpperModeData, context.DistUpperMode);
             }
             else if (button == this.ButtonComMinMax)
             {
-                context.SetComMinMaxAnnotation();
+                context.SetCompAnnotation(context.TimeHistogramDatum.MinLevel, context.TimeHistogramDatum.MaxLevel);
             }
             else if (button == this.ButtonComMinMode)
             {
-                context.SetComMinModeAnnotation();
+                context.SetCompAnnotation(context.TimeHistogramDatum.MinLevel, context.TimeHistogramDatum.ModeLevel);
             }
             else if (button == this.ButtonComModeMax)
             {
-                context.SetComModeMaxAnnotation();
+                context.SetCompAnnotation(context.TimeHistogramDatum.ModeLevel, context.TimeHistogramDatum.MaxLevel);
+            }
+            else if (button == this.ButtonNumber)
+            {
+                context.createNumberModel();
+            }
+            else if (button == this.ButtonPercent)
+            {
+                context.createPercentModel();
             }
         }
     }

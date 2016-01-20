@@ -45,7 +45,9 @@ namespace ECOLOGSemanticViewer.Views.Windows
             var context = this.DataContext as SemanticDetailWindowViewModel;
             if (context == null) { return; }
 
-            context.CurrentPage = new DetailEnergyPage();
+            DetailEnergyPage page = new DetailEnergyPage();
+            page.DataContext = new DetailEnergyPageViewModel(context.SemanticLink, context.TripDirection);
+            context.CurrentPage = page;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -53,7 +55,9 @@ namespace ECOLOGSemanticViewer.Views.Windows
             var context = this.DataContext as SemanticDetailWindowViewModel;
             if (context == null) { return; }
 
-            context.CurrentPage = new DetailTimePage();
+            DetailTimePage page = new DetailTimePage();
+            page.DataContext = new DetailTimePageViewModel(context.SemanticLink, context.TripDirection);
+            context.CurrentPage = page;
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

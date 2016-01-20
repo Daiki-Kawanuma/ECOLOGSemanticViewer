@@ -16,12 +16,83 @@ using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Annotations;
 using OxyPlot.Series;
+using ECOLOGSemanticViewer.Models.GraphModels;
+using System.Threading.Tasks;
+using ECOLOGSemanticViewer.Models.EcologModels;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
     public class DetailTimePageViewModel : ViewModel
     {
         
+        #region SemanticLink変更通知プロパティ
+        private SemanticLink _SemanticLink;
+
+        public SemanticLink SemanticLink
+        {
+            get
+            { return _SemanticLink; }
+            set
+            { 
+                if (_SemanticLink == value)
+                    return;
+                _SemanticLink = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region TripDirection変更通知プロパティ
+        private TripDirection _TripDirection;
+
+        public TripDirection TripDirection
+        {
+            get
+            { return _TripDirection; }
+            set
+            { 
+                if (_TripDirection == value)
+                    return;
+                _TripDirection = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region EnergyHistogramDatum変更通知プロパティ
+        private SemanticHistogramDatum _TimeHistogramDatum;
+
+        public SemanticHistogramDatum TimeHistogramDatum
+        {
+            get
+            { return _TimeHistogramDatum; }
+            set
+            { 
+                if (_TimeHistogramDatum == value)
+                    return;
+                _TimeHistogramDatum = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region ProgressBarVisibility変更通知プロパティ
+        private System.Windows.Visibility _ProgressBarVisibility;
+
+        public System.Windows.Visibility ProgressBarVisibility
+        {
+            get
+            { return _ProgressBarVisibility; }
+            set
+            {
+                if (_ProgressBarVisibility == value)
+                    return;
+                _ProgressBarVisibility = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
         #region PlotModel変更通知プロパティ
         private PlotModel _PlotModel;
 
@@ -38,42 +109,233 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             }
         }
         #endregion
+      
+        #region Min変更通知プロパティ
+        private double _Min;
+
+        public double Min
+        {
+            get
+            { return _Min; }
+            set
+            { 
+                if (_Min == value)
+                    return;
+                _Min = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region Mode変更通知プロパティ
+        private double _Mode;
+
+        public double Mode
+        {
+            get
+            { return _Mode; }
+            set
+            { 
+                if (_Mode == value)
+                    return;
+                _Mode = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region Median変更通知プロパティ
+        private double _Median;
+
+        public double Median
+        {
+            get
+            { return _Median; }
+            set
+            { 
+                if (_Median == value)
+                    return;
+                _Median = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region Max変更通知プロパティ
+        private double _Max;
+
+        public double Max
+        {
+            get
+            { return _Max; }
+            set
+            { 
+                if (_Max == value)
+                    return;
+                _Max = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region DistUnderMode変更通知プロパティ
+        private double _DistUnderMode;
+
+        public double DistUnderMode
+        {
+            get
+            { return _DistUnderMode; }
+            set
+            { 
+                if (_DistUnderMode == value)
+                    return;
+                _DistUnderMode = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region DistMode変更通知プロパティ
+        private double _DistMode;
+
+        public double DistMode
+        {
+            get
+            { return _DistMode; }
+            set
+            { 
+                if (_DistMode == value)
+                    return;
+                _DistMode = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region DistUpperMode変更通知プロパティ
+        private double _DistUpperMode;
+
+        public double DistUpperMode
+        {
+            get
+            { return _DistUpperMode; }
+            set
+            { 
+                if (_DistUpperMode == value)
+                    return;
+                _DistUpperMode = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region CompMinMax変更通知プロパティ
+        private double _CompMinMax;
+
+        public double CompMinMax
+        {
+            get
+            { return _CompMinMax; }
+            set
+            { 
+                if (_CompMinMax == value)
+                    return;
+                _CompMinMax = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region CompMinMode変更通知プロパティ
+        private double _CompMinMode;
+
+        public double CompMinMode
+        {
+            get
+            { return _CompMinMode; }
+            set
+            { 
+                if (_CompMinMode == value)
+                    return;
+                _CompMinMode = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region CompModeMax変更通知プロパティ
+        private double _CompModeMax;
+
+        public double CompModeMax
+        {
+            get
+            { return _CompModeMax; }
+            set
+            { 
+                if (_CompModeMax == value)
+                    return;
+                _CompModeMax = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
 
         public DetailTimePageViewModel()
         {
+        }
+
+        public DetailTimePageViewModel(SemanticLink link, TripDirection direction)
+        {
+            this.SemanticLink = link;
+            this.TripDirection = direction;
+
             Initialize();
         }
 
         public void Initialize()
         {
-            this.PlotModel = createPlotModel();
+            this.ProgressBarVisibility = System.Windows.Visibility.Visible;
+            createPlotModel();
         }
 
-        private PlotModel createPlotModel()
+        private async void createPlotModel()
         {
-            List<LevelAndValue> source = new List<LevelAndValue>() { 
-                 
-                new LevelAndValue(){Level = 120, Value = 1},
-                new LevelAndValue(){Level = 143, Value = 15},
-                new LevelAndValue(){Level = 167, Value = 49},
-                new LevelAndValue(){Level = 190, Value = 87},
-                new LevelAndValue(){Level = 214, Value = 107},
-                new LevelAndValue(){Level = 237, Value = 105},
-                new LevelAndValue(){Level = 261, Value = 81},
-                new LevelAndValue(){Level = 284, Value = 57},
-                new LevelAndValue(){Level = 308, Value = 34},
-                new LevelAndValue(){Level = 331, Value = 31},
-                new LevelAndValue(){Level = 354, Value = 15},
-                new LevelAndValue(){Level = 378, Value = 18},
-            };
+            await Task.Run(() =>
+            {
+                this.TimeHistogramDatum = SemanticHistogramDatum.GetTimeInstance(this.SemanticLink, this.TripDirection);
+            });
 
+            setRepresentativeValue();
+
+            createNumberModel();
+        }
+
+        private void setRepresentativeValue()
+        {
+            this.Min = this.TimeHistogramDatum.MinLevel;
+            this.Mode = this.TimeHistogramDatum.ModeLevel;
+            this.Median = this.TimeHistogramDatum.MedianLevel;
+            this.Max = this.TimeHistogramDatum.MaxLevel;
+
+            this.DistUnderMode = this.TimeHistogramDatum.DistUnderMode;
+            this.DistMode = this.TimeHistogramDatum.DistMode;
+            this.DistUpperMode = this.TimeHistogramDatum.DistUpperMode;
+
+            this.CompMinMax = this.TimeHistogramDatum.CompMinMax;
+            this.CompMinMode = this.TimeHistogramDatum.CompMinMode;
+            this.CompModeMax = this.TimeHistogramDatum.CompModeMax;
+        }
+
+        public void createNumberModel()
+        {
             PlotModel plotModel = new PlotModel();
 
             CategoryAxis axisX = new CategoryAxis();
             axisX.Position = AxisPosition.Bottom;
-            axisX.ItemsSource = source;
+            axisX.ItemsSource = this.TimeHistogramDatum.HistogramData;
             axisX.GapWidth = 0.25;
             axisX.LabelField = "Level";
+            axisX.StringFormat = "0";
             axisX.Title = "Time [s]";
 
             LinearAxis axisY = new LinearAxis();
@@ -82,27 +344,40 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             plotModel.Axes.Add(axisX);
             plotModel.Axes.Add(axisY);
 
-            /*
-            RectangleAnnotation rectAannotation = new RectangleAnnotation();
-            rectAannotation.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
-            rectAannotation.MinimumY = axisY.Minimum;
-            rectAannotation.MaximumY = axisY.Maximum;
-            rectAannotation.MinimumX = 2.5;
-            rectAannotation.MaximumX = 6.5;
-            rectAannotation.Layer = AnnotationLayer.BelowSeries;
+            ColumnSeries series = new ColumnSeries();
+            series.ItemsSource = TimeHistogramDatum.HistogramData;
+            series.ValueField = "Value";
+            series.FillColor = OxyColors.SkyBlue;
 
-            plotModel.Annotations.Add(rectAannotation);
+            plotModel.Series.Add(series);
 
-            var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint(4.5, 75);
-            textAnnotation.Text = "67%";
-            textAnnotation.TextColor = OxyColors.Orange;
-            textAnnotation.FontSize = 50;
-            textAnnotation.FontWeight = FontWeights.Bold;
-            textAnnotation.Stroke = OxyColors.Transparent;
+            this.ProgressBarVisibility = System.Windows.Visibility.Collapsed;
+            this.PlotModel = plotModel;
+        }
 
-            plotModel.Annotations.Add(textAnnotation);
-            */
+        public void createPercentModel()
+        {
+            PlotModel plotModel = new PlotModel();
+
+            CategoryAxis axisX = new CategoryAxis();
+            axisX.Position = AxisPosition.Bottom;
+            axisX.ItemsSource = this.TimeHistogramDatum.HistogramData;
+            axisX.GapWidth = 0.25;
+            axisX.LabelField = "Level";
+            axisX.StringFormat = "0";
+            axisX.Title = "Time [s]";
+
+            LinearAxis axisY = new LinearAxis();
+            axisY.Title = "Percent";
+
+            plotModel.Axes.Add(axisX);
+            plotModel.Axes.Add(axisY);
+
+            List<LevelAndValue> source = new List<LevelAndValue>();
+            foreach (LevelAndValue item in this.TimeHistogramDatum.HistogramData)
+            {
+                source.Add(new LevelAndValue() { Level = item.Level, Value = item.Value * 100 / this.TimeHistogramDatum.HistogramData.Sum(v => v.Value) });
+            }
 
             ColumnSeries series = new ColumnSeries();
             series.ItemsSource = source;
@@ -111,24 +386,73 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             plotModel.Series.Add(series);
 
-            return plotModel;
+            this.ProgressBarVisibility = System.Windows.Visibility.Collapsed;
+            this.PlotModel = plotModel;
         }
 
-        public void SetMinAnnotation()
+        public void SetLevelAnnotation(double level)
         {
             this.PlotModel.Annotations.Clear();
 
+            int index = this.TimeHistogramDatum.HistogramData
+                .FindIndex(v => v.Level == Math.Ceiling(level / this.TimeHistogramDatum.ClassWidth) * this.TimeHistogramDatum.ClassWidth);
+
             RectangleAnnotation rectAannotation = new RectangleAnnotation();
             rectAannotation.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
-            rectAannotation.MinimumX = -0.5;
-            rectAannotation.MaximumX = 0.5;
+            rectAannotation.MinimumX = index - 0.5;
+            rectAannotation.MaximumX = index + 0.5;
+            rectAannotation.Layer = AnnotationLayer.BelowSeries;
+
+            this.PlotModel.Annotations.Add(rectAannotation);
+
+            // TODO アルゴリズム考えよう
+            int x;
+            if (index < 2)
+            {
+                x = 2;
+            }
+            else if (index > 8)
+            {
+                x = 8;
+            }
+            else
+            {
+                x = index;
+            }
+
+            var textAnnotation = new TextAnnotation();
+            textAnnotation.TextPosition = new DataPoint(x, this.PlotModel.Axes[1].ActualMaximum / 2);
+            textAnnotation.Text = String.Format("{0:f0}s", level);
+            textAnnotation.TextColor = OxyColors.Orange;
+            textAnnotation.FontSize = 50;
+            textAnnotation.FontWeight = FontWeights.Bold;
+            textAnnotation.Stroke = OxyColors.Transparent;
+
+            this.PlotModel.Annotations.Add(textAnnotation);
+            
+            this.PlotModel.InvalidatePlot(true);
+        }
+
+        public void SetDistAnnotation(List<LevelAndValue> seriesList, double percent)
+        {
+            this.PlotModel.Annotations.Clear();
+
+            int indexMin = this.TimeHistogramDatum.HistogramData
+                .FindIndex(a => a.Level == seriesList.Min(b => b.Level));
+            int indexMax = this.TimeHistogramDatum.HistogramData
+                .FindIndex(a => a.Level == seriesList.Max(b => b.Level));
+
+            RectangleAnnotation rectAannotation = new RectangleAnnotation();
+            rectAannotation.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
+            rectAannotation.MinimumX = indexMin - 0.5;
+            rectAannotation.MaximumX = indexMax + 0.5;
             rectAannotation.Layer = AnnotationLayer.BelowSeries;
 
             this.PlotModel.Annotations.Add(rectAannotation);
 
             var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint(1, 65);
-            textAnnotation.Text = "120s";
+            textAnnotation.TextPosition = new DataPoint((float)(indexMax + indexMin) / 2, this.PlotModel.Axes[1].ActualMaximum / 2);
+            textAnnotation.Text = String.Format("{0:f1}%", percent);
             textAnnotation.TextColor = OxyColors.Orange;
             textAnnotation.FontSize = 50;
             textAnnotation.FontWeight = FontWeights.Bold;
@@ -139,245 +463,35 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             this.PlotModel.InvalidatePlot(true);
         }
 
-        public void SetModeAnnotation()
+        public void SetCompAnnotation(double low, double high)
         {
             this.PlotModel.Annotations.Clear();
 
-            RectangleAnnotation rectAannotation = new RectangleAnnotation();
-            rectAannotation.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
-            rectAannotation.MinimumX = 3.5;
-            rectAannotation.MaximumX = 4.5;
-            rectAannotation.Layer = AnnotationLayer.BelowSeries;
+            int indexLow = this.TimeHistogramDatum.HistogramData
+                .FindIndex(v => v.Level == Math.Ceiling(low / this.TimeHistogramDatum.ClassWidth) * this.TimeHistogramDatum.ClassWidth);
 
-            this.PlotModel.Annotations.Add(rectAannotation);
-
-            var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint(5, 65);
-            textAnnotation.Text = "214s";
-            textAnnotation.TextColor = OxyColors.Orange;
-            textAnnotation.FontSize = 50;
-            textAnnotation.FontWeight = FontWeights.Bold;
-            textAnnotation.Stroke = OxyColors.Transparent;
-
-            this.PlotModel.Annotations.Add(textAnnotation);
-
-            this.PlotModel.InvalidatePlot(true);
-        }
-
-        public void SetMedianAnnotation()
-        {
-            this.PlotModel.Annotations.Clear();
-
-            RectangleAnnotation rectAannotation = new RectangleAnnotation();
-            rectAannotation.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
-            rectAannotation.MinimumX = 4.5;
-            rectAannotation.MaximumX = 5.5;
-            rectAannotation.Layer = AnnotationLayer.BelowSeries;
-
-            this.PlotModel.Annotations.Add(rectAannotation);
-
-            var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint(6, 65);
-            textAnnotation.Text = "227s";
-            textAnnotation.TextColor = OxyColors.Orange;
-            textAnnotation.FontSize = 50;
-            textAnnotation.FontWeight = FontWeights.Bold;
-            textAnnotation.Stroke = OxyColors.Transparent;
-
-            this.PlotModel.Annotations.Add(textAnnotation);
-
-            this.PlotModel.InvalidatePlot(true);
-        }
-
-        public void SetMaxAnnotation()
-        {
-            this.PlotModel.Annotations.Clear();
-
-            RectangleAnnotation rectAannotation = new RectangleAnnotation();
-            rectAannotation.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
-            rectAannotation.MinimumX = 10.5;
-            rectAannotation.MaximumX = 11.5;
-            rectAannotation.Layer = AnnotationLayer.BelowSeries;
-
-            this.PlotModel.Annotations.Add(rectAannotation);
-
-            var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint(10, 65);
-            textAnnotation.Text = "378s";
-            textAnnotation.TextColor = OxyColors.Orange;
-            textAnnotation.FontSize = 50;
-            textAnnotation.FontWeight = FontWeights.Bold;
-            textAnnotation.Stroke = OxyColors.Transparent;
-
-            this.PlotModel.Annotations.Add(textAnnotation);
-
-            this.PlotModel.InvalidatePlot(true);
-        }
-
-        public void SetDistUnderModeAnnotation()
-        {
-            this.PlotModel.Annotations.Clear();
-
-            RectangleAnnotation rectAannotation = new RectangleAnnotation();
-            rectAannotation.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
-            rectAannotation.MinimumX = -0.5;
-            rectAannotation.MaximumX = 2.5;
-            rectAannotation.Layer = AnnotationLayer.BelowSeries;
-
-            this.PlotModel.Annotations.Add(rectAannotation);
-
-            var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint(1, 65);
-            textAnnotation.Text = "11%";
-            textAnnotation.TextColor = OxyColors.Orange;
-            textAnnotation.FontSize = 50;
-            textAnnotation.FontWeight = FontWeights.Bold;
-            textAnnotation.Stroke = OxyColors.Transparent;
-
-            this.PlotModel.Annotations.Add(textAnnotation);
-
-            this.PlotModel.InvalidatePlot(true);
-        }
-
-        public void SetDistModeAnnotation()
-        {
-            this.PlotModel.Annotations.Clear();
-
-            RectangleAnnotation rectAannotation = new RectangleAnnotation();
-            rectAannotation.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
-            rectAannotation.MinimumX = 2.5;
-            rectAannotation.MaximumX = 6.5;
-            rectAannotation.Layer = AnnotationLayer.BelowSeries;
-
-            this.PlotModel.Annotations.Add(rectAannotation);
-
-            var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint(4, 65);
-            textAnnotation.Text = "63%";
-            textAnnotation.TextColor = OxyColors.Orange;
-            textAnnotation.FontSize = 50;
-            textAnnotation.FontWeight = FontWeights.Bold;
-            textAnnotation.Stroke = OxyColors.Transparent;
-
-            this.PlotModel.Annotations.Add(textAnnotation);
-
-            this.PlotModel.InvalidatePlot(true);
-        }
-
-        public void SetDistUpperModeAnnotation()
-        {
-            this.PlotModel.Annotations.Clear();
-
-            RectangleAnnotation rectAannotation = new RectangleAnnotation();
-            rectAannotation.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
-            rectAannotation.MinimumX = 6.5;
-            rectAannotation.MaximumX = 11.5;
-            rectAannotation.Layer = AnnotationLayer.BelowSeries;
-
-            this.PlotModel.Annotations.Add(rectAannotation);
-
-            var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint(8.5, 65);
-            textAnnotation.Text = "26%";
-            textAnnotation.TextColor = OxyColors.Orange;
-            textAnnotation.FontSize = 50;
-            textAnnotation.FontWeight = FontWeights.Bold;
-            textAnnotation.Stroke = OxyColors.Transparent;
-
-            this.PlotModel.Annotations.Add(textAnnotation);
-
-            this.PlotModel.InvalidatePlot(true);
-        }
-
-        public void SetComMinMaxAnnotation()
-        {
-            this.PlotModel.Annotations.Clear();
+            int indexHigh = this.TimeHistogramDatum.HistogramData
+                .FindIndex(v => v.Level == Math.Ceiling(high / this.TimeHistogramDatum.ClassWidth) * this.TimeHistogramDatum.ClassWidth);
 
             RectangleAnnotation rectAannotationMin = new RectangleAnnotation();
             rectAannotationMin.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
-            rectAannotationMin.MinimumX = -0.5;
-            rectAannotationMin.MaximumX = 0.5;
+            rectAannotationMin.MinimumX = indexLow - 0.5;
+            rectAannotationMin.MaximumX = indexLow + 0.5;
             rectAannotationMin.Layer = AnnotationLayer.BelowSeries;
 
             this.PlotModel.Annotations.Add(rectAannotationMin);
 
             RectangleAnnotation rectAannotationMax = new RectangleAnnotation();
             rectAannotationMax.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
-            rectAannotationMax.MinimumX = 10.5;
-            rectAannotationMax.MaximumX = 11.5;
+            rectAannotationMax.MinimumX = indexHigh - 0.5;
+            rectAannotationMax.MaximumX = indexHigh + 0.5;
             rectAannotationMax.Layer = AnnotationLayer.BelowSeries;
 
             this.PlotModel.Annotations.Add(rectAannotationMax);
 
             var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint(6, 65);
-            textAnnotation.Text = "215%";
-            textAnnotation.TextColor = OxyColors.Orange;
-            textAnnotation.FontSize = 50;
-            textAnnotation.FontWeight = FontWeights.Bold;
-            textAnnotation.Stroke = OxyColors.Transparent;
-
-            this.PlotModel.Annotations.Add(textAnnotation);
-
-            this.PlotModel.InvalidatePlot(true);
-        }
-
-        public void SetComMinModeAnnotation()
-        {
-            this.PlotModel.Annotations.Clear();
-
-            RectangleAnnotation rectAannotationMin = new RectangleAnnotation();
-            rectAannotationMin.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
-            rectAannotationMin.MinimumX = -0.5;
-            rectAannotationMin.MaximumX = 0.5;
-            rectAannotationMin.Layer = AnnotationLayer.BelowSeries;
-
-            this.PlotModel.Annotations.Add(rectAannotationMin);
-
-            RectangleAnnotation rectAannotationMax = new RectangleAnnotation();
-            rectAannotationMax.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
-            rectAannotationMax.MinimumX = 3.5;
-            rectAannotationMax.MaximumX = 4.5;
-            rectAannotationMax.Layer = AnnotationLayer.BelowSeries;
-
-            this.PlotModel.Annotations.Add(rectAannotationMax);
-
-            var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint(2, 65);
-            textAnnotation.Text = "78%";
-            textAnnotation.TextColor = OxyColors.Orange;
-            textAnnotation.FontSize = 50;
-            textAnnotation.FontWeight = FontWeights.Bold;
-            textAnnotation.Stroke = OxyColors.Transparent;
-
-            this.PlotModel.Annotations.Add(textAnnotation);
-
-            this.PlotModel.InvalidatePlot(true);
-        }
-
-        public void SetComModeMaxAnnotation()
-        {
-            this.PlotModel.Annotations.Clear();
-
-            RectangleAnnotation rectAannotationMin = new RectangleAnnotation();
-            rectAannotationMin.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
-            rectAannotationMin.MinimumX = 3.5;
-            rectAannotationMin.MaximumX = 4.5;
-            rectAannotationMin.Layer = AnnotationLayer.BelowSeries;
-
-            this.PlotModel.Annotations.Add(rectAannotationMin);
-
-            RectangleAnnotation rectAannotationMax = new RectangleAnnotation();
-            rectAannotationMax.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
-            rectAannotationMax.MinimumX = 10.5;
-            rectAannotationMax.MaximumX = 11.5;
-            rectAannotationMax.Layer = AnnotationLayer.BelowSeries;
-
-            this.PlotModel.Annotations.Add(rectAannotationMax);
-
-            var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint(8, 65);
-            textAnnotation.Text = "76%";
+            textAnnotation.TextPosition = new DataPoint((float)(indexHigh + indexLow) / 2, this.PlotModel.Axes[1].ActualMaximum / 2);
+            textAnnotation.Text = String.Format("{0:f0}%", high * 100 / low);
             textAnnotation.TextColor = OxyColors.Orange;
             textAnnotation.FontSize = 50;
             textAnnotation.FontWeight = FontWeights.Bold;
