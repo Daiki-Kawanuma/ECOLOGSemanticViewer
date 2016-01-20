@@ -18,6 +18,7 @@ using ECOLOGSemanticViewer.Utils;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
@@ -66,6 +67,23 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         }
         #endregion
 
+        #region ProgressBarVisibility変更通知プロパティ
+        private System.Windows.Visibility _ProgressBarVisibility;
+
+        public System.Windows.Visibility ProgressBarVisibility
+        {
+            get
+            { return _ProgressBarVisibility; }
+            set
+            {
+                if (_ProgressBarVisibility == value)
+                    return;
+                _ProgressBarVisibility = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
         public DetailHeatMapPageViewModel()
         {
             
@@ -83,13 +101,9 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             this.cars = cars;
             this.sensors = sensors;
 
-            this.dataTable = DatabaseAccesserEcolog.GetResult(createQuery());
-            Console.WriteLine("COUNT: " + dataTable.Rows.Count);
+            this.ProgressBarVisibility = System.Windows.Visibility.Visible;
 
-            calculateEnergyParameter();
-            calculateTimeParameter();
-
-            this.PlotModel = createPlotModel();
+            createPlotModel();
         }
 
 
@@ -214,28 +228,35 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         }
 
-        private PlotModel createPlotModel()
+        private async void createPlotModel()
         {
+            await Task.Run(() =>
+            {
+                this.dataTable = DatabaseAccesserEcolog.GetResult(createQuery());
+            });
+            
+            calculateEnergyParameter();
+            calculateTimeParameter();
 
-            var plotModel1 = new PlotModel();
-            plotModel1.Subtitle = "SemananticLink: " + semantciLink.Semantics + ", Direction: " + direction.Direction;
-            plotModel1.Title = "Semantic Matrix";
+            var plotModel = new PlotModel();
+            plotModel.Subtitle = "SemananticLink: " + semantciLink.Semantics + ", Direction: " + direction.Direction;
+            plotModel.Title = "Semantic Matrix";
 
-            var linearColorAxis1 = new LinearColorAxis();
-            linearColorAxis1.HighColor = OxyColors.Gray;
-            linearColorAxis1.LowColor = OxyColors.Black;
-            linearColorAxis1.Position = AxisPosition.Right;
-            plotModel1.Axes.Add(linearColorAxis1);
+            var linearColorAxis = new LinearColorAxis();
+            linearColorAxis.HighColor = OxyColors.Gray;
+            linearColorAxis.LowColor = OxyColors.Black;
+            linearColorAxis.Position = AxisPosition.Right;
+            plotModel.Axes.Add(linearColorAxis);
 
             var linearAxis1 = new LinearAxis();
             linearAxis1.Title = "Time";
             linearAxis1.Unit = "s";
             linearAxis1.Position = AxisPosition.Bottom;
-            plotModel1.Axes.Add(linearAxis1);
+            plotModel.Axes.Add(linearAxis1);
             var linearAxis2 = new LinearAxis();
             linearAxis2.Title = "Lost Energy";
             linearAxis2.Unit = "kWh";
-            plotModel1.Axes.Add(linearAxis2);
+            plotModel.Axes.Add(linearAxis2);
 
             var heatMapSeries1 = new HeatMapSeries();
             heatMapSeries1.LabelFormatString = "0";
@@ -258,8 +279,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
                 for (int j = 0; j < classNumber + 1; j++)
                 {
-                    // Console.WriteLine("TIME_P: " + preTimeLevel + ", TIME_C: " + currentTimeLevel + ", ENERGY_P: " + preEnergyLevel + ", ENERGY_C: " + currentEnergyLevel);
-
                     heatMapSeries1.Data[i, j] = dataTable.AsEnumerable()
                         .Where(x => x.Field<double>("SumLostEnergy") > preEnergyLevel)
                         .Where(x => x.Field<double>("SumLostEnergy") <= currentEnergyLevel)
@@ -295,8 +314,10 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             Console.WriteLine("COUNT: " + count);
 
-            plotModel1.Series.Add(heatMapSeries1);
-            return plotModel1;
+            plotModel.Series.Add(heatMapSeries1);
+
+            this.ProgressBarVisibility = System.Windows.Visibility.Collapsed;
+            this.PlotModel = plotModel;
 
         }
 

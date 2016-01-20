@@ -67,7 +67,8 @@ namespace ECOLOGSemanticViewer.Views.Windows
 
 
             DetailHeatMapPage page = new DetailHeatMapPage();
-            page.DataContext = new DetailHeatMapPageViewModel(new SemanticLink() { SemanticLinkId = 189}, new TripDirection() { Direction = "Outward" }, new List<Driver> { new Driver() { DriverId = 1 } }, new List<Car>() { new Car() { CarId = 1 }, new Car() { CarId = 3 } }, new List<Sensor>() { new Sensor() { SensorId = 12 } });
+            // TODO ここをMVVMに直す
+            page.DataContext = new DetailHeatMapPageViewModel(context.SemanticLink, context.TripDirection, new List<Driver> { new Driver() { DriverId = 1 } }, new List<Car>() { new Car() { CarId = 1 }, new Car() { CarId = 3 } }, new List<Sensor>() { new Sensor() { SensorId = 12 } });
 
             context.CurrentPage = page;
         }

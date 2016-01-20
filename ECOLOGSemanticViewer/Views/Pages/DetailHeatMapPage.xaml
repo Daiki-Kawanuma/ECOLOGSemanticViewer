@@ -28,5 +28,14 @@
                       Margin="10,10,5,10"
                       Model="{Binding PlotModel}" />
 
+        <ProgressBar Grid.Row="1"
+                         Width="100"
+                         Height="100"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         IsIndeterminate="True"
+                         Style="{StaticResource MaterialDesignCircularProgressBar}"
+                         Visibility="{Binding ProgressBarVisibility}" />
+
     </Grid>
 </Page>

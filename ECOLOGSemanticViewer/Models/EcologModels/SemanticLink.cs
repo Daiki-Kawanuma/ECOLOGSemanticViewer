@@ -184,7 +184,7 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("  DriverID,");
             query.AppendLine("  semantics");
             query.AppendLine("FROM default_Outward_SemanticLinks");
-            query.AppendLine("WHERE SemanticLinkID = 187 OR SemanticLinkID = 188 OR SemanticLinkID = 189 OR SemanticLinkID = 190");
+            query.AppendLine("WHERE SemanticLinkID = 187");
             query.AppendLine("ORDER BY SemanticLinkID");
 
             semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
