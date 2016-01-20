@@ -659,5 +659,71 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
 
             return ret;
         }
+
+        public static List<Ecolog> ExtractEcolog(int tripId, SemanticLink semanticLink){
+
+            var ret = new List<Ecolog>();
+
+            DataTable ecologTable = new DataTable();
+
+            StringBuilder query = new StringBuilder();
+            query.AppendLine("WITH SelectedSemanticLink");
+            query.AppendLine("AS (");
+            query.AppendLine("	SELECT *");
+            query.AppendLine("	FROM SEMANTIC_LINKS");
+            query.AppendLine("	WHERE SEMANTIC_LINK_ID = " + semanticLink.SemanticLinkId);
+            query.AppendLine("	)");
+            query.AppendLine("SELECT *");
+            query.AppendLine("FROM ecolog");
+            query.AppendLine("INNER JOIN SelectedSemanticLink ON ecolog.link_id = SelectedSemanticLink.link_id");
+            query.AppendLine("WHERE trip_id = " + tripId);
+            query.AppendLine("ORDER BY jst DESC");
+
+            ecologTable = DatabaseAccesserEcolog.GetResult(query.ToString());
+
+            for (int i = 0; i < ecologTable.Rows.Count; i++)
+            {
+                ret.Add(new Ecolog()
+                {
+                    TripId = (int)ecologTable.Rows[i]["trip_id"],
+                    DriverId = (int)ecologTable.Rows[i]["driver_id"],
+                    CarId = (int)ecologTable.Rows[i]["car_id"],
+                    SensorId = (int)ecologTable.Rows[i]["sensor_id"],
+                    Jst = (DateTime)ecologTable.Rows[i]["jst"],
+                    Latitude = (double)ecologTable.Rows[i]["latitude"],
+                    Longitude = (double)ecologTable.Rows[i]["longitude"],
+                    Speed = (float)ecologTable.Rows[i]["speed"],
+                    Heading = (float)ecologTable.Rows[i]["heading"],
+                    DistanceDifference = (float)ecologTable.Rows[i]["distance_difference"],
+                    TerrainAltitude = (float)ecologTable.Rows[i]["terrain_altitude"],
+                    TerrainAltitudeDifference = (float)ecologTable.Rows[i]["terrain_altitude_difference"],
+                    LongitudinalAcc = (ecologTable.Rows[i]["longitudinal_acc"] == DBNull.Value ? -1 : (float)ecologTable.Rows[i]["longitudinal_acc"]),
+                    LateralAcc = (ecologTable.Rows[i]["lateral_acc"] == DBNull.Value ? -1 : (float)ecologTable.Rows[i]["lateral_acc"]),
+                    VerticalAcc = (ecologTable.Rows[i]["vertical_acc"] == DBNull.Value ? -1 : (float)ecologTable.Rows[i]["vertical_acc"]),
+                    EnergyByAirResistance = (float)ecologTable.Rows[i]["energy_by_air_resistance"],
+                    EnergyByRollingResistance = (float)ecologTable.Rows[i]["energy_by_rolling_resistance"],
+                    EnergyByClimbingResistance = (float)ecologTable.Rows[i]["energy_by_climbing_resistance"],
+                    EnergyByAccResistance = (ecologTable.Rows[i]["energy_by_acc_resistance"] == DBNull.Value ? -1 : (float)ecologTable.Rows[i]["energy_by_acc_resistance"]),
+                    ConvertLoss = (float)ecologTable.Rows[i]["convert_loss"],
+                    RegeneLoss = (float)ecologTable.Rows[i]["regene_loss"],
+                    RegeneEnergy = (float)ecologTable.Rows[i]["regene_energy"],
+                    LostEnergy = (float)ecologTable.Rows[i]["lost_energy"],
+                    Efficiency = (float)ecologTable.Rows[i]["efficiency"],
+                    ConsumedElectricEnergy = (float)ecologTable.Rows[i]["consumed_electric_energy"],
+                    LostEnergyByWellToWheel = (ecologTable.Rows[i]["lost_energy_by_well_to_wheel"] == DBNull.Value ? -1 : (float)ecologTable.Rows[i]["lost_energy_by_well_to_wheel"]),
+                    ConsumedFuel = (ecologTable.Rows[i]["consumed_fuel"] == DBNull.Value ? -1 : (float)ecologTable.Rows[i]["consumed_fuel"]),
+                    ConsumedFuelByWellToWheel = (ecologTable.Rows[i]["consumed_fuel_by_well_to_wheel"] == DBNull.Value ? -1 : (float)ecologTable.Rows[i]["consumed_fuel_by_well_to_wheel"]),
+                    EnergyByEquipment = (ecologTable.Rows[i]["energy_by_equipment"] == DBNull.Value ? -1 : (float)ecologTable.Rows[i]["energy_by_equipment"]),
+                    EnergyByCooling = (ecologTable.Rows[i]["energy_by_cooling"] == DBNull.Value ? -1 : (float)ecologTable.Rows[i]["energy_by_cooling"]),
+                    EnergyByHeating = (ecologTable.Rows[i]["energy_by_heating"] == DBNull.Value ? -1 : (float)ecologTable.Rows[i]["energy_by_heating"]),
+                    TripDirection = (ecologTable.Rows[i]["trip_direction"] == DBNull.Value ? null : (string)ecologTable.Rows[i]["trip_direction"]),
+                    MeshId = (ecologTable.Rows[i]["mesh_id"] == DBNull.Value ? -1 : (int)ecologTable.Rows[i]["mesh_id"]),
+                    LinkId = (ecologTable.Rows[i]["link_id"] == DBNull.Value ? null : (string)ecologTable.Rows[i]["link_id"]),
+                    RoadTheta = (ecologTable.Rows[i]["road_theta"] == DBNull.Value ? -1 : (float)ecologTable.Rows[i]["road_theta"])
+                });
+            }
+
+            return ret;
+        }
     }
 }

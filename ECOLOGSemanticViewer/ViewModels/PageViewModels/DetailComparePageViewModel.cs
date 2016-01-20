@@ -15,15 +15,16 @@ using ECOLOGSemanticViewer.Models;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
+using ECOLOGSemanticViewer.Models.GraphModels;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
     public class DetailComparePageViewModel : ViewModel
     {
         #region GrapTypes変更通知プロパティ
-        private List<string> _GrapTypes;
+        private List<DetailCompareGraphType> _GrapTypes;
 
-        public List<string> GrapTypes
+        public List<DetailCompareGraphType> GrapTypes
         {
             get
             { return _GrapTypes; }
@@ -38,9 +39,9 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         #endregion
 
         #region CurrentGraphType変更通知プロパティ
-        private string _CurrentGraphType;
+        private DetailCompareGraphType _CurrentGraphType;
 
-        public string CurrentGraphType
+        public DetailCompareGraphType CurrentGraphType
         {
             get
             { return _CurrentGraphType; }
@@ -55,9 +56,9 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         #endregion
 
         #region AxisXTypes変更通知プロパティ
-        private List<string> _AxisXTypes;
+        private List<DetailCompareGraphType> _AxisXTypes;
 
-        public List<string> AxisXTypes
+        public List<DetailCompareGraphType> AxisXTypes
         {
             get
             { return _AxisXTypes; }
@@ -72,9 +73,9 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         #endregion
 
         #region CurrentAxisX変更通知プロパティ
-        private string _CurrentAxisX;
+        private DetailCompareGraphType _CurrentAxisX;
 
-        public string CurrentAxisX
+        public DetailCompareGraphType CurrentAxisX
         {
             get
             { return _CurrentAxisX; }
@@ -83,40 +84,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 if (_CurrentAxisX == value)
                     return;
                 _CurrentAxisX = value;
-                RaisePropertyChanged();
-            }
-        }
-        #endregion
-
-        #region AxisYTypes変更通知プロパティ
-        private List<string> _AxisYTypes;
-
-        public List<string> AxisYTypes
-        {
-            get
-            { return _AxisYTypes; }
-            set
-            { 
-                if (_AxisYTypes == value)
-                    return;
-                _AxisYTypes = value;
-                RaisePropertyChanged();
-            }
-        }
-        #endregion
-
-        #region CurrentAxisY変更通知プロパティ
-        private string _CurrentAxisY;
-
-        public string CurrentAxisY
-        {
-            get
-            { return _CurrentAxisY; }
-            set
-            { 
-                if (_CurrentAxisY == value)
-                    return;
-                _CurrentAxisY = value;
                 RaisePropertyChanged();
             }
         }
@@ -197,9 +164,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         public void Initialize()
         {
-            GrapTypes = new List<string>() { "Speed transition graph" , "Acc transition graph", "Energy stack graph"};
-            AxisXTypes = new List<string>() { "distance", "time"};
-            AxisYTypes = new List<string>() { "AxisY_1", "AxisY_2", "AxisY_3" };
+            GrapTypes = DetailCompareGraphType.GetAllGraphTypes();
+            AxisXTypes = DetailCompareGraphType.GetAllAxesTypes(); ;
 
             this.PlotModelMin = createSpeedGraphModel();
             this.PlotModelMedian = createAccGrapModel();
