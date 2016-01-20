@@ -309,6 +309,27 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             setRepresentativeValue();
 
+            createNumberModel();
+        }
+
+        private void setRepresentativeValue()
+        {
+            this.Min = this.EnergyHistogramDatum.MinLevel;
+            this.Mode = this.EnergyHistogramDatum.ModeLevel;
+            this.Median = this.EnergyHistogramDatum.MedianLevel;
+            this.Max = this.EnergyHistogramDatum.MaxLevel;
+
+            this.DistUnderMode = this.EnergyHistogramDatum.DistUnderMode;
+            this.DistMode = this.EnergyHistogramDatum.DistMode;
+            this.DistUpperMode = this.EnergyHistogramDatum.DistUpperMode;
+
+            this.CompMinMax = this.EnergyHistogramDatum.CompMinMax;
+            this.CompMinMode = this.EnergyHistogramDatum.CompMinMode;
+            this.CompModeMax = this.EnergyHistogramDatum.CompModeMax;
+        }
+
+        public void createNumberModel()
+        {
             PlotModel plotModel = new PlotModel();
 
             CategoryAxis axisX = new CategoryAxis();
@@ -336,20 +357,39 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             this.PlotModel = plotModel;
         }
 
-        private void setRepresentativeValue()
+        public void createPercentModel()
         {
-            this.Min = this.EnergyHistogramDatum.MinLevel;
-            this.Mode = this.EnergyHistogramDatum.ModeLevel;
-            this.Median = this.EnergyHistogramDatum.MedianLevel;
-            this.Max = this.EnergyHistogramDatum.MaxLevel;
+            PlotModel plotModel = new PlotModel();
 
-            this.DistUnderMode = this.EnergyHistogramDatum.DistUnderMode;
-            this.DistMode = this.EnergyHistogramDatum.DistMode;
-            this.DistUpperMode = this.EnergyHistogramDatum.DistUpperMode;
+            CategoryAxis axisX = new CategoryAxis();
+            axisX.Position = AxisPosition.Bottom;
+            axisX.ItemsSource = this.EnergyHistogramDatum.HistogramData;
+            axisX.GapWidth = 0.25;
+            axisX.LabelField = "Level";
+            axisX.StringFormat = "0.000";
+            axisX.Title = "Lost energy [kWh]";
 
-            this.CompMinMax = this.EnergyHistogramDatum.CompMinMax;
-            this.CompMinMode = this.EnergyHistogramDatum.CompMinMode;
-            this.CompModeMax = this.EnergyHistogramDatum.CompModeMax;
+            LinearAxis axisY = new LinearAxis();
+            axisY.Title = "Percent";
+
+            plotModel.Axes.Add(axisX);
+            plotModel.Axes.Add(axisY);
+
+            List<LevelAndValue> source = new List<LevelAndValue>();
+            foreach (LevelAndValue item in this.EnergyHistogramDatum.HistogramData)
+            {
+                source.Add(new LevelAndValue() { Level = item.Level, Value = item.Value * 100 / this.EnergyHistogramDatum.HistogramData.Sum(v => v.Value) });
+            }
+
+            ColumnSeries series = new ColumnSeries();
+            series.ItemsSource = source;
+            series.ValueField = "Value";
+            series.FillColor = OxyColors.SkyBlue;
+
+            plotModel.Series.Add(series);
+
+            this.ProgressBarVisibility = System.Windows.Visibility.Collapsed;
+            this.PlotModel = plotModel;
         }
 
         public void SetLevelAnnotation(double level)
@@ -383,7 +423,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             }
 
             var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint(x, this.EnergyHistogramDatum.HistogramData.Max(v => v.Value) / 2);
+            textAnnotation.TextPosition = new DataPoint(x, this.PlotModel.Axes[1].ActualMaximum / 2);
             textAnnotation.Text = String.Format("{0:f3}kWh", level);
             textAnnotation.TextColor = OxyColors.Orange;
             textAnnotation.FontSize = 50;
@@ -413,7 +453,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             this.PlotModel.Annotations.Add(rectAannotation);
 
             var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint((float)(indexMax + indexMin) / 2, this.EnergyHistogramDatum.HistogramData.Max(v => v.Value) / 2);
+            textAnnotation.TextPosition = new DataPoint((float)(indexMax + indexMin) / 2, this.PlotModel.Axes[1].ActualMaximum / 2);
             textAnnotation.Text = String.Format("{0:f1}%", percent);
             textAnnotation.TextColor = OxyColors.Orange;
             textAnnotation.FontSize = 50;
@@ -452,7 +492,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             this.PlotModel.Annotations.Add(rectAannotationMax);
 
             var textAnnotation = new TextAnnotation();
-            textAnnotation.TextPosition = new DataPoint((float)(indexHigh + indexLow) / 2, this.EnergyHistogramDatum.HistogramData.Max(v => v.Value) / 2);
+            textAnnotation.TextPosition = new DataPoint((float)(indexHigh + indexLow) / 2, this.PlotModel.Axes[1].ActualMaximum / 2);
             textAnnotation.Text = String.Format("{0:f0}%", high * 100 / low);
             textAnnotation.TextColor = OxyColors.Orange;
             textAnnotation.FontSize = 50;

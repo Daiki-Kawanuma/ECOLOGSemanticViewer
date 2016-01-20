@@ -41,6 +41,22 @@ namespace ECOLOGSemanticViewer.Views.Pages
             this.ButtonComModeMax.Foreground = SystemColors.ControlDarkDarkBrush;
         }
 
+        private void Button_Click_Number(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as DetailEnergyPageViewModel;
+            if (context == null) { return; }
+
+            context.createNumberModel();
+        }
+
+        private void Button_Click_Percent(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as DetailEnergyPageViewModel;
+            if (context == null) { return; }
+
+            context.createPercentModel();
+        }
+
         private void Button_Click_Min(object sender, RoutedEventArgs e)
         {
             clearButtonCalar();

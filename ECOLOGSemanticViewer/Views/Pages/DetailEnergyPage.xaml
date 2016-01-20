@@ -85,8 +85,12 @@
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="0" Content="Number" />
-                        <Button Grid.Column="1" Content="Percent" />
+                        <Button Grid.Column="0"
+                                Click="Button_Click_Number"
+                                Content="Number" />
+                        <Button Grid.Column="1"
+                                Click="Button_Click_Percent"
+                                Content="Percent" />
 
                     </Grid>
 
