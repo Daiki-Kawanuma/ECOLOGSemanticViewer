@@ -400,6 +400,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             {
                 List<Ecolog> ecologs = null;
                 List<DetailCompareSeriesDatum> data = null;
+                String axisXString = null;
 
                 await Task.Run(() =>
                 {
@@ -407,9 +408,11 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
                     switch(CurrentAxisX){
                         case DetailCompareGraphType.Axes.Time:
+                            axisXString = "Time [s]";
                             data = DetailCompareSeriesDatum.CreateTimeSpeedData(ecologs);
                             break;
                         case DetailCompareGraphType.Axes.Distance:
+                            axisXString = "Distance [m]";
                             data = DetailCompareSeriesDatum.CreateDistanceSpeedData(ecologs);
                             break;
                     }
@@ -419,7 +422,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
                 LinearAxis axisX = new LinearAxis();
                 axisX.Position = AxisPosition.Bottom;
-                axisX.Title = "Time";
+                axisX.Title = axisXString;
 
                 LinearAxis axisY = new LinearAxis();
                 axisY.Title = "Speed [km/h]";
@@ -458,6 +461,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             {
                 List<Ecolog> ecologs = null;
                 List<DetailCompareSeriesDatum> data = null;
+                String axisXString = null;
 
                 await Task.Run(() =>
                 {
@@ -466,9 +470,11 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                     switch (CurrentAxisX)
                     {
                         case DetailCompareGraphType.Axes.Time:
+                            axisXString = "Time [s]";
                             data = DetailCompareSeriesDatum.CreateTimeAccData(ecologs);
                             break;
                         case DetailCompareGraphType.Axes.Distance:
+                            axisXString = "Distance [m]";
                             data = DetailCompareSeriesDatum.CreateDistanceAccData(ecologs);
                             break;
                     }
@@ -478,7 +484,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
                 LinearAxis axisX = new LinearAxis();
                 axisX.Position = AxisPosition.Bottom;
-                axisX.Title = "Time";
+                axisX.Title = axisXString;
 
                 LinearAxis axisY = new LinearAxis();
                 axisY.Title = "Acc [m/s^2]";
@@ -511,86 +517,91 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             }
         }
 
-        private PlotModel createStackedEnergyGraphModels()
+        private async void createStackedEnergyGraphModels()
         {
-            int seed = Environment.TickCount;
-            Random random = new Random(seed);
-
-            List<LevelAndValue> sourceRolling = new List<LevelAndValue>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < TripIDs.Count; i++)
             {
-                sourceRolling.Add(new LevelAndValue() { Level = i, Value = random.NextDouble()});
+                List<Ecolog> ecologs = null;
+                List<DetailCompareSeriesDatum> data = null;
+                String axisXString = null;
+
+                await Task.Run(() =>
+                {
+                    ecologs = Ecolog.ExtractEcolog(TripIDs[i], SelectedSemanticLink);
+
+                    switch (CurrentAxisX)
+                    {
+                        case DetailCompareGraphType.Axes.Time:
+                            axisXString = "Time [s]";
+                            data = DetailCompareSeriesDatum.CreateTimeStackData(ecologs);
+                            break;
+                        case DetailCompareGraphType.Axes.Distance:
+                            axisXString = "Distance [m]";
+                            data = DetailCompareSeriesDatum.CreateDistanceStackData(ecologs);
+                            break;
+                    }
+                });
+
+                PlotModel plotModel = new PlotModel();
+
+                CategoryAxis axisX = new CategoryAxis();
+                axisX.Position = AxisPosition.Bottom;
+                axisX.ItemsSource = data;
+                axisX.StringFormat = "0";
+                axisX.MajorStep = 10;
+                axisX.LabelField = "X";
+                axisX.Title = axisXString;
+
+                LinearAxis axisY = new LinearAxis();
+                axisY.Title = "[kWh]";
+
+                plotModel.Axes.Add(axisX);
+                plotModel.Axes.Add(axisY);
+
+                ColumnSeries seriesRolling = new ColumnSeries();
+                seriesRolling.ItemsSource = data;
+                seriesRolling.ValueField = "RollingLoss";
+                seriesRolling.FillColor = OxyColors.Orange;
+                seriesRolling.IsStacked = true;
+                plotModel.Series.Add(seriesRolling);
+
+                ColumnSeries seriesRegeneLoss = new ColumnSeries();
+                seriesRegeneLoss.ItemsSource = data;
+                seriesRegeneLoss.ValueField = "RegeneLoss";
+                seriesRegeneLoss.FillColor = OxyColors.DeepPink;
+                seriesRegeneLoss.IsStacked = true;
+                plotModel.Series.Add(seriesRegeneLoss);
+
+                ColumnSeries seriesAir = new ColumnSeries();
+                seriesAir.ItemsSource = data;
+                seriesAir.ValueField = "AirLoss";
+                seriesAir.FillColor = OxyColors.Yellow;
+                seriesAir.IsStacked = true;
+                plotModel.Series.Add(seriesAir);
+
+                ColumnSeries seriesConvertLoss = new ColumnSeries();
+                seriesConvertLoss.ItemsSource = data;
+                seriesConvertLoss.ValueField = "ConvertLoss";
+                seriesConvertLoss.FillColor = OxyColors.Red;
+                seriesConvertLoss.IsStacked = true;
+                plotModel.Series.Add(seriesConvertLoss);
+
+                switch (i)
+                {
+                    case 0:
+                        LabelMinText = "Min trip: TripID = " + TripIDs[i] + ", StartTime = " + ecologs.Min(v => v.Jst);
+                        PlotModelMin = plotModel;
+                        break;
+                    case 1:
+                        LabelMedianText = "Median trip: TripID = " + TripIDs[i] + ", StartTime = " + ecologs.Min(v => v.Jst);
+                        PlotModelMedian = plotModel;
+                        break;
+                    case 2:
+                        LabelMaxText = "Max trip: TripID = " + TripIDs[i] + ", StartTime = " + ecologs.Min(v => v.Jst);
+                        PlotModelMax = plotModel;
+                        break;
+                }
             }
-
-            random = new Random(++seed);
-
-            List<LevelAndValue> sourceAir = new List<LevelAndValue>();
-            for (int i = 0; i < 100; i++)
-            {
-                sourceAir.Add(new LevelAndValue() { Level = i, Value = random.NextDouble() });
-            }
-
-            random = new Random(++seed);
-
-            List<LevelAndValue> sourceConvertLoss = new List<LevelAndValue>();
-            for (int i = 0; i < 100; i++)
-            {
-                sourceConvertLoss.Add(new LevelAndValue() { Level = i, Value = random.NextDouble() });
-            }
-
-            random = new Random(++seed);
-
-            List<LevelAndValue> sourceRegeneLoss = new List<LevelAndValue>();
-            for (int i = 0; i < 100; i++)
-            {
-                sourceRegeneLoss.Add(new LevelAndValue() { Level = i, Value = random.NextDouble() });
-            }
-
-            PlotModel plotModel = new PlotModel();
-
-            CategoryAxis axisX = new CategoryAxis();
-            axisX.Position = AxisPosition.Bottom;
-            axisX.ItemsSource = sourceRolling;
-            axisX.GapWidth = 0;
-            axisX.MajorStep = 10;
-            axisX.LabelField = "Level";
-            axisX.Title = "distance [m]";
-
-            LinearAxis axisY = new LinearAxis();
-            axisY.Title = "Number";
-
-            plotModel.Axes.Add(axisX);
-            plotModel.Axes.Add(axisY);
-
-            ColumnSeries seriesRolling = new ColumnSeries();
-            seriesRolling.ItemsSource = sourceRolling;
-            seriesRolling.ValueField = "Value";
-            seriesRolling.FillColor = OxyColors.Orange;
-            seriesRolling.IsStacked = true;
-            plotModel.Series.Add(seriesRolling);
-
-            ColumnSeries seriesRegeneLoss = new ColumnSeries();
-            seriesRegeneLoss.ItemsSource = sourceRegeneLoss;
-            seriesRegeneLoss.ValueField = "Value";
-            seriesRegeneLoss.FillColor = OxyColors.DeepPink;
-            seriesRegeneLoss.IsStacked = true;
-            plotModel.Series.Add(seriesRegeneLoss);
-
-            ColumnSeries seriesAir = new ColumnSeries();
-            seriesAir.ItemsSource = sourceAir;
-            seriesAir.ValueField = "Value";
-            seriesAir.FillColor = OxyColors.Yellow;
-            seriesAir.IsStacked = true;
-            plotModel.Series.Add(seriesAir);
-
-            ColumnSeries seriesConvertLoss = new ColumnSeries();
-            seriesConvertLoss.ItemsSource = sourceConvertLoss;
-            seriesConvertLoss.ValueField = "Value";
-            seriesConvertLoss.FillColor = OxyColors.Red;
-            seriesConvertLoss.IsStacked = true;
-            plotModel.Series.Add(seriesConvertLoss);
-
-            return plotModel;
         }
     }
 }
