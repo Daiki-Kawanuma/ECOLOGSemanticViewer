@@ -131,7 +131,6 @@
     <Compile Include="Views\Pages\CompareTimePage.xaml.cs">
       <DependentUpon>CompareTimePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\DetailCamparePageViewModel.cs" />
     <Compile Include="Views\Pages\DetailEnergyPage.xaml.cs">
       <DependentUpon>DetailEnergyPage.xaml</DependentUpon>
     </Compile>
