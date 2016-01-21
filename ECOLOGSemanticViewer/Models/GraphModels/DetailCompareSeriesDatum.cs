@@ -33,7 +33,6 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 
         public static List<DetailCompareSeriesDatum> CreateDistanceSpeedData(List<Ecolog> ecologs)
         {
-            DateTime min = ecologs.Min(v => v.Jst);
             var ret = new List<DetailCompareSeriesDatum>();
 
             double sumDistanceDifference = 0;
@@ -46,6 +45,49 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
                     Y = ecolog.Speed
                 });
 
+                sumDistanceDifference += ecolog.DistanceDifference;
+            }
+
+            return ret;
+        }
+
+        public static List<DetailCompareSeriesDatum> CreateTimeAccData(List<Ecolog> ecologs)
+        {
+            DateTime min = ecologs.Min(v => v.Jst);
+            var ret = new List<DetailCompareSeriesDatum>();
+
+            double preSpeed = 0;
+
+            foreach (Ecolog ecolog in ecologs)
+            {
+                ret.Add(new DetailCompareSeriesDatum()
+                {
+                    X = (int)new TimeSpan(ecolog.Jst.Ticks - min.Ticks).TotalSeconds,
+                    Y = (ecolog.Speed - preSpeed) / 3.6 // m/s^2
+                });
+
+                preSpeed = ecolog.Speed;
+            }
+
+            return ret;
+        }
+
+        public static List<DetailCompareSeriesDatum> CreateDistanceAccData(List<Ecolog> ecologs)
+        {
+            var ret = new List<DetailCompareSeriesDatum>();
+
+            double preSpeed = 0;
+            double sumDistanceDifference = 0;
+
+            foreach (Ecolog ecolog in ecologs)
+            {
+                ret.Add(new DetailCompareSeriesDatum()
+                {
+                    X = sumDistanceDifference,
+                    Y = (ecolog.Speed - preSpeed) / 3.6 // m/s^2
+                });
+
+                preSpeed = ecolog.Speed;
                 sumDistanceDifference += ecolog.DistanceDifference;
             }
 

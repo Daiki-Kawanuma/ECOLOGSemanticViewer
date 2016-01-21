@@ -452,33 +452,63 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             }
         }
 
-        private PlotModel createAccGraphModels()
+        private async void createAccGraphModels()
         {
-            PlotModel plotModel = new PlotModel();
-
-            LinearAxis axisX = new LinearAxis();
-            axisX.Position = AxisPosition.Bottom;
-            axisX.Title = "distance [m]";
-
-            LinearAxis axisY = new LinearAxis();
-            axisY.Title = "Speed [km/h]";
-
-            plotModel.Axes.Add(axisX);
-            plotModel.Axes.Add(axisY);
-
-            LineSeries lineSeries = new LineSeries();
-            lineSeries.Color = OxyColors.Red;
-
-            Random random = new Random();
-
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < TripIDs.Count; i++)
             {
-                lineSeries.Points.Add(new DataPoint(i, 30 + random.NextDouble() * 20));
+                List<Ecolog> ecologs = null;
+                List<DetailCompareSeriesDatum> data = null;
+
+                await Task.Run(() =>
+                {
+                    ecologs = Ecolog.ExtractEcolog(TripIDs[i], SelectedSemanticLink);
+
+                    switch (CurrentAxisX)
+                    {
+                        case DetailCompareGraphType.Axes.Time:
+                            data = DetailCompareSeriesDatum.CreateTimeAccData(ecologs);
+                            break;
+                        case DetailCompareGraphType.Axes.Distance:
+                            data = DetailCompareSeriesDatum.CreateDistanceAccData(ecologs);
+                            break;
+                    }
+                });
+
+                PlotModel plotModel = new PlotModel();
+
+                LinearAxis axisX = new LinearAxis();
+                axisX.Position = AxisPosition.Bottom;
+                axisX.Title = "Time";
+
+                LinearAxis axisY = new LinearAxis();
+                axisY.Title = "Acc [m/s^2]";
+
+                //plotModel.Axes.Add(axisX);
+                plotModel.Axes.Add(axisY);
+
+                LineSeries series = new LineSeries();
+                series.ItemsSource = data;
+                series.DataFieldX = "X";
+                series.DataFieldY = "Y";
+
+                plotModel.Series.Add(series);
+
+                switch (i)
+                {
+                    case 0:
+                        LabelMinText = "Min trip: TripID = " + TripIDs[i] + ", StartTime = " + ecologs.Min(v => v.Jst);
+                        PlotModelMin = plotModel;
+                        break;
+                    case 1:
+                        LabelMedianText = "Median trip: TripID = " + TripIDs[i] + ", StartTime = " + ecologs.Min(v => v.Jst);
+                        PlotModelMedian = plotModel;
+                        break;
+                    case 2:
+                        LabelMaxText = "Max trip: TripID = " + TripIDs[i] + ", StartTime = " + ecologs.Min(v => v.Jst);
+                        PlotModelMax = plotModel;
+                        break;
+                }
             }
-
-            plotModel.Series.Add(lineSeries);
-
-            return plotModel;
         }
 
         private PlotModel createStackedEnergyGraphModels()
