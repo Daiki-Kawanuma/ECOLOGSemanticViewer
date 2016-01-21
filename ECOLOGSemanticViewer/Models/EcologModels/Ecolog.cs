@@ -612,7 +612,7 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             var ret = new List<Ecolog>();
 
             DataTable ecologTable = new DataTable();
-            string query = "SELECT * FROM ecolog WHERE trip_id = " + tripId + " ORDER BY jst DESC";
+            string query = "SELECT * FROM ecolog WHERE trip_id = " + tripId + " ORDER BY jst ASC";
             ecologTable = DatabaseAccesserEcolog.GetResult(query);
 
             for (int i = 0; i < ecologTable.Rows.Count; i++)
@@ -677,7 +677,7 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("FROM ecolog");
             query.AppendLine("INNER JOIN SelectedSemanticLink ON ecolog.link_id = SelectedSemanticLink.link_id");
             query.AppendLine("WHERE trip_id = " + tripId);
-            query.AppendLine("ORDER BY jst DESC");
+            query.AppendLine("ORDER BY jst ASC");
 
             ecologTable = DatabaseAccesserEcolog.GetResult(query.ToString());
 

@@ -78,7 +78,9 @@ namespace ECOLOGSemanticViewer.Views.Windows
             var context = this.DataContext as SemanticDetailWindowViewModel;
             if (context == null) { return; }
 
-            context.CurrentPage = new DetailCamparePage();
+            DetailCamparePage page = new DetailCamparePage();
+            page.DataContext = new DetailComparePageViewModel(context.SemanticLink, context.TripDirection);
+            context.CurrentPage = page;
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)

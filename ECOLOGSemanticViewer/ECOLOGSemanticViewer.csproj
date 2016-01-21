@@ -94,6 +94,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\GraphModels\DetailCompareGraphType.cs" />
+    <Compile Include="Models\GraphModels\DetailCompareSeriesDatum.cs" />
     <Compile Include="Models\GraphModels\SemanticGraph.cs" />
     <Compile Include="Models\GraphModels\SemanticHistogramDatum.cs" />
     <Compile Include="ViewModels\PageViewModels\AbstMainPageViewModel.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Views\Pages\CompareTimePage.xaml.cs">
       <DependentUpon>CompareTimePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\DetailCamparePageViewModel.cs" />
     <Compile Include="Views\Pages\DetailEnergyPage.xaml.cs">
       <DependentUpon>DetailEnergyPage.xaml</DependentUpon>
     </Compile>

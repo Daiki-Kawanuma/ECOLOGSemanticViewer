@@ -9,30 +9,39 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 {
     public class DetailCompareGraphType : NotificationObject
     {
-        public static enum GraphTypes { SpeedTransitionGraph, AccTransitionGraph, EnergyStackGraph}
+        public enum TripCategory { TimeRepresentativeTrips, EnergyRepresentativeTrips}
 
-        public static enum Axes { Distance, Time}
+        public enum GraphTypes { SpeedTransitionGraph, AccTransitionGraph, EnergyStackGraph}
 
-        public GraphTypes GraphType { get; set; }
-        public Axes Axis { get; set; }
+        public enum Axes { Distance, Time}
 
-        public static List<DetailCompareGraphType> GetAllGraphTypes()
+        public static List<DetailCompareGraphType.TripCategory> GetAllTripCategories()
         {
-            var ret = new List<DetailCompareGraphType>();
+            var ret = new List<DetailCompareGraphType.TripCategory>();
 
-            ret.Add(new DetailCompareGraphType() { GraphType = GraphTypes.SpeedTransitionGraph });
-            ret.Add(new DetailCompareGraphType() { GraphType = GraphTypes.AccTransitionGraph });
-            ret.Add(new DetailCompareGraphType() { GraphType = GraphTypes.EnergyStackGraph });
+            ret.Add(TripCategory.EnergyRepresentativeTrips);
+            ret.Add(TripCategory.TimeRepresentativeTrips);
 
             return ret;
         }
 
-        public static List<DetailCompareGraphType> GetAllAxesTypes()
+        public static List<DetailCompareGraphType.GraphTypes> GetAllGraphTypes()
         {
-            var ret = new List<DetailCompareGraphType>();
+            var ret = new List<DetailCompareGraphType.GraphTypes>();
 
-            ret.Add(new DetailCompareGraphType() { Axis = Axes.Distance });
-            ret.Add(new DetailCompareGraphType() { Axis = Axes.Time });
+            ret.Add(GraphTypes.SpeedTransitionGraph);
+            ret.Add(GraphTypes.AccTransitionGraph);
+            ret.Add(GraphTypes.EnergyStackGraph);
+
+            return ret;
+        }
+
+        public static List<DetailCompareGraphType.Axes> GetAllAxesTypes()
+        {
+            var ret = new List<DetailCompareGraphType.Axes>();
+
+            ret.Add(Axes.Distance);
+            ret.Add(Axes.Time);
 
             return ret;
         }

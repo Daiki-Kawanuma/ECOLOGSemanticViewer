@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECOLOGSemanticViewer.ViewModels.PageViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,14 @@ namespace ECOLOGSemanticViewer.Views.Pages
         public DetailCamparePage()
         {
             InitializeComponent();
+        }
+
+        private void Button_Display(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as DetailComparePageViewModel;
+            if (context == null) { return; }
+
+            context.DisplayGraph();
         }
     }
 }

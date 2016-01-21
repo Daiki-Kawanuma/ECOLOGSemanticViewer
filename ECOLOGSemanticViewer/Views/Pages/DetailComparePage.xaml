@@ -37,6 +37,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
@@ -45,33 +46,41 @@
                             Orientation="Vertical">
 
                     <Label HorizontalAlignment="Left"
-                           Content="Grap type"
+                           Content="Trip category"
                            Padding="0" />
-                    <ComboBox DisplayMemberPath="GraphType"
-                              ItemsSource="{Binding GrapTypes}"
+                    <ComboBox ItemsSource="{Binding TripCategories}"
                               SelectedIndex="0"
-                              SelectedValue="{Binding CurrentGraphType}"
-                              SelectedValuePath="GraphType" />
+                              SelectedValue="{Binding CurrentTripCategory}" />
                 </StackPanel>
 
                 <StackPanel Grid.Column="1"
+                            Margin="10,5,5,5"
+                            Orientation="Vertical">
+
+                    <Label HorizontalAlignment="Left"
+                           Content="Grap type"
+                           Padding="0" />
+                    <ComboBox ItemsSource="{Binding GrapTypes}"
+                              SelectedIndex="0"
+                              SelectedValue="{Binding CurrentGraphType}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2"
                             Margin="5,5,5,5"
                             Orientation="Vertical">
 
                     <Label HorizontalAlignment="Left"
                            Content="Axis X type"
                            Padding="0" />
-                    <ComboBox DisplayMemberPath="Axis"
-                              ItemsSource="{Binding AxisXTypes}"
+                    <ComboBox ItemsSource="{Binding AxisXTypes}"
                               SelectedIndex="0"
-                              SelectedValue="{Binding CurrentAxisX}"
-                              SelectedValuePath="Axis" />
+                              SelectedValue="{Binding CurrentAxisX}" />
 
                 </StackPanel>
 
-                <Button Grid.Column="2"
+                <Button Grid.Column="3"
                         Margin="5,0,10,0"
-                        Content="Display" />
+                        Content="Display" Click="Button_Display" />
 
             </Grid>
 
@@ -97,7 +106,7 @@
 
                 <Label Grid.Row="0"
                        HorizontalAlignment="Center"
-                       Content="Min trip: 205-07-12" />
+                       Content="{Binding LabelMinText}" />
                 <oxy:PlotView Name="PlotViewMin"
                               Grid.Row="1"
                               Model="{Binding PlotModelMin}" />
@@ -112,7 +121,7 @@
 
                 <Label Grid.Row="0"
                        HorizontalAlignment="Center"
-                       Content="Min trip: 205-07-12" />
+                       Content="{Binding LabelMedianText}" />
                 <oxy:PlotView Name="PlotViewMedian"
                               Grid.Row="1"
                               Model="{Binding PlotModelMedian}" />
@@ -127,10 +136,10 @@
 
                 <Label Grid.Row="0"
                        HorizontalAlignment="Center"
-                       Content="Min trip: 205-07-12" />
+                       Content="{Binding LabelMaxText}" />
                 <oxy:PlotView Name="PlotViewMode"
                               Grid.Row="1"
-                              Model="{Binding PlotModelMode}" />
+                              Model="{Binding PlotModelMax}" />
 
             </Grid>
 
@@ -142,10 +151,10 @@
 
                 <Label Grid.Row="0"
                        HorizontalAlignment="Center"
-                       Content="Min trip: 205-07-12" />
+                       Content="" />
                 <oxy:PlotView Name="PlotViewMax"
                               Grid.Row="1"
-                              Model="{Binding PlotModelMax}" />
+                              Model="{Binding}" />
 
             </Grid>
 
