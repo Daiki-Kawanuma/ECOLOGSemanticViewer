@@ -31,10 +31,6 @@
 
         <Grid Grid.Column="0">
 
-            <oxy:PlotView Grid.Row="0"
-                          Margin="10,10,5,10"
-                          Model="{Binding PlotModel}" />
-
             <!--<Button Margin="0,0,10,10"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
@@ -48,6 +44,18 @@
 
             </Button>-->
 
+            <oxy:PlotView Grid.Row="0"
+                          Margin="10,10,5,10"
+                          Model="{Binding PlotModel}" />
+
+            <ProgressBar Width="100"
+                         Height="100"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         IsIndeterminate="True"
+                         Style="{StaticResource MaterialDesignCircularProgressBar}"
+                         Visibility="{Binding ProgressBarVisibility}" />
+            
         </Grid>
 
         <Grid Grid.Column="1">
@@ -66,7 +74,7 @@
 
                     </ComboBox>
 
-                    <vi:CompareStackNormalizedItem HorizontalAlignment="Stretch"/>
+                    <vi:CompareStackNormalizedItem HorizontalAlignment="Stretch" />
 
                 </StackPanel>
 

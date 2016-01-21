@@ -44,8 +44,10 @@ namespace ECOLOGSemanticViewer.Views.Items
 
         private void Button_Compare(object sender, RoutedEventArgs e)
         {
+            SelectedSemanticLinks.Add(SemanticLink);
+
             SemanticCompareWindow window = new SemanticCompareWindow();
-            window.DataContext = new SemanticCompareWindowViewModel();
+            window.DataContext = new SemanticCompareWindowViewModel(SelectedSemanticLinks, TripDirection);
 
             window.Show();
         }

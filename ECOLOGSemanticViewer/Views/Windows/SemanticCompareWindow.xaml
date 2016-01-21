@@ -64,9 +64,9 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="Energy distribution" />
-            <Button Grid.Column="1" Content="Time distribution" />
-            <Button Grid.Column="2" Content="Heat map" />
+            <Button Grid.Column="0" Content="Energy distribution" Click="Button_Energy" />
+            <Button Grid.Column="1" Content="Time distribution" Click="Button_Time" />
+            <Button Grid.Column="2" Content="Heat map" Click="Button_HeatMap" />
 
         </Grid>
 

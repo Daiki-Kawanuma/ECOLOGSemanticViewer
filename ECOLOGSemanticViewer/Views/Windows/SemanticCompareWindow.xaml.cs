@@ -1,4 +1,7 @@
-﻿using MahApps.Metro.Controls;
+﻿using ECOLOGSemanticViewer.ViewModels.PageViewModels;
+using ECOLOGSemanticViewer.ViewModels.WindowViewModels;
+using ECOLOGSemanticViewer.Views.Pages;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +34,25 @@ namespace ECOLOGSemanticViewer.Views.Windows
         public SemanticCompareWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Energy(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as SemanticCompareWindowViewModel;
+            if (context == null) { return; }
+
+            CompareEnergyPage page = new CompareEnergyPage();
+            page.DataContext = new CompareEnergyPageViewModel(context.SelectedSemanticLinks, context.TripDirection);
+        }
+
+        private void Button_Time(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_HeatMap(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
