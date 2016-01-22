@@ -147,7 +147,6 @@
     <Compile Include="Views\Pages\DetailTripDetailPage.xaml.cs">
       <DependentUpon>DetailTripDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\DetailComparePage.cs" />
     <Compile Include="Views\Windows\MapWindow.xaml.cs">
       <DependentUpon>MapWindow.xaml</DependentUpon>
     </Compile>

@@ -18,6 +18,7 @@ using ECOLOGSemanticViewer.Models.EcologModels;
 using ECOLOGSemanticViewer.ViewModels.PageViewModels;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
 {
@@ -32,7 +33,7 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
             get
             { return _TripDirection; }
             set
-            { 
+            {
                 if (_TripDirection == value)
                     return;
                 _TripDirection = value;
@@ -49,7 +50,7 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
             get
             { return _SemanticLink; }
             set
-            { 
+            {
                 if (_SemanticLink == value)
                     return;
                 _SemanticLink = value;
@@ -66,7 +67,7 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
             get
             { return _CurrentPage; }
             set
-            { 
+            {
                 if (_CurrentPage == value)
                     return;
                 _CurrentPage = value;
@@ -93,15 +94,13 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
             Initialize();
         }
 
-        public async void Initialize()
+        public void Initialize()
         {
-            await Task.Run(() =>
-            {
-                this.EnergyPage = new DetailEnergyPage();
-                this.EnergyPage.DataContext = new DetailEnergyPageViewModel(this.SemanticLink, this.TripDirection);
+            this.EnergyPage = new DetailEnergyPage();
+            this.EnergyPage.DataContext = new DetailEnergyPageViewModel(this.SemanticLink, this.TripDirection);
 
-                this.CurrentPage = this.EnergyPage;
-            });
+            this.CurrentPage = this.EnergyPage;
+            DoEvents();
 
             this.TimePage = new DetailTimePage();
             this.TimePage.DataContext = new DetailTimePageViewModel(this.SemanticLink, this.TripDirection);
@@ -114,8 +113,6 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
             this.ComparePage.DataContext = new DetailComparePageViewModel(this.SemanticLink, this.TripDirection);
 
             this.TripDetailPage = new DetailTripDetailPage();
-            
-            
         }
     }
 }
