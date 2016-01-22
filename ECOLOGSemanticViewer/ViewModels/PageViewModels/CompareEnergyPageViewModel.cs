@@ -240,7 +240,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             CurrentUserControl = new CompareStackNormalizedItem();
         }
 
-        private async void createPlotModel()
+        private async void setHistogramData()
         {
             Console.WriteLine("COUNT: " + this.SelectedSemanticLinks.Count);
 
@@ -252,7 +252,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             setRepresentativeValue();
 
-            createNumberModel();
+            createPlotModel();
         }
 
         private void setRepresentativeValue()
@@ -272,7 +272,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             this.CompModeMax = this.EnergyHistogramDatum.CompModeMax;*/
         }
 
-        private void createNumberModel()
+        #region 各グラフ共通のPlotModel作成メソッド
+        private void createPlotModel()
         {
             PlotModel plotModel = new PlotModel();
             // plotModel.LegendPlacement = LegendPlacement.Outside;
@@ -292,7 +293,9 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             ProgressBarVisibility = System.Windows.Visibility.Collapsed;
             this.PlotModel = plotModel;
         }
+        #endregion 
 
+        #region 各グラフ共通のSeries作成メソッド
         private AreaSeries createAreaSeries(SemanticHistogramDatum datum)
         {
             AreaSeries series = new AreaSeries();
@@ -310,5 +313,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             return series;
         }
+        #endregion
     }
 }
