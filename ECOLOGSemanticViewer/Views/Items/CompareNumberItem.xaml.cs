@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Livet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,21 @@ namespace ECOLOGSemanticViewer.Views.Items
     /// </summary>
     public partial class CompareNumberItem : UserControl
     {
+
+        public double MinSemanticFirst { get; set; }
+        public double MinSemanticSecond { get; set; }
+        public double ModeSemanticFirst { get; set; }
+        public double ModeSemanticSecond { get; set; }
+        public double MaxSemanticFirst { get; set; }
+        public double MaxSemanticSecond { get; set; }
+        public double AverageSemanticFirst { get; set; }
+        public double AverageSemanticSecond { get; set; }
+
         public CompareNumberItem()
         {
             InitializeComponent();
+            DataContext = this;
+            InvalidateVisual();
         }
     }
 }

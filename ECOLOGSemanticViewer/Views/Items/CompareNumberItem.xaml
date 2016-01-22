@@ -15,72 +15,98 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="Number" Padding="5"/>
-            <Button Grid.Column="1" Content="Percent" Padding="5" />
+            <Button Name="ButtonNumber"
+                    Grid.Column="0"
+                    Content="Number"
+                    Padding="5" />
+            <Button Name="ButtonPercent"
+                    Grid.Column="1"
+                    Content="Percent"
+                    Padding="5" />
 
         </Grid>
 
         <StackPanel Margin="10,10,10,0" Background="#eeeeee">
 
-            <Button HorizontalContentAlignment="Left"
+            <Button Name="ButtonMin"
+                    HorizontalContentAlignment="Left"
                     Content="Min"
                     Style="{StaticResource MaterialDesignFlatButton}" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelMinSemanticFirst"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Semantic A: 0.111lkWh" />
+                   Content="{Binding MinSemanticFirst}"
+                   ContentStringFormat="{}A：{0:N3}kWh" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelMinSemanticSecond"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Semantic B: 0.222kWh" />
+                   Content="{Binding MinSemanticSecond}"
+                   ContentStringFormat="{}B：{0:N3}kWh" />
 
         </StackPanel>
 
         <StackPanel Margin="10,10,10,0" Background="#eeeeee">
 
-            <Button HorizontalContentAlignment="Left"
+            <Button Name="ButtonMode"
+                    HorizontalContentAlignment="Left"
                     Content="Mode"
                     Style="{StaticResource MaterialDesignFlatButton}" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelModeSemanticFirst"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Semantic A: 0.111lkWh" />
+                   Content="{Binding ModeSemanticFirst}"
+                   ContentStringFormat="{}A：{0:N3}kWh" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelModeSemanticSecond"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Semantic B: 0.222kWh" />
+                   Content="{Binding ModeSemanticSecond}"
+                   ContentStringFormat="{}B：{0:N3}kWh" />
 
         </StackPanel>
 
         <StackPanel Margin="10,10,10,0" Background="#eeeeee">
 
-            <Button HorizontalContentAlignment="Left"
+            <Button Name="ButtonMax"
+                    HorizontalContentAlignment="Left"
                     Content="Max"
                     Style="{StaticResource MaterialDesignFlatButton}" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelMaxSemanticFirst"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Semantic A: 0.111lkWh" />
+                   Content="{Binding MaxSemanticFirst}"
+                   ContentStringFormat="{}A：{0:N3}kWh" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelMaxSemanticSecond"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Semantic B: 0.222kWh" />
+                   Content="{Binding MaxSemanticSecond}"
+                   ContentStringFormat="{}B：{0:N3}kWh" />
 
         </StackPanel>
 
         <StackPanel Margin="10,10,10,0" Background="#eeeeee">
 
-            <Button HorizontalContentAlignment="Left"
+            <Button Name="ButtonAverage"
+                    HorizontalContentAlignment="Left"
                     Content="Average"
                     Style="{StaticResource MaterialDesignFlatButton}" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelAverageSemanticFirst"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Semantic A: 0.111lkWh" />
+                   Content="{Binding AverageSemanticFirst}"
+                   ContentStringFormat="{}A：{0:N3}kWh" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelAverageSemanticSecond"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Semantic B: 0.222kWh" />
+                   Content="{Binding AverageSemanticSecond}"
+                   ContentStringFormat="{}B：{0:N3}kWh" />
 
         </StackPanel>
 
