@@ -183,5 +183,136 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 
             return datum;
         }
+
+        public static SemanticHistogramDatum GetDistanceNormalizedEnergyInstance(SemanticLink semanticLink, TripDirection direction)
+        {
+            SemanticHistogramDatum datum = new SemanticHistogramDatum();
+
+            datum.SemanticLink = semanticLink;
+            datum.Direction = direction;
+
+
+            DataTable table = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyHistogramOfSemanticLinkWithDistance(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')");
+            datum.HistogramData = new List<LevelAndValue>();
+            foreach (DataRow row in table.Rows)
+            {
+                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<double>("Level"), Value = row.Field<int>("Number") });
+            }
+
+            datum.MaxLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMaxOfSemanticLinkWithDistance(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Max"))
+                .ElementAt(0);
+
+            datum.MinLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMinOfSemanticLinkWithDistance(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Min"))
+                .ElementAt(0);
+
+            datum.MedianLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMedianOfSemanticLinkWithDistance(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Median"))
+                .ElementAt(0);
+
+            datum.AvgLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyAvgOfSemanticLinkWithDistance(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Avg"))
+                .ElementAt(0);
+
+            datum.ModeLevel = datum.HistogramData.First(v => v.Value.Equals(datum.HistogramData.Select(m => m.Value).Max())).Level;
+
+            datum.HistogramData.Max(x => x.Level);
+
+            datum.ClassWidth = (datum.MaxLevel - datum.MinLevel) / 10;
+
+            datum.UnderModeData = datum.HistogramData
+                .Where(v => v.Value <= datum.HistogramData.Max(x => x.Value) * 0.75)
+                .Where(v => v.Level < datum.ModeLevel)
+                .ToList();
+
+            datum.ModeData = datum.HistogramData
+                .Where(v => v.Value >= datum.HistogramData.Max(x => x.Value) * 0.75)
+                .ToList();
+
+            datum.UpperModeData = datum.HistogramData
+                .Where(v => v.Value <= datum.HistogramData.Max(x => x.Value) * 0.75)
+                .Where(v => v.Level > datum.ModeLevel)
+                .ToList();
+
+            datum.DistUnderMode = datum.UnderModeData.Sum(x => x.Value) * 100 / datum.HistogramData.Sum(x => x.Value);
+            datum.DistMode = datum.ModeData.Sum(x => x.Value) * 100 / datum.HistogramData.Sum(x => x.Value);
+            datum.DistUpperMode = datum.UpperModeData.Sum(x => x.Value) * 100 / datum.HistogramData.Sum(x => x.Value);
+
+            datum.CompMinMax = datum.MaxLevel * 100 / datum.MinLevel;
+            datum.CompMinMode = datum.ModeLevel * 100 / datum.MinLevel;
+            datum.CompModeMax = datum.MaxLevel * 100 / datum.ModeLevel;
+
+            return datum;
+        }
+
+        public static SemanticHistogramDatum GetDistanceNormalizedTimeInstance(SemanticLink semanticLink, TripDirection direction)
+        {
+            SemanticHistogramDatum datum = new SemanticHistogramDatum();
+
+            datum.SemanticLink = semanticLink;
+            datum.Direction = direction;
+
+            DataTable table = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeHistogramOfSemanticLinkWithDistance(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')");
+            datum.HistogramData = new List<LevelAndValue>();
+            foreach (DataRow row in table.Rows)
+            {
+                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<int>("Level"), Value = row.Field<int>("Number") });
+            }
+
+            datum.MaxLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMaxOfSemanticLinkWithDistance(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("Max"))
+                .ElementAt(0);
+
+            datum.MinLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMinOfSemanticLinkWithDistance(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("Min"))
+                .ElementAt(0);
+
+            datum.MedianLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMedianOfSemanticLinkWithDistance(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("Median"))
+                .ElementAt(0);
+
+            datum.AvgLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeAvgOfSemanticLinkWithDistance(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("Avg"))
+                .ElementAt(0);
+
+            datum.ModeLevel = datum.HistogramData.First(v => v.Value.Equals(datum.HistogramData.Select(m => m.Value).Max())).Level;
+
+            datum.HistogramData.Max(x => x.Level);
+
+            datum.ClassWidth = (datum.MaxLevel - datum.MinLevel) / 10;
+
+            datum.UnderModeData = datum.HistogramData
+                .Where(v => v.Value <= datum.HistogramData.Max(x => x.Value) * 0.75)
+                .Where(v => v.Level < datum.ModeLevel)
+                .ToList();
+
+            datum.ModeData = datum.HistogramData
+                .Where(v => v.Value >= datum.HistogramData.Max(x => x.Value) * 0.75)
+                .ToList();
+
+            datum.UpperModeData = datum.HistogramData
+                .Where(v => v.Value <= datum.HistogramData.Max(x => x.Value) * 0.75)
+                .Where(v => v.Level > datum.ModeLevel)
+                .ToList();
+
+            datum.DistUnderMode = datum.UnderModeData.Sum(x => x.Value) * 100 / datum.HistogramData.Sum(x => x.Value);
+            datum.DistMode = datum.ModeData.Sum(x => x.Value) * 100 / datum.HistogramData.Sum(x => x.Value);
+            datum.DistUpperMode = datum.UpperModeData.Sum(x => x.Value) * 100 / datum.HistogramData.Sum(x => x.Value);
+
+            datum.CompMinMax = datum.MaxLevel * 100 / datum.MinLevel;
+            datum.CompMinMode = datum.ModeLevel * 100 / datum.MinLevel;
+            datum.CompModeMax = datum.MaxLevel * 100 / datum.ModeLevel;
+
+            return datum;
+        }
     }
 }
