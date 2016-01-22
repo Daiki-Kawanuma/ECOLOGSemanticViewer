@@ -224,12 +224,20 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         private async void displayHistogramGraph()
         {
-            CurrentUserControl = new CompareNumberItem();
-
             await Task.Run(() =>
             {
                 setHistogramData();
             });
+
+            CurrentUserControl = new CompareNumberItem() { 
+                MinSemanticFirst = this.EnergyHistogramDatumFirst.MinLevel,
+                MinSemanticSecond = this.EnergyHistogramDatumSecond.MinLevel,
+                ModeSemanticFirst = this.EnergyHistogramDatumFirst.ModeLevel,
+                ModeSemanticSecond = this.EnergyHistogramDatumSecond.ModeLevel,
+                MaxSemanticFirst = this.EnergyHistogramDatumFirst.MaxLevel,
+                MaxSemanticSecond = this.EnergyHistogramDatumSecond.MaxLevel
+            };
+
 
             createPlotModel();
 

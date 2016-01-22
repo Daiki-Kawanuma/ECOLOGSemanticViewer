@@ -27,6 +27,8 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 
         public double ModeLevel { get; set; }
 
+        public double AvgLevel { get; set; }
+
         public double ClassWidth { get; set; }
 
         public List<LevelAndValue> UnderModeData { get; set; }
@@ -79,6 +81,11 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
             datum.MedianLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMedianOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
                 .Select(x => x.Field<double>("Median"))
+                .ElementAt(0);
+
+            datum.AvgLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyAvgOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Avg"))
                 .ElementAt(0);
 
             datum.ModeLevel = datum.HistogramData.First(v => v.Value.Equals(datum.HistogramData.Select(m => m.Value).Max())).Level;
@@ -139,6 +146,11 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
             datum.MedianLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMedianOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
                 .Select(x => x.Field<int>("Median"))
+                .ElementAt(0);
+
+            datum.AvgLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeAvgOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("Avg"))
                 .ElementAt(0);
 
             datum.ModeLevel = datum.HistogramData.First(v => v.Value.Equals(datum.HistogramData.Select(m => m.Value).Max())).Level;
