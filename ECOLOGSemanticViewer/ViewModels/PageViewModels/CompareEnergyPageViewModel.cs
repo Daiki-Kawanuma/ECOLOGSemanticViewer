@@ -18,6 +18,8 @@ using OxyPlot;
 using System.Threading.Tasks;
 using OxyPlot.Axes;
 using OxyPlot.Series;
+using System.Windows.Controls;
+using ECOLOGSemanticViewer.Views.Items;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
@@ -52,6 +54,60 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 if (_TripDirection == value)
                     return;
                 _TripDirection = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region GraphTypes変更通知プロパティ
+        private List<CompareGraphType.GraphTypes> _GraphTypes;
+
+        public List<CompareGraphType.GraphTypes> GraphTypes
+        {
+            get
+            { return _GraphTypes; }
+            set
+            { 
+                if (_GraphTypes == value)
+                    return;
+                _GraphTypes = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region CurrentGraphType変更通知プロパティ
+        private CompareGraphType.GraphTypes _CurrentGraphType;
+
+        public CompareGraphType.GraphTypes CurrentGraphType
+        {
+            get
+            { return _CurrentGraphType; }
+            set
+            { 
+                if (_CurrentGraphType == value)
+                    return;
+                _CurrentGraphType = value;
+
+                DisplayGraph();
+
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region CurrentUserControl変更通知プロパティ
+        private UserControl _CurrentUserControl;
+
+        public UserControl CurrentUserControl
+        {
+            get
+            { return _CurrentUserControl; }
+            set
+            { 
+                if (_CurrentUserControl == value)
+                    return;
+                _CurrentUserControl = value;
                 RaisePropertyChanged();
             }
         }
@@ -140,7 +196,48 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         public void Initialize()
         {
             this.ProgressBarVisibility = System.Windows.Visibility.Visible;
+            this.GraphTypes = CompareGraphType.GetAllGraphTypes();
+
             createPlotModel();
+        }
+
+        public void DisplayGraph()
+        {
+            switch (CurrentGraphType)
+            {
+                case CompareGraphType.GraphTypes.HistogramGraph:
+                    displayHistogramGraph();
+                    break;
+                case CompareGraphType.GraphTypes.DistanceNormalizedHistogram:
+                    displayDistanceNormalizedHistogramGraph();
+                    break;
+                case CompareGraphType.GraphTypes.StackGraph:
+                    displayStackGraph();
+                    break;
+                case CompareGraphType.GraphTypes.NormalizedStackGraph:
+                    displayNormalizedStackGraph();
+                    break;
+            }
+        }
+
+        private void displayHistogramGraph()
+        {
+            CurrentUserControl = new CompareNumberItem();
+        }
+
+        private void displayDistanceNormalizedHistogramGraph()
+        {
+            CurrentUserControl = new CompareNumberItem();
+        }
+
+        private void displayStackGraph()
+        {
+            CurrentUserControl = new CompareStackItem();
+        }
+
+        private void displayNormalizedStackGraph()
+        {
+            CurrentUserControl = new CompareStackNormalizedItem();
         }
 
         private async void createPlotModel()

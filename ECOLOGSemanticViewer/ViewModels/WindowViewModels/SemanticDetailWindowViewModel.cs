@@ -17,6 +17,7 @@ using System.Windows.Controls;
 using ECOLOGSemanticViewer.Models.EcologModels;
 using ECOLOGSemanticViewer.ViewModels.PageViewModels;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
 {
@@ -92,10 +93,15 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
             Initialize();
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
-            this.EnergyPage = new DetailEnergyPage();
-            this.EnergyPage.DataContext = new DetailEnergyPageViewModel(this.SemanticLink, this.TripDirection);
+            await Task.Run(() =>
+            {
+                this.EnergyPage = new DetailEnergyPage();
+                this.EnergyPage.DataContext = new DetailEnergyPageViewModel(this.SemanticLink, this.TripDirection);
+
+                this.CurrentPage = this.EnergyPage;
+            });
 
             this.TimePage = new DetailTimePage();
             this.TimePage.DataContext = new DetailTimePageViewModel(this.SemanticLink, this.TripDirection);
@@ -109,7 +115,7 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
 
             this.TripDetailPage = new DetailTripDetailPage();
             
-            this.CurrentPage = this.EnergyPage;
+            
         }
     }
 }

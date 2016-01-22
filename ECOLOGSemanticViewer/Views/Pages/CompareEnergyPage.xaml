@@ -31,6 +31,14 @@
 
         <Grid Grid.Column="0">
 
+            <ProgressBar Width="100"
+                         Height="100"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         IsIndeterminate="True"
+                         Style="{StaticResource MaterialDesignCircularProgressBar}"
+                         Visibility="{Binding ProgressBarVisibility}" />
+
             <!--<Button Margin="0,0,10,10"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
@@ -48,14 +56,6 @@
                           Margin="10,10,5,10"
                           Model="{Binding PlotModel}" />
 
-            <ProgressBar Width="100"
-                         Height="100"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         IsIndeterminate="True"
-                         Style="{StaticResource MaterialDesignCircularProgressBar}"
-                         Visibility="{Binding ProgressBarVisibility}" />
-            
         </Grid>
 
         <Grid Grid.Column="1">
@@ -66,15 +66,12 @@
 
                 <StackPanel>
 
-                    <ComboBox Margin="10,10,10,0">
-                        <ComboBoxItem Content="Number &amp; Percent" />
-                        <ComboBoxItem Content="Distance normalization" />
-                        <ComboBoxItem Content="Stack" />
-                        <ComboBoxItem Content="Stack-number normalization" />
+                    <ComboBox Margin="10,10,10,0"
+                              ItemsSource="{Binding GraphTypes}"
+                              SelectedIndex="0"
+                              SelectedValue="{Binding CurrentGraphType}" />
 
-                    </ComboBox>
-
-                    <vi:CompareStackNormalizedItem HorizontalAlignment="Stretch" />
+                    <UserControl HorizontalAlignment="Stretch" Content="{Binding CurrentUserControl}" />
 
                 </StackPanel>
 

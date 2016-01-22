@@ -93,6 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\GraphModels\CompareGraphType.cs" />
     <Compile Include="Models\GraphModels\DetailCompareGraphType.cs" />
     <Compile Include="Models\GraphModels\DetailCompareSeriesDatum.cs" />
     <Compile Include="Models\GraphModels\SemanticGraph.cs" />
