@@ -35,6 +35,7 @@ namespace ECOLOGSemanticViewer.Views.Windows
     /// </summary>
     public partial class SemanticDetailWindow : MetroWindow
     {
+
         public SemanticDetailWindow()
         {
             InitializeComponent();
@@ -45,9 +46,13 @@ namespace ECOLOGSemanticViewer.Views.Windows
             var context = this.DataContext as SemanticDetailWindowViewModel;
             if (context == null) { return; }
 
-            DetailEnergyPage page = new DetailEnergyPage();
-            page.DataContext = new DetailEnergyPageViewModel(context.SemanticLink, context.TripDirection);
-            context.CurrentPage = page;
+            if (context.EnergyPage == null)
+            {
+                context.EnergyPage = new DetailEnergyPage();
+                context.EnergyPage.DataContext = new DetailEnergyPageViewModel(context.SemanticLink, context.TripDirection);
+            }
+
+            context.CurrentPage = context.EnergyPage;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -55,9 +60,13 @@ namespace ECOLOGSemanticViewer.Views.Windows
             var context = this.DataContext as SemanticDetailWindowViewModel;
             if (context == null) { return; }
 
-            DetailTimePage page = new DetailTimePage();
-            page.DataContext = new DetailTimePageViewModel(context.SemanticLink, context.TripDirection);
-            context.CurrentPage = page;
+            if (context.TimePage == null)
+            {
+                context.TimePage = new DetailTimePage();
+                context.TimePage.DataContext = new DetailTimePageViewModel(context.SemanticLink, context.TripDirection);
+            }
+
+            context.CurrentPage = context.TimePage;
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -65,12 +74,14 @@ namespace ECOLOGSemanticViewer.Views.Windows
             var context = this.DataContext as SemanticDetailWindowViewModel;
             if (context == null) { return; }
 
+            if (context.HeatMapPage == null)
+            {
+                context.HeatMapPage = new DetailHeatMapPage();
+                // TODO ここをMVVMに直す
+                context.HeatMapPage.DataContext = new DetailHeatMapPageViewModel(context.SemanticLink, context.TripDirection, new List<Driver> { new Driver() { DriverId = 1 } }, new List<Car>() { new Car() { CarId = 1 }, new Car() { CarId = 3 } }, new List<Sensor>() { new Sensor() { SensorId = 12 } });
+            }
 
-            DetailHeatMapPage page = new DetailHeatMapPage();
-            // TODO ここをMVVMに直す
-            page.DataContext = new DetailHeatMapPageViewModel(context.SemanticLink, context.TripDirection, new List<Driver> { new Driver() { DriverId = 1 } }, new List<Car>() { new Car() { CarId = 1 }, new Car() { CarId = 3 } }, new List<Sensor>() { new Sensor() { SensorId = 12 } });
-
-            context.CurrentPage = page;
+            context.CurrentPage = context.HeatMapPage;
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -78,9 +89,13 @@ namespace ECOLOGSemanticViewer.Views.Windows
             var context = this.DataContext as SemanticDetailWindowViewModel;
             if (context == null) { return; }
 
-            DetailCamparePage page = new DetailCamparePage();
-            page.DataContext = new DetailComparePageViewModel(context.SemanticLink, context.TripDirection);
-            context.CurrentPage = page;
+            if (context.ComparePage == null)
+            {
+                context.ComparePage = new DetailComparePage();
+                context.ComparePage.DataContext = new DetailComparePageViewModel(context.SemanticLink, context.TripDirection);
+            }
+
+            context.CurrentPage = context.ComparePage;
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
@@ -88,7 +103,12 @@ namespace ECOLOGSemanticViewer.Views.Windows
             var context = this.DataContext as SemanticDetailWindowViewModel;
             if (context == null) { return; }
 
-            context.CurrentPage = new DetailTripDetailPage();
+            if (context.TripDetailPage == null)
+            {
+                context.TripDetailPage = new DetailTripDetailPage();
+            }
+
+            context.CurrentPage = context.TripDetailPage;
         }
 
     }

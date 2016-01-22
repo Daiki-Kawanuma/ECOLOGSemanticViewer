@@ -19,9 +19,9 @@ namespace ECOLOGSemanticViewer.Views.Pages
     /// <summary>
     /// DetailSpeedPage.xaml の相互作用ロジック
     /// </summary>
-    public partial class DetailCamparePage : Page
+    public partial class DetailComparePage : Page
     {
-        public DetailCamparePage()
+        public DetailComparePage()
         {
             InitializeComponent();
         }
