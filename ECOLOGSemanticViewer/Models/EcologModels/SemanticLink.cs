@@ -81,6 +81,23 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
         }
         #endregion
 
+        #region Distance変更通知プロパティ
+        private double _Distance;
+
+        public double Distance
+        {
+            get
+            { return _Distance; }
+            set
+            { 
+                if (_Distance == value)
+                    return;
+                _Distance = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
         public static List<SemanticLink> GetAllSemanticLinks(){
 
             var ret = new List<SemanticLink>();
@@ -121,7 +138,8 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("SELECT");
             query.AppendLine("  DISTINCT SemanticLinkID,");
             query.AppendLine("  DriverID,");
-            query.AppendLine("  Semantics");
+            query.AppendLine("  Semantics,");
+            query.AppendLine("  Distance");
             query.AppendLine("FROM default_Outward_SemanticLinks");
             query.AppendLine("ORDER BY SemanticLinkID");
 
@@ -135,6 +153,7 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
                     SemanticLinkId = (int)semanticLinkTable.Rows[i]["SemanticLinkID"],
                     DriverId = (int)semanticLinkTable.Rows[i]["DriverID"],
                     Semantics = (string)semanticLinkTable.Rows[i]["Semantics"],
+                    Distance = (double)semanticLinkTable.Rows[i]["Distance"]
                 });
             }
 
@@ -152,7 +171,8 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("SELECT");
             query.AppendLine("  DISTINCT SemanticLinkID,");
             query.AppendLine("  DriverID,");
-            query.AppendLine("  semantics");
+            query.AppendLine("  semantics,");
+            query.AppendLine("  Distance");
             query.AppendLine("FROM default_Homeward_SemanticLinks");
             query.AppendLine("ORDER BY SemanticLinkID");
 
@@ -166,6 +186,7 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
                     SemanticLinkId = (int)semanticLinkTable.Rows[i]["SemanticLinkID"],
                     DriverId = (int)semanticLinkTable.Rows[i]["DriverID"],
                     Semantics = (string)semanticLinkTable.Rows[i]["Semantics"],
+                    Distance = (double)semanticLinkTable.Rows[i]["Distance"]
                 });
             }
 
@@ -182,7 +203,8 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("SELECT");
             query.AppendLine("  DISTINCT SemanticLinkID,");
             query.AppendLine("  DriverID,");
-            query.AppendLine("  semantics");
+            query.AppendLine("  semantics,");
+            query.AppendLine("  Distance");
             query.AppendLine("FROM default_Outward_SemanticLinks");
             query.AppendLine("WHERE SemanticLinkID = 187 OR SemanticLinkID = 188");
             query.AppendLine("ORDER BY SemanticLinkID");
@@ -197,6 +219,7 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
                     SemanticLinkId = (int)semanticLinkTable.Rows[i]["SemanticLinkID"],
                     DriverId = (int)semanticLinkTable.Rows[i]["DriverID"],
                     Semantics = (string)semanticLinkTable.Rows[i]["Semantics"],
+                    Distance = (double)semanticLinkTable.Rows[i]["Distance"]
                 });
             }
 

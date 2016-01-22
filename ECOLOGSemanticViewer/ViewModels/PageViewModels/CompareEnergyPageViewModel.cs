@@ -235,7 +235,9 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 ModeSemanticFirst = this.EnergyHistogramDatumFirst.ModeLevel,
                 ModeSemanticSecond = this.EnergyHistogramDatumSecond.ModeLevel,
                 MaxSemanticFirst = this.EnergyHistogramDatumFirst.MaxLevel,
-                MaxSemanticSecond = this.EnergyHistogramDatumSecond.MaxLevel
+                MaxSemanticSecond = this.EnergyHistogramDatumSecond.MaxLevel,
+                AverageSemanticFirst = this.EnergyHistogramDatumFirst.AvgLevel,
+                AverageSemanticSecond = this.EnergyHistogramDatumSecond.AvgLevel
             };
 
 
