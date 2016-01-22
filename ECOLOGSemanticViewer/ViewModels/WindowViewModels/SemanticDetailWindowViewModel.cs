@@ -16,9 +16,6 @@ using ECOLOGSemanticViewer.Views.Pages;
 using System.Windows.Controls;
 using ECOLOGSemanticViewer.Models.EcologModels;
 using ECOLOGSemanticViewer.ViewModels.PageViewModels;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Windows.Threading;
 
 namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
 {
@@ -100,7 +97,6 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
             this.EnergyPage.DataContext = new DetailEnergyPageViewModel(this.SemanticLink, this.TripDirection);
 
             this.CurrentPage = this.EnergyPage;
-            DoEvents();
 
             this.TimePage = new DetailTimePage();
             this.TimePage.DataContext = new DetailTimePageViewModel(this.SemanticLink, this.TripDirection);
