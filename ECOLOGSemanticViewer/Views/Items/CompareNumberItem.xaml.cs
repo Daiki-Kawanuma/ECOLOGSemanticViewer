@@ -39,6 +39,54 @@ namespace ECOLOGSemanticViewer.Views.Items
             InvalidateVisual();
         }
 
+        public void InitEnergyStringFormat()
+        {
+            this.LabelMinSemanticFirst.ContentStringFormat = "A：{0:N3}kWh";
+            this.LabelMinSemanticSecond.ContentStringFormat = "B：{0:N3}kWh";
+            this.LabelModeSemanticFirst.ContentStringFormat = "A：{0:N3}kWh";
+            this.LabelModeSemanticSecond.ContentStringFormat = "B：{0:N3}kWh";
+            this.LabelMaxSemanticFirst.ContentStringFormat = "A：{0:N3}kWh";
+            this.LabelMaxSemanticSecond.ContentStringFormat = "B：{0:N3}kWh";
+            this.LabelAverageSemanticFirst.ContentStringFormat = "A：{0:N3}kWh";
+            this.LabelAverageSemanticSecond.ContentStringFormat = "B：{0:N3}kWh";
+        }
+
+        public void InitNormalizedEnergyStringFormat()
+        {
+            this.LabelMinSemanticFirst.ContentStringFormat = "A：{0:N3}kWh/km";
+            this.LabelMinSemanticSecond.ContentStringFormat = "B：{0:N3}kWh/km";
+            this.LabelModeSemanticFirst.ContentStringFormat = "A：{0:N3}kWh/km";
+            this.LabelModeSemanticSecond.ContentStringFormat = "B：{0:N3}kWh/km";
+            this.LabelMaxSemanticFirst.ContentStringFormat = "A：{0:N3}kWh/km";
+            this.LabelMaxSemanticSecond.ContentStringFormat = "B：{0:N3}kWh/km";
+            this.LabelAverageSemanticFirst.ContentStringFormat = "A：{0:N3}kWh/km";
+            this.LabelAverageSemanticSecond.ContentStringFormat = "B：{0:N3}kWh/km";
+        }
+
+        public void InitTimeStringFormat()
+        {
+            this.LabelMinSemanticFirst.ContentStringFormat = "A：{0:N0}s";
+            this.LabelMinSemanticSecond.ContentStringFormat = "B：{0:N0}s";
+            this.LabelModeSemanticFirst.ContentStringFormat = "A：{0:N0}s";
+            this.LabelModeSemanticSecond.ContentStringFormat = "B：{0:N0}s";
+            this.LabelMaxSemanticFirst.ContentStringFormat = "A：{0:N0}s";
+            this.LabelMaxSemanticSecond.ContentStringFormat = "B：{0:N0}s";
+            this.LabelAverageSemanticFirst.ContentStringFormat = "A：{0:N0}s";
+            this.LabelAverageSemanticSecond.ContentStringFormat = "B：{0:N0}s";
+        }
+
+        public void InitNormalizedTimeStringFormat()
+        {
+            this.LabelMinSemanticFirst.ContentStringFormat = "A：{0:N0}s/km";
+            this.LabelMinSemanticSecond.ContentStringFormat = "B：{0:N0}s/km";
+            this.LabelModeSemanticFirst.ContentStringFormat = "A：{0:N0}s/km";
+            this.LabelModeSemanticSecond.ContentStringFormat = "B：{0:N0}s/km";
+            this.LabelMaxSemanticFirst.ContentStringFormat = "A：{0:N0}s/km";
+            this.LabelMaxSemanticSecond.ContentStringFormat = "B：{0:N0}s/km";
+            this.LabelAverageSemanticFirst.ContentStringFormat = "A：{0:N0}s/km";
+            this.LabelAverageSemanticSecond.ContentStringFormat = "B：{0:N0}s/km";
+        }
+
         private void ButtonNumber_Number(object sender, RoutedEventArgs e)
         {
             this.ParentViewModel.CreatePlotModel();

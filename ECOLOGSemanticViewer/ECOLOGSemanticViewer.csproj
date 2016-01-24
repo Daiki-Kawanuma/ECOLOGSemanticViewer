@@ -98,6 +98,7 @@
     <Compile Include="Models\GraphModels\DetailCompareSeriesDatum.cs" />
     <Compile Include="Models\GraphModels\SemanticGraph.cs" />
     <Compile Include="Models\GraphModels\SemanticHistogramDatum.cs" />
+    <Compile Include="ViewModels\PageViewModels\AbstComparePageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\AbstMainPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\CompareEnergyPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\DetailEnergyPageViewModel.cs" />

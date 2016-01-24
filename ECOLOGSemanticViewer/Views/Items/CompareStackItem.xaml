@@ -15,12 +15,14 @@
                     Content="Semantic A"
                     Style="{StaticResource MaterialDesignFlatButton}" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelTotalNumberSemanticFirst"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
                    Content="{Binding TotalNumberSemanticFirst}"
                    ContentStringFormat="{}Total number：{0:N0} trip" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelTotalValueSemanticFirst"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
                    Content="{Binding TotalLostEnergySemanticFirst}"
                    ContentStringFormat="{}Total lost energy：{0:N3}kWh" />
@@ -33,12 +35,14 @@
                     Content="Semantic B"
                     Style="{StaticResource MaterialDesignFlatButton}" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelTotalNumberSemanticSecond"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
                    Content="{Binding TotalNumberSemanticSecond}"
                    ContentStringFormat="{}Total number：{0:N0} trip" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelTotalValueSemanticSecond"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
                    Content="{Binding TotalLostEnergySemanticSecond}"
                    ContentStringFormat="{}Total lost energy：{0:N3}kWh" />
@@ -51,17 +55,20 @@
                     Content="Difference"
                     Style="{StaticResource MaterialDesignFlatButton}" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelNumberDiff"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
                    Content="{Binding NumberDiff}"
                    ContentStringFormat="{}Number diff：{0:N0} trip" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelValueDiff"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
                    Content="{Binding LostEnergyDiff}"
                    ContentStringFormat="{}Lost energy diff：{0:N3}kWh" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelValueDiffPercent"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
                    Content="{Binding LostEnergyDiffPercent}"
                    ContentStringFormat="{}Lost energy diff：{0:N1}%" />

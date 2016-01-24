@@ -34,5 +34,27 @@ namespace ECOLOGSemanticViewer.Views.Items
             this.DataContext = this;
             InvalidateVisual();
         }
+
+        public void InitEnergyStringFormat()
+        {
+            this.LabelTotalNumberSemanticFirst.ContentStringFormat = "Total number：{0:N0} trip";
+            this.LabelTotalValueSemanticFirst.ContentStringFormat = "Total lost energy：{0:N3}kWh";
+            this.LabelTotalNumberSemanticSecond.ContentStringFormat = "Total number：{0:N0} trip";
+            this.LabelTotalValueSemanticSecond.ContentStringFormat = "Total lost energy：{0:N3}kWh";
+            this.LabelNumberDiff.ContentStringFormat = "Number diff：{0:N0} trip";
+            this.LabelValueDiff.ContentStringFormat = "Lost energy diff：{0:N3}kWh";
+            this.LabelValueDiffPercent.ContentStringFormat = "Lost energy diff：{0:N1}%";
+        }
+
+        public void InitTimeStringFormat()
+        {
+            this.LabelTotalNumberSemanticFirst.ContentStringFormat = "Total number：{0:N0} trip";
+            this.LabelTotalValueSemanticFirst.ContentStringFormat = "Total time：{0:N0}s";
+            this.LabelTotalNumberSemanticSecond.ContentStringFormat = "Total number：{0:N0} trip";
+            this.LabelTotalValueSemanticSecond.ContentStringFormat = "Total time：{0:N0}s";
+            this.LabelNumberDiff.ContentStringFormat = "Number diff：{0:N0} trip";
+            this.LabelValueDiff.ContentStringFormat = "Time diff：{0:N0}s";
+            this.LabelValueDiffPercent.ContentStringFormat = "Time diff：{0:N1}%";
+        }
     }
 }

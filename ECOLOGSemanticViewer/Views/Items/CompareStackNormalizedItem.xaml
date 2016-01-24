@@ -36,14 +36,15 @@
                     Content="Semantic A"
                     Style="{StaticResource MaterialDesignFlatButton}" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelNormalizedValueSemanticFirst"
+                   Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="{Binding NormalizedLostEnergySemanticFirst}"
+                   Content="{Binding NormalizedValueSemanticFirst}"
                    ContentStringFormat="{}Normalized lost energy：{0:N3}kWh/trip" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelCalculatedValueSemanticFirst" Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="{Binding CalculatedLostEnergySemanticFirst}"
+                   Content="{Binding CalculatedValueSemanticFirst}"
                    ContentStringFormat="{}Calculated lost energy：{0:N3}kWh" />
 
         </StackPanel>
@@ -54,14 +55,14 @@
                     Content="Semantic B"
                     Style="{StaticResource MaterialDesignFlatButton}" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelNormalizedValueSemanticSecond" Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="{Binding NormalizedLostEnergySemanticSecond}"
+                   Content="{Binding NormalizedValueSemanticSecond}"
                    ContentStringFormat="{}Normalized lost energy：{0:N3}kWh/trip" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelCalculatedValueSemanticSecond" Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="{Binding CalculatedLostEnergySemanticSecond}"
+                   Content="{Binding CalculatedValueSemanticSecond}"
                    ContentStringFormat="{}Calculated lost energy：{0:N3}kWh" />
 
         </StackPanel>
@@ -72,24 +73,24 @@
                     Content="Difference"
                     Style="{StaticResource MaterialDesignFlatButton}" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelNormalizedValueDiff" Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="{Binding NormalizedLostEnergyDiff}"
+                   Content="{Binding NormalizedValueDiff}"
                    ContentStringFormat="{}Normalized lost energy diff：{0:N3}kWh/trip" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelNormalizedValueDiffPercent" Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="{Binding NormalizedLostEnergyDiffPercent}"
+                   Content="{Binding NormalizedValueDiffPercent}"
                    ContentStringFormat="{}Normalized lost energy diff：{0:N1}%" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelCalculatedValueDiff" Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="{Binding CalculatedLostEnergyDiff}"
+                   Content="{Binding CalculatedValueDiff}"
                    ContentStringFormat="{}Calculated lost energy diff：{0:N3}kWh" />
 
-            <Label Margin="15,0,0,0"
+            <Label Name="LabelCalculatedValueDiffPercent" Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="{Binding CalculatedLostEnergyDiffPercent}"
+                   Content="{Binding CalculatedValueDiffPercent}"
                    ContentStringFormat="{}Calculated lost energy diff：{0:N1}%" />
 
         </StackPanel>

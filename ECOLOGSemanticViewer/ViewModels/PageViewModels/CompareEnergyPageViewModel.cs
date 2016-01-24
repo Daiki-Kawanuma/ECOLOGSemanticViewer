@@ -23,7 +23,7 @@ using ECOLOGSemanticViewer.Views.Items;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
-    public class CompareEnergyPageViewModel : ViewModel
+    public class CompareEnergyPageViewModel : AbstComparePageViewModel
     {
         #region SelectedSemanticLinks変更通知プロパティ
         private List<SemanticLink> _SelectedSemanticLinks;
@@ -229,7 +229,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 setHistogramData();
             });
 
-            CurrentUserControl = new CompareNumberItem()
+            var item = new CompareNumberItem()
             {
                 MinSemanticFirst = this.EnergyHistogramDatumFirst.MinLevel,
                 MinSemanticSecond = this.EnergyHistogramDatumSecond.MinLevel,
@@ -240,7 +240,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 AverageSemanticFirst = this.EnergyHistogramDatumFirst.AvgLevel,
                 AverageSemanticSecond = this.EnergyHistogramDatumSecond.AvgLevel
             };
-
+            item.InitEnergyStringFormat();
+            this.CurrentUserControl = item;
 
             CreatePlotModel();
 
@@ -249,14 +250,12 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         private async void displayDistanceNormalizedHistogramGraph()
         {
-            CurrentUserControl = new CompareNumberItem();
-
             await Task.Run(() =>
             {
                 setDistanceNormalizedHistogramData();
             });
 
-            CurrentUserControl = new CompareNumberItem()
+            var item = new CompareNumberItem()
             {
                 MinSemanticFirst = this.EnergyHistogramDatumFirst.MinLevel,
                 MinSemanticSecond = this.EnergyHistogramDatumSecond.MinLevel,
@@ -267,6 +266,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 AverageSemanticFirst = this.EnergyHistogramDatumFirst.AvgLevel,
                 AverageSemanticSecond = this.EnergyHistogramDatumSecond.AvgLevel
             };
+            item.InitNormalizedEnergyStringFormat();
 
             CreatePlotModel();
 
@@ -275,14 +275,12 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         private async void displayStackGraph()
         {
-            CurrentUserControl = new CompareStackItem();
-
             await Task.Run(() =>
             {
                 setStackData();
             });
 
-            CurrentUserControl = new CompareStackItem()
+            var item = new CompareStackItem()
             {
                 TotalNumberSemanticFirst = this.EnergyHistogramDatumFirst.Number,
                 TotalNumberSemanticSecond = this.EnergyHistogramDatumSecond.Number,
@@ -292,6 +290,9 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 LostEnergyDiff = Math.Abs(this.EnergyHistogramDatumFirst.SumLostEnergy - this.EnergyHistogramDatumSecond.SumLostEnergy),
                 LostEnergyDiffPercent = Math.Abs(this.EnergyHistogramDatumFirst.SumLostEnergy * 100 / this.EnergyHistogramDatumSecond.SumLostEnergy)
             };
+            item.InitEnergyStringFormat();
+
+            this.CurrentUserControl = item;
 
             CreatePlotModel();
 
@@ -307,19 +308,21 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 setNormalizedStackData();
             });
 
-            CurrentUserControl = new CompareStackNormalizedItem()
+            var item = new CompareStackNormalizedItem()
             {
-                NormalizedLostEnergySemanticFirst = this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number,
-                NormalizedLostEnergySemanticSecond = this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number,
-                CalculatedLostEnergySemanticFirst = this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber,
-                CalculatedLostEnergySemanticSecond = this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber,
-                NormalizedLostEnergyDiff = Math.Abs((this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number) - (this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number)),
-                NormalizedLostEnergyDiffPercent = Math.Abs((this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number) * 100 / (this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number)),
-                CalculatedLostEnergyDiff = Math.Abs((this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber)
+                NormalizedValueSemanticFirst = this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number,
+                NormalizedValueSemanticSecond = this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number,
+                CalculatedValueSemanticFirst = this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber,
+                CalculatedValueSemanticSecond = this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber,
+                NormalizedValueDiff = Math.Abs((this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number) - (this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number)),
+                NormalizedValueDiffPercent = Math.Abs((this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number) * 100 / (this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number)),
+                CalculatedValueDiff = Math.Abs((this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber)
                     - (this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber)),
-                CalculatedLostEnergyDiffPercent = (this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber) * 100
+                CalculatedValueDiffPercent = (this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber) * 100
                     / (this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber)
             };
+            item.InitEnergyStringFormat();
+            this.CurrentUserControl = item;
 
             CreatePlotModel();
 
@@ -353,7 +356,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         }
 
         #region 各グラフ共通のPlotModel作成メソッド
-        public void CreatePlotModel()
+        public override void CreatePlotModel()
         {
             PlotModel plotModel = new PlotModel();
 
@@ -416,7 +419,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         #endregion
 
         #region 各グラフ共通のパーセントPlotModel作成メソッド
-        public void CreatePercentilePlotModel()
+        public override void CreatePercentilePlotModel()
         {
             PlotModel plotModel = new PlotModel();
 
@@ -478,7 +481,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         }
         #endregion
 
-        public void CreateCalculatedPlotModel(int numberOfTrip)
+        # region 件数正規化用のPlotModel作成メソッド
+        public override void CreateCalculatedPlotModel(int numberOfTrip)
         {
             PlotModel plotModel = new PlotModel();
 
@@ -512,7 +516,9 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             ProgressBarVisibility = System.Windows.Visibility.Collapsed;
             this.PlotModel = plotModel;
         }
+        #endregion
 
+        #region 件数正規化用のSeries作成メソッド
         private AreaSeries createCalculatedAreaSeries(SemanticHistogramDatum datum, int numberOfTrip)
         {
             AreaSeries series = new AreaSeries();
@@ -535,5 +541,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             return series;
         }
+        #endregion
     }
 }
