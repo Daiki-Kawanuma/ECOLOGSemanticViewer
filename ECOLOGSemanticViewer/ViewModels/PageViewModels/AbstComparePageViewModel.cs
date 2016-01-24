@@ -18,10 +18,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
     public abstract class AbstComparePageViewModel : ViewModel
     {
 
-        public void Initialize()
-        {
-        }
-
         public abstract void CreatePlotModel();
 
         public abstract void CreatePercentilePlotModel();

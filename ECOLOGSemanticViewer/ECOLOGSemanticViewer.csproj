@@ -101,6 +101,7 @@
     <Compile Include="ViewModels\PageViewModels\AbstComparePageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\AbstMainPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\CompareEnergyPageViewModel.cs" />
+    <Compile Include="ViewModels\PageViewModels\CompareTimePageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\DetailEnergyPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\DetailComparePageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\DetailHeatMapPageViewModel.cs" />
