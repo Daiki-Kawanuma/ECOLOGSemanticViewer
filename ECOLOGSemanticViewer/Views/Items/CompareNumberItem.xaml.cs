@@ -1,4 +1,5 @@
-﻿using Livet;
+﻿using ECOLOGSemanticViewer.ViewModels.PageViewModels;
+using Livet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace ECOLOGSemanticViewer.Views.Items
     /// </summary>
     public partial class CompareNumberItem : UserControl
     {
-
+        public CompareEnergyPageViewModel ParentViewModel { get; set; }
         public double MinSemanticFirst { get; set; }
         public double MinSemanticSecond { get; set; }
         public double ModeSemanticFirst { get; set; }
@@ -36,6 +37,16 @@ namespace ECOLOGSemanticViewer.Views.Items
             InitializeComponent();
             DataContext = this;
             InvalidateVisual();
+        }
+
+        private void ButtonNumber_Number(object sender, RoutedEventArgs e)
+        {
+            this.ParentViewModel.CreatePlotModel();
+        }
+
+        private void ButtonPercent_Percent(object sender, RoutedEventArgs e)
+        {
+            this.ParentViewModel.CreatePercentilePlotModel();
         }
     }
 }

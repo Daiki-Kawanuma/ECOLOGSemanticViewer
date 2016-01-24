@@ -33,7 +33,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             get
             { return _SelectedSemanticLinks; }
             set
-            { 
+            {
                 if (_SelectedSemanticLinks == value)
                     return;
                 _SelectedSemanticLinks = value;
@@ -50,7 +50,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             get
             { return _TripDirection; }
             set
-            { 
+            {
                 if (_TripDirection == value)
                     return;
                 _TripDirection = value;
@@ -67,7 +67,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             get
             { return _GraphTypes; }
             set
-            { 
+            {
                 if (_GraphTypes == value)
                     return;
                 _GraphTypes = value;
@@ -84,7 +84,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             get
             { return _CurrentGraphType; }
             set
-            { 
+            {
                 if (_CurrentGraphType == value)
                     return;
                 _CurrentGraphType = value;
@@ -104,7 +104,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             get
             { return _CurrentUserControl; }
             set
-            { 
+            {
                 if (_CurrentUserControl == value)
                     return;
                 _CurrentUserControl = value;
@@ -138,7 +138,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             get
             { return _EnergyHistogramDatumSecond; }
             set
-            { 
+            {
                 if (_EnergyHistogramDatumSecond == value)
                     return;
                 _EnergyHistogramDatumSecond = value;
@@ -229,7 +229,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 setHistogramData();
             });
 
-            CurrentUserControl = new CompareNumberItem() { 
+            CurrentUserControl = new CompareNumberItem()
+            {
                 MinSemanticFirst = this.EnergyHistogramDatumFirst.MinLevel,
                 MinSemanticSecond = this.EnergyHistogramDatumSecond.MinLevel,
                 ModeSemanticFirst = this.EnergyHistogramDatumFirst.ModeLevel,
@@ -241,7 +242,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             };
 
 
-            createPlotModel();
+            CreatePlotModel();
 
             this.ProgressBarVisibility = System.Windows.Visibility.Collapsed;
         }
@@ -255,7 +256,19 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 setDistanceNormalizedHistogramData();
             });
 
-            createPlotModel();
+            CurrentUserControl = new CompareNumberItem()
+            {
+                MinSemanticFirst = this.EnergyHistogramDatumFirst.MinLevel,
+                MinSemanticSecond = this.EnergyHistogramDatumSecond.MinLevel,
+                ModeSemanticFirst = this.EnergyHistogramDatumFirst.ModeLevel,
+                ModeSemanticSecond = this.EnergyHistogramDatumSecond.ModeLevel,
+                MaxSemanticFirst = this.EnergyHistogramDatumFirst.MaxLevel,
+                MaxSemanticSecond = this.EnergyHistogramDatumSecond.MaxLevel,
+                AverageSemanticFirst = this.EnergyHistogramDatumFirst.AvgLevel,
+                AverageSemanticSecond = this.EnergyHistogramDatumSecond.AvgLevel
+            };
+
+            CreatePlotModel();
 
             this.ProgressBarVisibility = System.Windows.Visibility.Collapsed;
         }
@@ -269,7 +282,18 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 setStackData();
             });
 
-            createPlotModel();
+            CurrentUserControl = new CompareStackItem()
+            {
+                TotalNumberSemanticFirst = this.EnergyHistogramDatumFirst.Number,
+                TotalNumberSemanticSecond = this.EnergyHistogramDatumSecond.Number,
+                TotalLostEnergySemanticFirst = this.EnergyHistogramDatumFirst.SumLostEnergy,
+                TotalLostEnergySemanticSecond = this.EnergyHistogramDatumSecond.SumLostEnergy,
+                NumberDiff = Math.Abs(this.EnergyHistogramDatumFirst.Number - this.EnergyHistogramDatumSecond.Number),
+                LostEnergyDiff = Math.Abs(this.EnergyHistogramDatumFirst.SumLostEnergy - this.EnergyHistogramDatumSecond.SumLostEnergy),
+                LostEnergyDiffPercent = Math.Abs(this.EnergyHistogramDatumFirst.SumLostEnergy * 100 / this.EnergyHistogramDatumSecond.SumLostEnergy)
+            };
+
+            CreatePlotModel();
 
             this.ProgressBarVisibility = System.Windows.Visibility.Collapsed;
         }
@@ -283,39 +307,53 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 setNormalizedStackData();
             });
 
-            createPlotModel();
+            CurrentUserControl = new CompareStackNormalizedItem()
+            {
+                NormalizedLostEnergySemanticFirst = this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number,
+                NormalizedLostEnergySemanticSecond = this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number,
+                CalculatedLostEnergySemanticFirst = this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber,
+                CalculatedLostEnergySemanticSecond = this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber,
+                NormalizedLostEnergyDiff = Math.Abs((this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number) - (this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number)),
+                NormalizedLostEnergyDiffPercent = Math.Abs((this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number) * 100 / (this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number)),
+                CalculatedLostEnergyDiff = Math.Abs((this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber)
+                    - (this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber)),
+                CalculatedLostEnergyDiffPercent = (this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber) * 100
+                    / (this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber)
+            };
+
+            CreatePlotModel();
 
             this.ProgressBarVisibility = System.Windows.Visibility.Collapsed;
         }
 
         private void setHistogramData()
         {
-                this.EnergyHistogramDatumFirst = SemanticHistogramDatum.GetEnergyInstance(this.SelectedSemanticLinks[0], this.TripDirection);
-                this.EnergyHistogramDatumSecond = SemanticHistogramDatum.GetEnergyInstance(this.SelectedSemanticLinks[1], this.TripDirection);
+            this.EnergyHistogramDatumFirst = SemanticHistogramDatum.GetEnergyInstance(this.SelectedSemanticLinks[0], this.TripDirection);
+            this.EnergyHistogramDatumSecond = SemanticHistogramDatum.GetEnergyInstance(this.SelectedSemanticLinks[1], this.TripDirection);
         }
 
         private void setDistanceNormalizedHistogramData()
         {
-                this.EnergyHistogramDatumFirst = SemanticHistogramDatum.GetEnergyInstance(this.SelectedSemanticLinks[0], this.TripDirection);
-                this.EnergyHistogramDatumSecond = SemanticHistogramDatum.GetEnergyInstance(this.SelectedSemanticLinks[1], this.TripDirection);
+            this.EnergyHistogramDatumFirst = SemanticHistogramDatum.GetDistanceNormalizedEnergyInstance(this.SelectedSemanticLinks[0], this.TripDirection);
+            this.EnergyHistogramDatumSecond = SemanticHistogramDatum.GetDistanceNormalizedEnergyInstance(this.SelectedSemanticLinks[1], this.TripDirection);
         }
 
         private void setStackData()
         {
 
-                this.EnergyHistogramDatumFirst = SemanticHistogramDatum.GetEnergyInstance(this.SelectedSemanticLinks[0], this.TripDirection);
-                this.EnergyHistogramDatumSecond = SemanticHistogramDatum.GetEnergyInstance(this.SelectedSemanticLinks[1], this.TripDirection);
+            this.EnergyHistogramDatumFirst = SemanticHistogramDatum.GetStackedEnergyInstance(this.SelectedSemanticLinks[0], this.TripDirection);
+            this.EnergyHistogramDatumSecond = SemanticHistogramDatum.GetStackedEnergyInstance(this.SelectedSemanticLinks[1], this.TripDirection);
         }
 
         private void setNormalizedStackData()
         {
-            
-                this.EnergyHistogramDatumFirst = SemanticHistogramDatum.GetEnergyInstance(this.SelectedSemanticLinks[0], this.TripDirection);
-                this.EnergyHistogramDatumSecond = SemanticHistogramDatum.GetEnergyInstance(this.SelectedSemanticLinks[1], this.TripDirection);
+
+            this.EnergyHistogramDatumFirst = SemanticHistogramDatum.GetNormalizedStackedEnergyInstance(this.SelectedSemanticLinks[0], this.TripDirection);
+            this.EnergyHistogramDatumSecond = SemanticHistogramDatum.GetNormalizedStackedEnergyInstance(this.SelectedSemanticLinks[1], this.TripDirection);
         }
 
         #region 各グラフ共通のPlotModel作成メソッド
-        private void createPlotModel()
+        public void CreatePlotModel()
         {
             PlotModel plotModel = new PlotModel();
 
@@ -345,21 +383,21 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             axisX.Position = AxisPosition.Bottom;
             plotModel.Axes.Add(axisX);
             plotModel.Axes.Add(axisY);
-   
+
             plotModel.Series.Add(createAreaSeries(EnergyHistogramDatumFirst));
             plotModel.Series.Add(createAreaSeries(EnergyHistogramDatumSecond));
-      
+
             ProgressBarVisibility = System.Windows.Visibility.Collapsed;
             this.PlotModel = plotModel;
         }
-        #endregion 
+        #endregion
 
         #region 各グラフ共通のSeries作成メソッド
         private AreaSeries createAreaSeries(SemanticHistogramDatum datum)
         {
             AreaSeries series = new AreaSeries();
 
-            if(datum == this.EnergyHistogramDatumFirst)
+            if (datum == this.EnergyHistogramDatumFirst)
                 series.Title = "A：" + datum.SemanticLink.Semantics;
             else
                 series.Title = "B：" + datum.SemanticLink.Semantics;
@@ -376,5 +414,126 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             return series;
         }
         #endregion
+
+        #region 各グラフ共通のパーセントPlotModel作成メソッド
+        public void CreatePercentilePlotModel()
+        {
+            PlotModel plotModel = new PlotModel();
+
+            LinearAxis axisX = new LinearAxis();
+            LinearAxis axisY = new LinearAxis();
+
+            switch (CurrentGraphType)
+            {
+                case CompareGraphType.GraphTypes.HistogramGraph:
+                    axisX.Title = "Lost energy [kWh]";
+                    axisY.Title = "Probability [%]";
+                    break;
+                case CompareGraphType.GraphTypes.DistanceNormalizedHistogram:
+                    axisX.Title = "Normalized lost energy [kWh/km]";
+                    axisY.Title = "Probability [%]";
+                    break;
+                case CompareGraphType.GraphTypes.StackGraph:
+                    
+                    break;
+                case CompareGraphType.GraphTypes.NormalizedStackGraph:
+                    
+                    break;
+            }
+
+            axisX.Position = AxisPosition.Bottom;
+            plotModel.Axes.Add(axisX);
+            plotModel.Axes.Add(axisY);
+
+            plotModel.Series.Add(createPercentileAreaSeries(EnergyHistogramDatumFirst));
+            plotModel.Series.Add(createPercentileAreaSeries(EnergyHistogramDatumSecond));
+
+            ProgressBarVisibility = System.Windows.Visibility.Collapsed;
+            this.PlotModel = plotModel;
+        }
+        #endregion
+
+        #region 各グラフ共通のパーセントSerie作成メソッド
+        private AreaSeries createPercentileAreaSeries(SemanticHistogramDatum datum)
+        {
+            AreaSeries series = new AreaSeries();
+
+            if (datum == this.EnergyHistogramDatumFirst)
+                series.Title = "A：" + datum.SemanticLink.Semantics;
+            else
+                series.Title = "B：" + datum.SemanticLink.Semantics;
+
+            double sumValue = datum.HistogramData.Sum(v => v.Value);
+
+            series.Points.Add(new DataPoint(datum.MinLevel - datum.ClassWidth, 0));
+
+            foreach (LevelAndValue item in datum.HistogramData)
+            {
+                series.Points.Add(new DataPoint(item.Level, item.Value * 100 / sumValue));
+            }
+
+            series.Points.Add(new DataPoint(datum.MaxLevel + datum.ClassWidth, 0));
+
+            return series;
+        }
+        #endregion
+
+        public void CreateCalculatedPlotModel(int numberOfTrip)
+        {
+            PlotModel plotModel = new PlotModel();
+
+            LinearAxis axisX = new LinearAxis();
+            LinearAxis axisY = new LinearAxis();
+
+            switch (CurrentGraphType)
+            {
+                case CompareGraphType.GraphTypes.HistogramGraph:
+                    
+                    break;
+                case CompareGraphType.GraphTypes.DistanceNormalizedHistogram:
+                    
+                    break;
+                case CompareGraphType.GraphTypes.StackGraph:
+                    
+                    break;
+                case CompareGraphType.GraphTypes.NormalizedStackGraph:
+                    axisX.Title = "Lost energy [kWh]";
+                    axisY.Title = "Calculated stacked lost energy [kWh]";
+                    break;
+            }
+
+            axisX.Position = AxisPosition.Bottom;
+            plotModel.Axes.Add(axisX);
+            plotModel.Axes.Add(axisY);
+
+            plotModel.Series.Add(createCalculatedAreaSeries(EnergyHistogramDatumFirst, numberOfTrip));
+            plotModel.Series.Add(createCalculatedAreaSeries(EnergyHistogramDatumSecond, numberOfTrip));
+
+            ProgressBarVisibility = System.Windows.Visibility.Collapsed;
+            this.PlotModel = plotModel;
+        }
+
+        private AreaSeries createCalculatedAreaSeries(SemanticHistogramDatum datum, int numberOfTrip)
+        {
+            AreaSeries series = new AreaSeries();
+
+            if (datum == this.EnergyHistogramDatumFirst)
+                series.Title = "A：" + datum.SemanticLink.Semantics;
+            else
+                series.Title = "B：" + datum.SemanticLink.Semantics;
+
+            double sumValue = datum.HistogramData.Sum(v => v.Value);
+
+            series.Points.Add(new DataPoint(datum.MinLevel - datum.ClassWidth, 0));
+
+            foreach (LevelAndValue item in datum.HistogramData)
+            {
+                series.Points.Add(new DataPoint(item.Level, item.Value * numberOfTrip));
+            }
+
+            series.Points.Add(new DataPoint(datum.MaxLevel + datum.ClassWidth, 0));
+
+            return series;
+        }
     }
 }

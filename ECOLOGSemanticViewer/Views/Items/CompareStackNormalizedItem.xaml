@@ -16,11 +16,15 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="1000" Margin="0,0,10,0" />
+            <TextBox Grid.Column="0"
+                     Margin="0,0,10,0"
+                     Text="{Binding CalclateTripNumber}" />
             <Button Grid.Column="1"
+                    Click="Button_Calculate"
                     Content="Calc"
                     Padding="5" />
             <Button Grid.Column="2"
+                    Click="Button_Clear"
                     Content="Clear"
                     Padding="5" />
 
@@ -34,7 +38,13 @@
 
             <Label Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Totla lost energy: 25kWh" />
+                   Content="{Binding NormalizedLostEnergySemanticFirst}"
+                   ContentStringFormat="{}Normalized lost energy：{0:N3}kWh/trip" />
+
+            <Label Margin="15,0,0,0"
+                   HorizontalAlignment="Left"
+                   Content="{Binding CalculatedLostEnergySemanticFirst}"
+                   ContentStringFormat="{}Calculated lost energy：{0:N3}kWh" />
 
         </StackPanel>
 
@@ -46,7 +56,13 @@
 
             <Label Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Total lost energy: 30kWh" />
+                   Content="{Binding NormalizedLostEnergySemanticSecond}"
+                   ContentStringFormat="{}Normalized lost energy：{0:N3}kWh/trip" />
+
+            <Label Margin="15,0,0,0"
+                   HorizontalAlignment="Left"
+                   Content="{Binding CalculatedLostEnergySemanticSecond}"
+                   ContentStringFormat="{}Calculated lost energy：{0:N3}kWh" />
 
         </StackPanel>
 
@@ -58,11 +74,23 @@
 
             <Label Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Lost energy diff: 5kWh" />
+                   Content="{Binding NormalizedLostEnergyDiff}"
+                   ContentStringFormat="{}Normalized lost energy diff：{0:N3}kWh/trip" />
 
             <Label Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Lost energy diff: 10%" />
+                   Content="{Binding NormalizedLostEnergyDiffPercent}"
+                   ContentStringFormat="{}Normalized lost energy diff：{0:N1}%" />
+
+            <Label Margin="15,0,0,0"
+                   HorizontalAlignment="Left"
+                   Content="{Binding CalculatedLostEnergyDiff}"
+                   ContentStringFormat="{}Calculated lost energy diff：{0:N3}kWh" />
+
+            <Label Margin="15,0,0,0"
+                   HorizontalAlignment="Left"
+                   Content="{Binding CalculatedLostEnergyDiffPercent}"
+                   ContentStringFormat="{}Calculated lost energy diff：{0:N1}%" />
 
         </StackPanel>
 

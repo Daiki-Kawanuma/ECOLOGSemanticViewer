@@ -17,6 +17,10 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 
         public TripDirection Direction { get; set; }
 
+        public int Number { get; set; }
+
+        public double SumLostEnergy { get; set; }
+
         public List<LevelAndValue> HistogramData { get; set; }
 
         public double MaxLevel { get; set; }
@@ -313,6 +317,30 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
             datum.CompModeMax = datum.MaxLevel * 100 / datum.ModeLevel;
 
             return datum;
+        }
+
+        public static SemanticHistogramDatum GetStackedEnergyInstance(SemanticLink semanticLink, TripDirection direction)
+        {
+            // TODO 実装
+            return null;
+        }
+
+        public static SemanticHistogramDatum GetStackedTimeInstance(SemanticLink semanticLink, TripDirection direction)
+        {
+            // TODO 実装
+            return null;
+        }
+
+        public static SemanticHistogramDatum GetNormalizedStackedEnergyInstance(SemanticLink semanticLink, TripDirection direction)
+        {
+            // TODO 実装
+            return null;
+        }
+
+        public static SemanticHistogramDatum GetNormalizedStackedTimeInstance(SemanticLink semanticLink, TripDirection direction)
+        {
+            // TODO 実装
+            return null;
         }
     }
 }

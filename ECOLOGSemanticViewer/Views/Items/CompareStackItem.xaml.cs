@@ -20,9 +20,19 @@ namespace ECOLOGSemanticViewer.Views.Items
     /// </summary>
     public partial class CompareStackItem : UserControl
     {
+        public int TotalNumberSemanticFirst { get; set; }
+        public int TotalNumberSemanticSecond { get; set; }
+        public double TotalLostEnergySemanticFirst { get; set; }
+        public double TotalLostEnergySemanticSecond { get; set; }
+        public int NumberDiff { get; set; }
+        public double LostEnergyDiff { get; set; }
+        public double LostEnergyDiffPercent { get; set; }
+
         public CompareStackItem()
         {
             InitializeComponent();
+            this.DataContext = this;
+            InvalidateVisual();
         }
     }
 }

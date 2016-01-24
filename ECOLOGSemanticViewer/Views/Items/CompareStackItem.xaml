@@ -17,11 +17,13 @@
 
             <Label Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Total number: 100" />
+                   Content="{Binding TotalNumberSemanticFirst}"
+                   ContentStringFormat="{}Total number：{0:N0} trip" />
 
             <Label Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Totla lost energy: 25kWh" />
+                   Content="{Binding TotalLostEnergySemanticFirst}"
+                   ContentStringFormat="{}Total lost energy：{0:N3}kWh" />
 
         </StackPanel>
 
@@ -33,11 +35,13 @@
 
             <Label Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Total number: 200" />
+                   Content="{Binding TotalNumberSemanticSecond}"
+                   ContentStringFormat="{}Total number：{0:N0} trip" />
 
             <Label Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Total lost energy: 30kWh" />
+                   Content="{Binding TotalLostEnergySemanticSecond}"
+                   ContentStringFormat="{}Total lost energy：{0:N3}kWh" />
 
         </StackPanel>
 
@@ -49,15 +53,18 @@
 
             <Label Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Number diff: 100" />
+                   Content="{Binding NumberDiff}"
+                   ContentStringFormat="{}Number diff：{0:N0} trip" />
 
             <Label Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Lost energy diff: 5kWh" />
+                   Content="{Binding LostEnergyDiff}"
+                   ContentStringFormat="{}Lost energy diff：{0:N3}kWh" />
 
             <Label Margin="15,0,0,0"
                    HorizontalAlignment="Left"
-                   Content="Lost energy diff: 10%" />
+                   Content="{Binding LostEnergyDiffPercent}"
+                   ContentStringFormat="{}Lost energy diff：{0:N1}%" />
 
         </StackPanel>
 

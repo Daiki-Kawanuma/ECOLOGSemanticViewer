@@ -18,11 +18,11 @@
             <Button Name="ButtonNumber"
                     Grid.Column="0"
                     Content="Number"
-                    Padding="5" />
+                    Padding="5" Click="ButtonNumber_Number" />
             <Button Name="ButtonPercent"
                     Grid.Column="1"
                     Content="Percent"
-                    Padding="5" />
+                    Padding="5" Click="ButtonPercent_Percent" />
 
         </Grid>
 

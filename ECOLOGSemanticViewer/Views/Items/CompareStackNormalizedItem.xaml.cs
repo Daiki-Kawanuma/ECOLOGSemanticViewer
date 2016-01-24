@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECOLOGSemanticViewer.ViewModels.PageViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,33 @@ namespace ECOLOGSemanticViewer.Views.Items
     /// </summary>
     public partial class CompareStackNormalizedItem : UserControl
     {
+        public const double DefaultCalculateTripNumber = 1000;
+        public CompareEnergyPageViewModel ParentViewModel { get; set; }
+        public int CalclateTripNumber { get; set; }
+        public double NormalizedLostEnergySemanticFirst{get; set;}
+        public double NormalizedLostEnergySemanticSecond { get; set; }
+        public double CalculatedLostEnergySemanticFirst { get; set; }
+        public double CalculatedLostEnergySemanticSecond { get; set; }
+        public double NormalizedLostEnergyDiff { get; set; }
+        public double NormalizedLostEnergyDiffPercent { get; set; }
+        public double CalculatedLostEnergyDiff { get; set; }
+        public double CalculatedLostEnergyDiffPercent { get; set; }
+
         public CompareStackNormalizedItem()
         {
             InitializeComponent();
+            this.DataContext = this;
+            InvalidateVisual();
+        }
+
+        private void Button_Calculate(object sender, RoutedEventArgs e)
+        {
+            this.ParentViewModel.CreateCalculatedPlotModel(this.CalclateTripNumber);
+        }
+
+        private void Button_Clear(object sender, RoutedEventArgs e)
+        {
+            this.ParentViewModel.CreatePlotModel();
         }
     }
 }
