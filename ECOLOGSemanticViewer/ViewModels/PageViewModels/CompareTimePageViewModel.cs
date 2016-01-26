@@ -285,11 +285,11 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             {
                 TotalNumberSemanticFirst = this.EnergyHistogramDatumFirst.Number,
                 TotalNumberSemanticSecond = this.EnergyHistogramDatumSecond.Number,
-                TotalLostEnergySemanticFirst = this.EnergyHistogramDatumFirst.SumLostEnergy,
-                TotalLostEnergySemanticSecond = this.EnergyHistogramDatumSecond.SumLostEnergy,
+                TotalLostEnergySemanticFirst = this.EnergyHistogramDatumFirst.Sum,
+                TotalLostEnergySemanticSecond = this.EnergyHistogramDatumSecond.Sum,
                 NumberDiff = Math.Abs(this.EnergyHistogramDatumFirst.Number - this.EnergyHistogramDatumSecond.Number),
-                LostEnergyDiff = Math.Abs(this.EnergyHistogramDatumFirst.SumLostEnergy - this.EnergyHistogramDatumSecond.SumLostEnergy),
-                LostEnergyDiffPercent = Math.Abs(this.EnergyHistogramDatumFirst.SumLostEnergy * 100 / this.EnergyHistogramDatumSecond.SumLostEnergy)
+                LostEnergyDiff = Math.Abs(this.EnergyHistogramDatumFirst.Sum - this.EnergyHistogramDatumSecond.Sum),
+                LostEnergyDiffPercent = Math.Abs(this.EnergyHistogramDatumFirst.Sum * 100 / this.EnergyHistogramDatumSecond.Sum)
             };
             item.InitTimeStringFormat();
 
@@ -311,16 +311,14 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             var item = new CompareStackNormalizedItem()
             {
-                NormalizedValueSemanticFirst = this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number,
-                NormalizedValueSemanticSecond = this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number,
-                CalculatedValueSemanticFirst = this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber,
-                CalculatedValueSemanticSecond = this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber,
-                NormalizedValueDiff = Math.Abs((this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number) - (this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number)),
-                NormalizedValueDiffPercent = Math.Abs((this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number) * 100 / (this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number)),
-                CalculatedValueDiff = Math.Abs((this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber)
-                    - (this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber)),
-                CalculatedValueDiffPercent = (this.EnergyHistogramDatumFirst.SumLostEnergy / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber) * 100
-                    / (this.EnergyHistogramDatumSecond.SumLostEnergy / this.EnergyHistogramDatumSecond.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber)
+                NormalizedValueSemanticFirst = this.EnergyHistogramDatumFirst.Sum / this.EnergyHistogramDatumFirst.Number,
+                NormalizedValueSemanticSecond = this.EnergyHistogramDatumSecond.Sum / this.EnergyHistogramDatumSecond.Number,
+                CalculatedValueSemanticFirst = this.EnergyHistogramDatumFirst.Sum / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber,
+                CalculatedValueSemanticSecond = this.EnergyHistogramDatumSecond.Sum / this.EnergyHistogramDatumSecond.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber,
+                NormalizedValueDiff = Math.Abs((this.EnergyHistogramDatumFirst.Sum / this.EnergyHistogramDatumFirst.Number) - (this.EnergyHistogramDatumSecond.Sum / this.EnergyHistogramDatumSecond.Number)),
+                NormalizedValueDiffPercent = Math.Abs((this.EnergyHistogramDatumFirst.Sum / this.EnergyHistogramDatumFirst.Number) * 100 / (this.EnergyHistogramDatumSecond.Sum / this.EnergyHistogramDatumSecond.Number)),
+                CalculatedValueDiff = Math.Abs((this.EnergyHistogramDatumFirst.Sum / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber)
+                    - (this.EnergyHistogramDatumSecond.Sum / this.EnergyHistogramDatumSecond.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber)),
             };
             item.InitTimeStringFormat();
             this.CurrentUserControl = item;

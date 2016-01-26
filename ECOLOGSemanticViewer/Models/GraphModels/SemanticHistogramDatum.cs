@@ -19,7 +19,7 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 
         public int Number { get; set; }
 
-        public double SumLostEnergy { get; set; }
+        public double Sum { get; set; }
 
         public List<LevelAndValue> HistogramData { get; set; }
 
@@ -330,18 +330,30 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
             datum.HistogramData = new List<LevelAndValue>();
             foreach (DataRow row in table.Rows)
             {
-                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<int>("Level"), Value = row.Field<int>("Stack") });
+                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<double>("Level"), Value = row.Field<double>("Stack") });
             }
 
-            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergySumOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+            datum.Sum = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergySumOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
                 .Select(x => x.Field<double>("Sum"))
                 .ElementAt(0);
 
-            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyNumberOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+            datum.Number = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyNumberOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
                 .Select(x => x.Field<int>("Number"))
                 .ElementAt(0);
+
+            datum.MaxLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMaxOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Max"))
+                .ElementAt(0);
+
+            datum.MinLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMinOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Min"))
+                .ElementAt(0);
+
+            datum.ClassWidth = (datum.MaxLevel - datum.MinLevel) / 10;
 
             return datum;
         }
@@ -353,22 +365,34 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
             datum.SemanticLink = semanticLink;
             datum.Direction = direction;
 
-            DataTable table = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeStackOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')");
+            DataTable table = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyStackOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')");
             datum.HistogramData = new List<LevelAndValue>();
             foreach (DataRow row in table.Rows)
             {
-                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<int>("Level"), Value = row.Field<int>("Stack") });
+                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<double>("Level"), Value = row.Field<double>("Stack") });
             }
 
-            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeSumOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+            datum.Sum = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeSumOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
                 .Select(x => x.Field<double>("Sum"))
                 .ElementAt(0);
 
-            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeNumberOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+            datum.Number = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeNumberOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
                 .Select(x => x.Field<int>("Number"))
                 .ElementAt(0);
+
+            datum.MaxLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMaxOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Max"))
+                .ElementAt(0);
+
+            datum.MinLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMinOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Min"))
+                .ElementAt(0);
+
+            datum.ClassWidth = (datum.MaxLevel - datum.MinLevel) / 10;
 
             return datum;
         }
@@ -380,22 +404,34 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
             datum.SemanticLink = semanticLink;
             datum.Direction = direction;
 
-            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergySumOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
-                .AsEnumerable()
-                .Select(x => x.Field<double>("Sum"))
-                .ElementAt(0);
-
-            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyNumberOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+            datum.Number = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyNumberOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
                 .Select(x => x.Field<int>("Number"))
+                .ElementAt(0);
+
+            datum.Sum = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergySumOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Sum"))
                 .ElementAt(0);
 
             DataTable table = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyStackOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')");
             datum.HistogramData = new List<LevelAndValue>();
             foreach (DataRow row in table.Rows)
             {
-                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<int>("Level"), Value = row.Field<int>("Stack") / datum.Number });
+                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<double>("Level"), Value = row.Field<double>("Stack") / datum.Number });
             }
+
+            datum.MaxLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMaxOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Max"))
+                .ElementAt(0);
+
+            datum.MinLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMinOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Min"))
+                .ElementAt(0);
+
+            datum.ClassWidth = (datum.MaxLevel - datum.MinLevel) / 10;
 
             return datum;
         }
@@ -407,12 +443,12 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
             datum.SemanticLink = semanticLink;
             datum.Direction = direction;
 
-            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeSumOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+            datum.Sum = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeSumOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                .AsEnumerable()
                .Select(x => x.Field<double>("Sum"))
                .ElementAt(0);
 
-            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeNumberOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+            datum.Number = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeNumberOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
                 .Select(x => x.Field<int>("Number"))
                 .ElementAt(0);
@@ -423,6 +459,18 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
             {
                 datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<int>("Level"), Value = row.Field<int>("Stack") / datum.Number });
             }
+
+            datum.MaxLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMaxOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Max"))
+                .ElementAt(0);
+
+            datum.MinLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMinOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Min"))
+                .ElementAt(0);
+
+            datum.ClassWidth = (datum.MaxLevel - datum.MinLevel) / 10;
 
             return datum;
         }

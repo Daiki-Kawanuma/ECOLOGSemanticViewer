@@ -31,7 +31,6 @@ namespace ECOLOGSemanticViewer.Views.Items
         public double NormalizedValueDiff { get; set; }
         public double NormalizedValueDiffPercent { get; set; }
         public double CalculatedValueDiff { get; set; }
-        public double CalculatedValueDiffPercent { get; set; }
 
         public CompareStackNormalizedItem()
         {
@@ -42,36 +41,52 @@ namespace ECOLOGSemanticViewer.Views.Items
 
         public void InitEnergyStringFormat()
         {
-            this.LabelNormalizedValueSemanticFirst.ContentStringFormat = "Normalized lost energy：{0:N3}kWh/trip";
-            this.LabelNormalizedValueSemanticSecond.ContentStringFormat = "Normalized lost energy：{0:N3}kWh/trip";
-            this.LabelCalculatedValueSemanticFirst.ContentStringFormat = "Calculated lost energy：{0:N3}kWh";
-            this.LabelCalculatedValueSemanticSecond.ContentStringFormat = "Calculated lost energy：{0:N3}kWh";
-            this.LabelNormalizedValueDiff.ContentStringFormat = "Normalized lost energy diff：{0:N3}kWh/trip";
-            this.LabelNormalizedValueDiffPercent.ContentStringFormat = "Normalized lost energy diff：{0:N1}%";
-            this.LabelCalculatedValueDiff.ContentStringFormat = "Calculated lost energy diff：{0:N3}kWh";
-            this.LabelCalculatedValueDiffPercent.ContentStringFormat = "Calculated lost energy diff：{0:N1}%";
+            this.LabelNormalizedValueSemanticFirst.ContentStringFormat = "Norm energy：{0:N3}kWh/trip";
+            this.LabelNormalizedValueSemanticSecond.ContentStringFormat = "Norm energy：{0:N3}kWh/trip";
+            this.LabelCalculatedValueSemanticFirst.ContentStringFormat = "Calc energy：{0:N3}kWh";
+            this.LabelCalculatedValueSemanticSecond.ContentStringFormat = "Calc energy：{0:N3}kWh";
+            this.LabelNormalizedValueDiff.ContentStringFormat = "Norm energy diff：{0:N3}kWh/trip";
+            this.LabelNormalizedValueDiffPercent.ContentStringFormat = "Norm energy diff：{0:N1}%";
+            this.LabelCalculatedValueDiff.ContentStringFormat = "Calc energy diff：{0:N3}kWh";
         }
 
         public void InitTimeStringFormat()
         {
-            this.LabelNormalizedValueSemanticFirst.ContentStringFormat = "Normalized time：{0:N0}s/trip";
-            this.LabelNormalizedValueSemanticSecond.ContentStringFormat = "Normalized time：{0:N0}s/trip";
-            this.LabelCalculatedValueSemanticFirst.ContentStringFormat = "Calculated time：{0:N0}s";
-            this.LabelCalculatedValueSemanticSecond.ContentStringFormat = "Calculated time：{0:N0}s";
-            this.LabelNormalizedValueDiff.ContentStringFormat = "Normalized time diff：{0:N0}s/trip";
-            this.LabelNormalizedValueDiffPercent.ContentStringFormat = "Normalized time diff：{0:N1}%";
-            this.LabelCalculatedValueDiff.ContentStringFormat = "Calculated time diff：{0:N0}s";
-            this.LabelCalculatedValueDiffPercent.ContentStringFormat = "Calculated time diff：{0:N0}s";
+            this.LabelNormalizedValueSemanticFirst.ContentStringFormat = "Norm time：{0:N0}s/trip";
+            this.LabelNormalizedValueSemanticSecond.ContentStringFormat = "Norm time：{0:N0}s/trip";
+            this.LabelCalculatedValueSemanticFirst.ContentStringFormat = "Calc time：{0:N0}s";
+            this.LabelCalculatedValueSemanticSecond.ContentStringFormat = "Calc time：{0:N0}s";
+            this.LabelNormalizedValueDiff.ContentStringFormat = "Norm time diff：{0:N0}s/trip";
+            this.LabelNormalizedValueDiffPercent.ContentStringFormat = "Norm time diff：{0:N1}%";
+            this.LabelCalculatedValueDiff.ContentStringFormat = "Calc time diff：{0:N0}s";
         }
 
         private void Button_Calculate(object sender, RoutedEventArgs e)
         {
+            calculateValue();
             this.ParentViewModel.CreateCalculatedPlotModel(this.CalclateTripNumber);
         }
 
         private void Button_Clear(object sender, RoutedEventArgs e)
         {
             this.ParentViewModel.CreatePlotModel();
+        }
+
+        private void calculateValue()
+        {
+            this.CalculatedValueSemanticFirst = this.NormalizedValueSemanticFirst * this.CalclateTripNumber;
+            this.CalculatedValueSemanticSecond = this.NormalizedValueSemanticSecond * this.CalclateTripNumber;
+            this.CalculatedValueDiff = Math.Abs(this.NormalizedValueSemanticFirst * this.CalclateTripNumber -
+                this.NormalizedValueSemanticSecond * this.CalclateTripNumber);
+
+            var expression = this.LabelCalculatedValueSemanticFirst.GetBindingExpression(Label.ContentProperty);
+            expression.UpdateTarget();
+
+            expression = this.LabelCalculatedValueSemanticSecond.GetBindingExpression(Label.ContentProperty);
+            expression.UpdateTarget();
+
+            expression = this.LabelCalculatedValueDiff.GetBindingExpression(Label.ContentProperty);
+            expression.UpdateTarget();
         }
     }
 }

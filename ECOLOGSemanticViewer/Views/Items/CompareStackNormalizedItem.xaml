@@ -88,11 +88,6 @@
                    Content="{Binding CalculatedValueDiff}"
                    ContentStringFormat="{}Calculated lost energy diff：{0:N3}kWh" />
 
-            <Label Name="LabelCalculatedValueDiffPercent" Margin="15,0,0,0"
-                   HorizontalAlignment="Left"
-                   Content="{Binding CalculatedValueDiffPercent}"
-                   ContentStringFormat="{}Calculated lost energy diff：{0:N1}%" />
-
         </StackPanel>
 
     </StackPanel>
