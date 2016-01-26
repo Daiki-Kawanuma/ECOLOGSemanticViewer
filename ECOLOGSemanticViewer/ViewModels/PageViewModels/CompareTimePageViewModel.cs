@@ -225,6 +225,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         private async void displayHistogramGraph()
         {
+            this.CurrentUserControl = null;
+
             await Task.Run(() =>
             {
                 setHistogramData();
@@ -232,6 +234,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             var item = new CompareNumberItem()
             {
+                ParentViewModel = this,
                 MinSemanticFirst = this.EnergyHistogramDatumFirst.MinLevel,
                 MinSemanticSecond = this.EnergyHistogramDatumSecond.MinLevel,
                 ModeSemanticFirst = this.EnergyHistogramDatumFirst.ModeLevel,
@@ -251,6 +254,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         private async void displayDistanceNormalizedHistogramGraph()
         {
+            this.CurrentUserControl = null;
+
             await Task.Run(() =>
             {
                 setDistanceNormalizedHistogramData();
@@ -258,6 +263,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             var item = new CompareNumberItem()
             {
+                ParentViewModel = this,
                 MinSemanticFirst = this.EnergyHistogramDatumFirst.MinLevel,
                 MinSemanticSecond = this.EnergyHistogramDatumSecond.MinLevel,
                 ModeSemanticFirst = this.EnergyHistogramDatumFirst.ModeLevel,
@@ -268,6 +274,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 AverageSemanticSecond = this.EnergyHistogramDatumSecond.AvgLevel
             };
             item.InitNormalizedTimeStringFormat();
+            this.CurrentUserControl = item;
 
             CreatePlotModel();
 
@@ -276,6 +283,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         private async void displayStackGraph()
         {
+            this.CurrentUserControl = null;
+
             await Task.Run(() =>
             {
                 setStackData();
@@ -292,7 +301,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 LostEnergyDiffPercent = Math.Abs(this.EnergyHistogramDatumFirst.Sum * 100 / this.EnergyHistogramDatumSecond.Sum)
             };
             item.InitTimeStringFormat();
-
             this.CurrentUserControl = item;
 
             CreatePlotModel();
@@ -302,6 +310,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         private async void displayNormalizedStackGraph()
         {
+            this.CurrentUserControl = null;
+
             CurrentUserControl = new CompareStackNormalizedItem();
 
             await Task.Run(() =>
@@ -311,6 +321,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             var item = new CompareStackNormalizedItem()
             {
+                ParentViewModel = this,
                 NormalizedValueSemanticFirst = this.EnergyHistogramDatumFirst.Sum / this.EnergyHistogramDatumFirst.Number,
                 NormalizedValueSemanticSecond = this.EnergyHistogramDatumSecond.Sum / this.EnergyHistogramDatumSecond.Number,
                 CalculatedValueSemanticFirst = this.EnergyHistogramDatumFirst.Sum / this.EnergyHistogramDatumFirst.Number * CompareStackNormalizedItem.DefaultCalculateTripNumber,

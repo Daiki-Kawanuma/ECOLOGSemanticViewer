@@ -270,22 +270,22 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 
             datum.MaxLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMaxOfSemanticLinkWithDistance(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
-                .Select(x => x.Field<int>("Max"))
+                .Select(x => x.Field<double>("Max"))
                 .ElementAt(0);
 
             datum.MinLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMinOfSemanticLinkWithDistance(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
-                .Select(x => x.Field<int>("Min"))
+                .Select(x => x.Field<double>("Min"))
                 .ElementAt(0);
 
             datum.MedianLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMedianOfSemanticLinkWithDistance(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
-                .Select(x => x.Field<int>("Median"))
+                .Select(x => x.Field<double>("Median"))
                 .ElementAt(0);
 
             datum.AvgLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeAvgOfSemanticLinkWithDistance(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
-                .Select(x => x.Field<int>("Avg"))
+                .Select(x => x.Field<double>("Avg"))
                 .ElementAt(0);
 
             datum.ModeLevel = datum.HistogramData.First(v => v.Value.Equals(datum.HistogramData.Select(m => m.Value).Max())).Level;
@@ -365,16 +365,16 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
             datum.SemanticLink = semanticLink;
             datum.Direction = direction;
 
-            DataTable table = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyStackOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')");
+            DataTable table = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeStackOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')");
             datum.HistogramData = new List<LevelAndValue>();
             foreach (DataRow row in table.Rows)
             {
-                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<double>("Level"), Value = row.Field<double>("Stack") });
+                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<int>("Level"), Value = row.Field<int>("Stack") });
             }
 
             datum.Sum = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeSumOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
-                .Select(x => x.Field<double>("Sum"))
+                .Select(x => x.Field<int>("Sum"))
                 .ElementAt(0);
 
             datum.Number = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeNumberOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
@@ -384,12 +384,12 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 
             datum.MaxLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMaxOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
-                .Select(x => x.Field<double>("Max"))
+                .Select(x => x.Field<int>("Max"))
                 .ElementAt(0);
 
             datum.MinLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMinOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
-                .Select(x => x.Field<double>("Min"))
+                .Select(x => x.Field<int>("Min"))
                 .ElementAt(0);
 
             datum.ClassWidth = (datum.MaxLevel - datum.MinLevel) / 10;
@@ -445,7 +445,7 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 
             datum.Sum = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeSumOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                .AsEnumerable()
-               .Select(x => x.Field<double>("Sum"))
+               .Select(x => x.Field<int>("Sum"))
                .ElementAt(0);
 
             datum.Number = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeNumberOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
@@ -462,12 +462,12 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 
             datum.MaxLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMaxOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
-                .Select(x => x.Field<double>("Max"))
+                .Select(x => x.Field<int>("Max"))
                 .ElementAt(0);
 
             datum.MinLevel = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMinOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
                 .AsEnumerable()
-                .Select(x => x.Field<double>("Min"))
+                .Select(x => x.Field<int>("Min"))
                 .ElementAt(0);
 
             datum.ClassWidth = (datum.MaxLevel - datum.MinLevel) / 10;

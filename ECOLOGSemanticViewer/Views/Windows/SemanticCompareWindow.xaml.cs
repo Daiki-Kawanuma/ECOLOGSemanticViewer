@@ -43,11 +43,19 @@ namespace ECOLOGSemanticViewer.Views.Windows
 
             CompareEnergyPage page = new CompareEnergyPage();
             page.DataContext = new CompareEnergyPageViewModel(context.SelectedSemanticLinks, context.TripDirection);
+
+            context.CurrentPage = page;
         }
 
         private void Button_Time(object sender, RoutedEventArgs e)
         {
+            var context = this.DataContext as SemanticCompareWindowViewModel;
+            if (context == null) { return; }
 
+            var page = new CompareTimePage();
+            page.DataContext = new CompareTimePageViewModel(context.SelectedSemanticLinks, context.TripDirection);
+
+            context.CurrentPage = page;
         }
 
         private void Button_HeatMap(object sender, RoutedEventArgs e)

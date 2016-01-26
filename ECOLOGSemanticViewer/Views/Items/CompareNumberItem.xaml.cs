@@ -22,7 +22,7 @@ namespace ECOLOGSemanticViewer.Views.Items
     /// </summary>
     public partial class CompareNumberItem : UserControl
     {
-        public CompareEnergyPageViewModel ParentViewModel { get; set; }
+        public AbstComparePageViewModel ParentViewModel { get; set; }
         public double MinSemanticFirst { get; set; }
         public double MinSemanticSecond { get; set; }
         public double ModeSemanticFirst { get; set; }
