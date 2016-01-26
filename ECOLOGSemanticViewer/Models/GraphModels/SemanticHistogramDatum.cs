@@ -321,26 +321,110 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 
         public static SemanticHistogramDatum GetStackedEnergyInstance(SemanticLink semanticLink, TripDirection direction)
         {
-            // TODO 実装
-            return null;
+            SemanticHistogramDatum datum = new SemanticHistogramDatum();
+
+            datum.SemanticLink = semanticLink;
+            datum.Direction = direction;
+
+            DataTable table = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyStackOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')");
+            datum.HistogramData = new List<LevelAndValue>();
+            foreach (DataRow row in table.Rows)
+            {
+                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<int>("Level"), Value = row.Field<int>("Stack") });
+            }
+
+            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergySumOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Sum"))
+                .ElementAt(0);
+
+            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyNumberOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("Number"))
+                .ElementAt(0);
+
+            return datum;
         }
 
         public static SemanticHistogramDatum GetStackedTimeInstance(SemanticLink semanticLink, TripDirection direction)
         {
-            // TODO 実装
-            return null;
+            SemanticHistogramDatum datum = new SemanticHistogramDatum();
+
+            datum.SemanticLink = semanticLink;
+            datum.Direction = direction;
+
+            DataTable table = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeStackOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')");
+            datum.HistogramData = new List<LevelAndValue>();
+            foreach (DataRow row in table.Rows)
+            {
+                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<int>("Level"), Value = row.Field<int>("Stack") });
+            }
+
+            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeSumOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Sum"))
+                .ElementAt(0);
+
+            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeNumberOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("Number"))
+                .ElementAt(0);
+
+            return datum;
         }
 
         public static SemanticHistogramDatum GetNormalizedStackedEnergyInstance(SemanticLink semanticLink, TripDirection direction)
         {
-            // TODO 実装
-            return null;
+            SemanticHistogramDatum datum = new SemanticHistogramDatum();
+
+            datum.SemanticLink = semanticLink;
+            datum.Direction = direction;
+
+            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergySumOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<double>("Sum"))
+                .ElementAt(0);
+
+            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyNumberOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("Number"))
+                .ElementAt(0);
+
+            DataTable table = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyStackOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')");
+            datum.HistogramData = new List<LevelAndValue>();
+            foreach (DataRow row in table.Rows)
+            {
+                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<int>("Level"), Value = row.Field<int>("Stack") / datum.Number });
+            }
+
+            return datum;
         }
 
         public static SemanticHistogramDatum GetNormalizedStackedTimeInstance(SemanticLink semanticLink, TripDirection direction)
         {
-            // TODO 実装
-            return null;
+            SemanticHistogramDatum datum = new SemanticHistogramDatum();
+
+            datum.SemanticLink = semanticLink;
+            datum.Direction = direction;
+
+            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeSumOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+               .AsEnumerable()
+               .Select(x => x.Field<double>("Sum"))
+               .ElementAt(0);
+
+            datum.SumLostEnergy = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeNumberOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("Number"))
+                .ElementAt(0);
+
+            DataTable table = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeStackOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')");
+            datum.HistogramData = new List<LevelAndValue>();
+            foreach (DataRow row in table.Rows)
+            {
+                datum.HistogramData.Add(new LevelAndValue() { Level = row.Field<int>("Level"), Value = row.Field<int>("Stack") / datum.Number });
+            }
+
+            return datum;
         }
     }
 }
