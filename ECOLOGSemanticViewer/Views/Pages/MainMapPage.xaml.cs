@@ -25,24 +25,21 @@ namespace ECOLOGSemanticViewer.Views.Pages
     public partial class MainMapPage : Page
     {
         /// <summary>
-		/// インスタンスを初期化します。
-		/// </summary>
+        /// インスタンスを初期化します。
+        /// </summary>
         public MainMapPage()
-		{
-			
-            string uri       = String.Format( "file://{0}Resources\\index.html", AppDomain.CurrentDomain.BaseDirectory );
-            this.DataContext = new MainMapPageViewModel(uri, InvokeScript);
+        {
             this.InitializeComponent();
-		}
+        }
 
-		/// <summary>
-		/// ブラウザ オブジェクトに読み込まれているスクリプトを実行します。
-		/// </summary>
-		/// <param name="scriptName">実行するスクリプト関数の名前。</param>
-		/// <param name="args">スクリプト関数に渡すパラメータ。</param>
-		public void InvokeScript( string scriptName, params object[] args )
-		{
-			this._webBrowser.InvokeScript( scriptName, args );
-		}
-	}
+        /// <summary>
+        /// ブラウザ オブジェクトに読み込まれているスクリプトを実行します。
+        /// </summary>
+        /// <param name="scriptName">実行するスクリプト関数の名前。</param>
+        /// <param name="args">スクリプト関数に渡すパラメータ。</param>
+        public void InvokeScript(string scriptName, params object[] args)
+        {
+            this.webBrowser.InvokeScript(scriptName, args);
+        }
+    }
 }

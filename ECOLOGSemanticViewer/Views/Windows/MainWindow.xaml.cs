@@ -46,7 +46,10 @@ namespace ECOLOGSemanticViewer.Views.Windows
             if (context == null) { return; }
 
 
-            context.CurrentPage = new MainMapPage();
+            MainMapPage page = new MainMapPage();
+            page.DataContext = new MainMapPageViewModel(context.ExtractedSemanticLinks.ToList(), context.TripDirection, page.InvokeScript);
+
+            context.CurrentPage = page;
         }
 
         private void Button_Click_Energy(object sender, RoutedEventArgs e)

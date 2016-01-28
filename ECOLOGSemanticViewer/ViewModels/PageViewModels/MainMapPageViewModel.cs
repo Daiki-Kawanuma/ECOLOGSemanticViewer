@@ -16,141 +16,127 @@ using ECOLOGSemanticViewer.Utils;
 using System.Windows.Input;
 using ECOLOGSemanticViewer.Commands;
 using ECOLOGSemanticViewer.Models.MapModels;
+using System.Collections.ObjectModel;
+using ECOLOGSemanticViewer.Models.EcologModels;
+using ECOLOGSemanticViewer.Views.Items;
+using MaterialDesignThemes.Wpf;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
     public class MainMapPageViewModel : AbstMainPageViewModel
     {
-        public void Initialize()
+
+        #region ExtractedSemanticLinks変更通知プロパティ
+        private List<SemanticLink> _ExtractedSemanticLinks;
+
+        public List<SemanticLink> ExtractedSemanticLinks
         {
+            get
+            { return _ExtractedSemanticLinks; }
+            set
+            { 
+                if (_ExtractedSemanticLinks == value)
+                    return;
+                _ExtractedSemanticLinks = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        public delegate void InvokeScript(string scriptName, params object[] args);
+
+        public MapHost MapHost { get; private set; }
+
+        public string Uri { get; set; }
+
+        public InvokeScript invokeScript;
+
+        #region INotifyPropertyChanged メンバ
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void NotifyPropertyChanged(params string[] names)
+        {
+            if (this.PropertyChanged != null)
+            {
+                foreach (string name in names)
+                {
+                    this.PropertyChanged(this, new PropertyChangedEventArgs(name));
+                }
+            }
         }
 
-        /// <summary>
-		/// ブラウザのスクリプト実行を行う為のデリゲート。
-		/// </summary>
-		/// <param name="scriptName">実行するスクリプト関数の名前。</param>
-		/// <param name="args">スクリプト関数に渡すパラメータ。</param>
-		public delegate void InvokeScript( string scriptName, params object[] args );
+        #endregion
 
-		/// <summary>
-		/// インスタンスを初期化します。
-		/// </summary>
-		/// <param name="uri">ブラウザに表示するページの URI。</param>
-		/// <param name="invokScript">ブラウザのスクリプト実行を行う為のデリゲート。</param>
-        public MainMapPageViewModel(string uri, InvokeScript invokScript)
-		{
-			this._invokeScript       = invokScript;
-			this.Uri                 = uri;
-			this.MapHost             = new MapHost();
-			this.AddMarkerCommand    = new DelegateCommand( () => { this._invokeScript( "addMarker" ); } );
-			this.RemoveMarkerCommand = new DelegateCommand( () => { this._invokeScript( "removeMarker" ); } );
-			this.ShowMarkerCommand   = new DelegateCommand( () => { this._invokeScript( "showMarker" ); } );
-			this.MoveMapCommand      = new DelegateCommand( () => { this._invokeScript( "moveMap", this.Address ); } );
+        public MainMapPageViewModel(List<SemanticLink> extractedSemanticLinks, TripDirection direction, InvokeScript script)
+        {
+            // TODO 戻す
+            this.ExtractedSemanticLinks = extractedSemanticLinks;
+            this.SelectedSemanticLinks = new ObservableCollection<SemanticLink>();
+            this.TripDirection = direction;
+            this.invokeScript = script;
 
-			this.MapHost.PropertyChanged += new PropertyChangedEventHandler( OnMapHostPropertyChanged );
-	
-		}
+            Initialize();
+        }
 
-		/// <summary>
-		/// MapHost のプロパティが変更された時に発生するイベントです。
-		/// </summary>
-		/// <param name="sender">イベント発生元。</param>
-		/// <param name="e">イベント データ。</param>
-		private void OnMapHostPropertyChanged( object sender, PropertyChangedEventArgs e )
-		{
-			if( this.PropertyChanged != null )
-			{
-				this.PropertyChanged( this, e );
-			}
-		}
+        public void Initialize()
+        {
+            this.Uri = String.Format("file://{0}Resources\\index.html", AppDomain.CurrentDomain.BaseDirectory);
+            Console.WriteLine(Uri);
 
-		/// <summary>
-		/// マーカーの追加コマンドを取得します。
-		/// </summary>
-		public ICommand AddMarkerCommand { get; private set; }
+            this.MapHost = new MapHost() { 
+                MainMapPageViewModel = this
+            };
 
-		/// <summary>
-		/// マーカーの削除コマンドを取得します。
-		/// </summary>
-		public ICommand RemoveMarkerCommand { get; private set; }
+        }
 
-		/// <summary>
-		/// マーカーの表示を行うコマンドを取得します。
-		/// </summary>
-		public ICommand ShowMarkerCommand { get; private set; }
+        public void SetSemanticLine()
+        {
+            // test
+            this.invokeScript("addLine", new object[] { 100, 35.681513, 139.765998, 35.691071, 139.699495 });
+        }
 
-		/// <summary>
-		/// 現在設定されている Address の位置にマップを移動させるコマンドを取得します。
-		/// </summary>
-		public ICommand MoveMapCommand { get; private set; }
+        public void ShowDialog(int semanticLinkId){
 
-		/// <summary>
-		/// マーカーの位置へマップを移動させるコマンドを取得します。
-		/// </summary>
-		public ICommand MoveMapToMarkerCommand { get; private set; }
+            SemanticLink semanticLink = this.ExtractedSemanticLinks.Where(v => v.SemanticLinkId == semanticLinkId).ElementAt(0);
 
-		/// <summary>
-		/// マーカーの作成が可能である事を示す値を取得します。
-		/// </summary>
-		public bool CanAddMarker { get { return this.MapHost.CanAddMarker; } }
+            if (SelectedSemanticLinks.Count > 0)
+            {
+                showCompareDialog(semanticLink);
+            }
+            else
+            {
+                showDetailDialog(semanticLink);
+            }  
 
-		/// <summary>
-		/// マップ上でマーカーが選択されている事を示す値を取得します。
-		/// </summary>
-		public bool IsSelectedMarker { get { return this.MapHost.IsSelectedMarker; } }
-		
-		/// <summary>
-		/// マップ上の緯度・経度を示す文字列を取得または設定します。
-		/// </summary>
-		public string Location { get { return this.MapHost.Location; } }
+        }
 
-		/// <summary>
-		/// マップ上のマーカーの緯度・経度を示す文字列を取得または設定します。
-		/// </summary>
-		public string MarkerLocation { get { return this.MapHost.MarkerLocation; } }
+        private void showDetailDialog(SemanticLink semanticLink)
+        {
+            var dialog = new MainPageShowDetailDialog
+            {
+                Message = { Text = semanticLink.Semantics },
+                TripDirection = this.TripDirection,
+                SemanticLink = semanticLink,
+                ViewModel = this
+            };
 
-		/// <summary>
-		///  マップの操作を行う JavaScript に関連付けられるオブジェクトを取得します。
-		/// </summary>
-		public MapHost MapHost { get; private set; }
+            DialogHost.Show(dialog, "RootDialog");
+        }
 
-		/// <summary>
-		/// マップに指定する住所を取得または設定します。
-		/// </summary>
-		public string Address { get; set; }
+        private void showCompareDialog(SemanticLink semanticLink)
+        {
+            var dialog = new MainPageCompareDialog
+            {
+                Message = { Text = semanticLink.Semantics },
+                TripDirection = this.TripDirection,
+                SelectedSemanticLinks = this.SelectedSemanticLinks.ToList(),
+                SemanticLink = semanticLink,
+                ViewModel = this
+            };
 
-		/// <summary>
-		/// ブラウザに表示するページの URI を取得します。
-		/// </summary>
-		public string Uri { get; private set; }
+            DialogHost.Show(dialog, "RootDialog");
+        }
 
-		/// <summary>
-		/// ブラウザのスクリプト実行を行う為のデリゲート。
-		/// </summary>
-		private InvokeScript _invokeScript;
-
-		#region INotifyPropertyChanged メンバ
-
-		/// <summary>
-		/// プロパティが変更された事を通知するイベント ハンドラ。
-		/// </summary>
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		/// <summary>
-		/// プロパティの変更を通知します。
-		/// </summary>
-		/// <param name="names">変更されたプロパティ名のコレクション。</param>
-		protected void NotifyPropertyChanged( params string[] names )
-		{
-			if( this.PropertyChanged != null )
-			{
-				foreach( string name in names )
-				{
-					this.PropertyChanged( this, new PropertyChangedEventArgs( name ) );
-				}
-			}
-		}
-
-		#endregion
     }
 }

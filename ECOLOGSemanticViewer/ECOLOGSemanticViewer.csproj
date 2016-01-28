@@ -248,7 +248,6 @@
     <Compile Include="Models\EcologModels\TripDirection.cs" />
     <Compile Include="Models\GraphModels\Week.cs" />
     <Compile Include="Models\MapModels\MapHost.cs" />
-    <Compile Include="Models\MapModels\Marker.cs" />
     <Compile Include="Utils\DatabaseAccesserEcolog.cs" />
     <Compile Include="Utils\LogWriter.cs" />
     <Compile Include="Utils\WebBrowserBehavior.cs" />

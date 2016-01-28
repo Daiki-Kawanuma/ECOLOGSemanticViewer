@@ -36,5 +36,23 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             }
         }
         #endregion
+
+        #region TripDirection変更通知プロパティ
+        private TripDirection _TripDirection;
+
+        public TripDirection TripDirection
+        {
+            get
+            { return _TripDirection; }
+            set
+            {
+                if (_TripDirection == value)
+                    return;
+                _TripDirection = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
     }
 }

@@ -51,23 +51,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             createPlotModel();
         }
 
-        #region TripDirection変更通知プロパティ
-        private TripDirection _TripDirection;
-
-        public TripDirection TripDirection
-        {
-            get
-            { return _TripDirection; }
-            set
-            {
-                if (_TripDirection == value)
-                    return;
-                _TripDirection = value;
-                RaisePropertyChanged();
-            }
-        }
-        #endregion
-
         #region SemanticGraphs変更通知プロパティ
         private List<SemanticGraph> _SemanticGraphs;
 
