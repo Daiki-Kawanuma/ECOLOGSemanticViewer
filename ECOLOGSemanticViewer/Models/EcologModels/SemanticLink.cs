@@ -47,18 +47,18 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
         }
         #endregion
 
-        #region LinkId変更通知プロパティ
-        private string _LinkId;
+        #region Links変更通知プロパティ
+        private List<Link> _Links;
 
-        public string LinkId
+        public List<Link> Links
         {
             get
-            { return _LinkId; }
+            { return _Links; }
             set
             { 
-                if (_LinkId == value)
+                if (_Links == value)
                     return;
-                _LinkId = value;
+                _Links = value;
                 RaisePropertyChanged();
             }
         }
@@ -97,6 +97,11 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             }
         }
         #endregion
+
+        public SemanticLink()
+        {
+            Links = new List<Link>();
+        }
 
         public static List<SemanticLink> GetAllSemanticLinks(){
 
@@ -144,7 +149,6 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("ORDER BY SemanticLinkID");
 
             semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
-            Console.WriteLine("O COUNT: " + semanticLinkTable.Rows.Count);
 
             for (int i = 0; i < semanticLinkTable.Rows.Count; i++)
             {
@@ -177,7 +181,6 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("ORDER BY SemanticLinkID");
 
             semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
-            Console.WriteLine("H COUNT: " + semanticLinkTable.Rows.Count);
 
             for (int i = 0; i < semanticLinkTable.Rows.Count; i++)
             {
@@ -210,7 +213,6 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("ORDER BY SemanticLinkID");
 
             semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
-            Console.WriteLine("H COUNT: " + semanticLinkTable.Rows.Count);
 
             for (int i = 0; i < semanticLinkTable.Rows.Count; i++)
             {
@@ -224,6 +226,33 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             }
 
             return ret;
+        }
+
+        public void SetLinks()
+        {
+            var ret = new List<Link>();
+
+            DataTable semanticLinkTable = new DataTable();
+
+            StringBuilder query = new StringBuilder();
+            query.AppendLine("SELECT links.*");
+            query.AppendLine("FROM semantic_links");
+            query.AppendLine("  INNER JOIN links ON semantic_links.link_id = links.link_id");
+            query.AppendLine("WHERE semantic_link_id = " + this.SemanticLinkId);
+
+            semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
+
+            foreach (DataRow row in semanticLinkTable.Rows)
+            {
+                Links.Add(new Link()
+                {
+                    LinkId = row.Field<string>("link_id"),
+                    NodeId = row.Field<int>("node_id"),
+                    Latitude = row.Field<double>("latitude"),
+                    Longitude = row.Field<double>("longitude")
+                });
+            }
+
         }
     }
 }

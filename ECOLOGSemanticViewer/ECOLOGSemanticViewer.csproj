@@ -93,6 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\EcologModels\Link.cs" />
     <Compile Include="Models\GraphModels\CompareGraphType.cs" />
     <Compile Include="Models\GraphModels\DetailCompareGraphType.cs" />
     <Compile Include="Models\GraphModels\DetailCompareSeriesDatum.cs" />
