@@ -152,6 +152,10 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         public List<PhotographicImage> PhotographicImages { get; set; }
 
+        public DetailTripDetailPageViewModel()
+        {
+        }
+
         public DetailTripDetailPageViewModel(SemanticLink link, TripDirection direction, InvokeScript script)
         {
             this.SemanticLink = link;
