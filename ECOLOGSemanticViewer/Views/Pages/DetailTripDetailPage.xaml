@@ -43,7 +43,7 @@
                                  VerticalAlignment="Stretch">
 
                 <!--  ブラウザ ( Google Map 表示 )  -->
-                <WebBrowser x:Name="_webBrowser"
+                <WebBrowser x:Name="webBrowser"
                             u:WebBrowserBehavior.ObjectForScripting="{Binding MapHost}"
                             u:WebBrowserBehavior.Source="{Binding Uri}" />
 

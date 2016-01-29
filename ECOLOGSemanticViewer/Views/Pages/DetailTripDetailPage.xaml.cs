@@ -24,5 +24,10 @@ namespace ECOLOGSemanticViewer.Views.Pages
         {
             InitializeComponent();
         }
+
+        public void InvokeScript(string scriptName, params object[] args)
+        {
+            this.webBrowser.InvokeScript(scriptName, args);
+        }
     }
 }

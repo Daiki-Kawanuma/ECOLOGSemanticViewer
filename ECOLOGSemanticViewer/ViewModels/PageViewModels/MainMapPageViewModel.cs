@@ -82,7 +82,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         public void Initialize()
         {
             this.Uri = String.Format("file://{0}Resources\\index.html", AppDomain.CurrentDomain.BaseDirectory);
-            Console.WriteLine(Uri);
 
             this.MapHost = new MapHost() { 
                 MainMapPageViewModel = this
@@ -94,6 +93,15 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         {
             // test
             this.invokeScript("addLine", new object[] { 100, 35.681513, 139.765998, 35.691071, 139.699495 });
+
+            foreach (SemanticLink semanticLink in this.ExtractedSemanticLinks)
+            {
+                for (int i = 0; i < semanticLink.Links.Count - 1; i++)
+                {
+                    this.invokeScript("addLine", 
+                        new object[] { semanticLink.Links[i].Latitude, semanticLink.Links[i].Longitude, semanticLink.Links[i + 1].Latitude, semanticLink.Links[i + 1].Longitude });
+                }
+            }
         }
 
         public void ShowDialog(int semanticLinkId){
