@@ -67,9 +67,12 @@
                               Margin="10,10,10,0"
                               HorizontalAlignment="Stretch"
                               SelectedIndex="{Binding SelectedIndex}">
-                        <ComboBoxItem Content="Min" />
-                        <ComboBoxItem Content="Median" />
-                        <ComboBoxItem Content="Max" />
+                        <ComboBoxItem Content="Energy Min" />
+                        <ComboBoxItem Content="Energy Median" />
+                        <ComboBoxItem Content="Energy Max" />
+                        <ComboBoxItem Content="Time    Min" />
+                        <ComboBoxItem Content="Time    Median" />
+                        <ComboBoxItem Content="Time    Max" />
                     </ComboBox>
 
                     <Grid Grid.Row="1">
@@ -86,7 +89,7 @@
                                 <Label Content="Datetime" />
                             </GroupBox.Header>
 
-                            <Label Content="{Binding DateTime}" />
+                            <Label Content="{Binding CurrentEcolog.Jst}" />
 
                         </GroupBox>
 
@@ -96,7 +99,7 @@
                                 <Label Content="Consumed energy" />
                             </GroupBox.Header>
 
-                            <Label Content="{Binding ConsumedEnergy}" />
+                            <Label Content="{Binding CurrentEcolog.ConsumedElectricEnergy}" />
 
                         </GroupBox>
 
@@ -106,7 +109,7 @@
                                 <Label Content="Lost energy" />
                             </GroupBox.Header>
 
-                            <Label Content="{Binding LostEnergy}" />
+                            <Label Content="{Binding CurrentEcolog.LostEnergy}" />
 
                         </GroupBox>
 
@@ -126,7 +129,7 @@
                                 <Label Content="Speed" />
                             </GroupBox.Header>
 
-                            <Label Content="{Binding Speed}" />
+                            <Label Content="{Binding CurrentEcolog.Speed}" />
 
                         </GroupBox>
 
@@ -136,7 +139,7 @@
                                 <Label Content="Longitudinal Acc" />
                             </GroupBox.Header>
 
-                            <Label Content="{Binding LongitudinalAcc}" />
+                            <Label Content="{Binding CurrentEcolog.LongitudinalAcc}" />
 
                         </GroupBox>
 
@@ -146,7 +149,7 @@
                                 <Label Content="Altitude" />
                             </GroupBox.Header>
 
-                            <Label Content="{Binding Altitude}" />
+                            <Label Content="{Binding CurrentEcolog.TerrainAltitude}" />
 
                         </GroupBox>
 
@@ -160,7 +163,8 @@
                         <Slider Margin="10,0,10,0"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Center"
-                                Value="{Binding CurrentIndex}"/>
+                                Value="{Binding CurrentIndex}"
+                                Maximum="{Binding SliderMaximum}"/>
 
                     </Border>
 

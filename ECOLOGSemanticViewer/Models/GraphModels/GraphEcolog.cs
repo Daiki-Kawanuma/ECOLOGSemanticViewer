@@ -6,6 +6,7 @@ using System.Text;
 using Livet;
 using System.Data;
 using ECOLOGSemanticViewer.Utils;
+using ECOLOGSemanticViewer.Models.EcologModels;
 
 namespace ECOLOGSemanticViewer.Models
 {
@@ -376,6 +377,11 @@ namespace ECOLOGSemanticViewer.Models
             }
 
             return ret;
+        }
+
+        public static List<GraphEcolog> ExtractGraphEcolog(int tripId, SemanticLink link)
+        {
+            return null;
         }
     }
 }

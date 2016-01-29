@@ -86,7 +86,7 @@ namespace ECOLOGSemanticViewer.Models
 
         public BitmapImage ImageSource;
 
-        public static BitmapImage byteToImageSource(byte[] byteAttay)
+        private static BitmapImage byteToImageSource(byte[] byteAttay)
         {
             Console.WriteLine("byteToImageSource is called ...");
 
