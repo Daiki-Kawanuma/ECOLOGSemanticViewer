@@ -109,6 +109,7 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
             this.ComparePage.DataContext = new DetailComparePageViewModel(this.SemanticLink, this.TripDirection);
 
             this.TripDetailPage = new DetailTripDetailPage();
+            this.TripDetailPage.DataContext = new DetailTripDetailPageViewModel(this.SemanticLink, this.TripDirection, this.TripDetailPage.InvokeScript);
         }
     }
 }

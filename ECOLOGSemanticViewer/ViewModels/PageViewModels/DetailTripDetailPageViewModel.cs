@@ -12,37 +12,78 @@ using Livet.EventListeners;
 using Livet.Messaging.Windows;
 
 using ECOLOGSemanticViewer.Models;
+using ECOLOGSemanticViewer.Models.MapModels;
+using ECOLOGSemanticViewer.Models.EcologModels;
+using System.Threading.Tasks;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
     public class DetailTripDetailPageViewModel : ViewModel
     {
-        // TODO 変更
-        #region Uri変更通知プロパティ
-        private string _Uri;
+        public SemanticLink SemanticLink { get; set; }
+        public TripDirection TripDirection { get; set; }
+        public String Uri { get; set; }
+        public MapHost MapHost { get; private set; }
 
-        public string Uri
+        public InvokeScript invokeScript;
+
+        public delegate void InvokeScript(string scriptName, params object[] args);
+
+        #region SelectedComboBoxIndex変更通知プロパティ
+        private int _SelectedComboBoxIndex;
+
+        public int SelectedComboBoxIndex
         {
             get
-            { return _Uri; }
+            { return _SelectedComboBoxIndex; }
             set
-            {
-                if (_Uri == value)
+            { 
+                if (_SelectedComboBoxIndex == value)
                     return;
-                _Uri = value;
+                _SelectedComboBoxIndex = value;
                 RaisePropertyChanged();
             }
         }
         #endregion
 
-        public DetailTripDetailPageViewModel()
+        #region CurrentIndex変更通知プロパティ
+        private int _CurrentIndex;
+
+        public int CurrentIndex
         {
-            this.Uri = String.Format("file://{0}Resources\\index.html", AppDomain.CurrentDomain.BaseDirectory);
+            get
+            { return _CurrentIndex; }
+            set
+            { 
+                if (_CurrentIndex == value)
+                    return;
+                _CurrentIndex = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        public List<GraphEcolog> GraphEcologs { get; set; }
+
+        public List<PhotographicImage> PhotographicImages { get; set; }
+
+        public DetailTripDetailPageViewModel(SemanticLink link, TripDirection direction, InvokeScript script)
+        {
+            this.SemanticLink = link;
+            this.TripDirection = direction;
+            this.invokeScript = script;
+
+            Initialize();
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
+            this.Uri = String.Format("file://{0}Resources\\index.html", AppDomain.CurrentDomain.BaseDirectory);
 
+            await Task.Run(() =>
+            {
+                this.EnergyHistogramDatum = SemanticHistogramDatum.GetEnergyInstance(this.SemanticLink, this.TripDirection);
+            });
         }
     }
 }

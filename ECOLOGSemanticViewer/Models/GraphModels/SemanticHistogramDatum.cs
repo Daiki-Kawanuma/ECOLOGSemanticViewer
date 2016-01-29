@@ -58,6 +58,54 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 
         }
 
+        public static int GetEnergyMinTripID(SemanticLink semanticLink, TripDirection direction)
+        {
+            return DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMinOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("TripID"))
+                .ElementAt(0);
+        }
+
+        public static int GetEnergyMedianTripID(SemanticLink semanticLink, TripDirection direction)
+        {
+            return DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMedianOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("TripID"))
+                .ElementAt(0);
+        }
+
+        public static int GetEnergyMaxTripID(SemanticLink semanticLink, TripDirection direction)
+        {
+            return DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMaxOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("TripID"))
+                .ElementAt(0);
+        }
+
+        public static int GetTimeMinTripID(SemanticLink semanticLink, TripDirection direction)
+        {
+            return DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMinOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("TripID"))
+                .ElementAt(0);
+        }
+
+        public static int GetTimeMedianTripID(SemanticLink semanticLink, TripDirection direction)
+        {
+            return DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMedianOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("TripID"))
+                .ElementAt(0);
+        }
+
+        public static int GetTimeMaxTripID(SemanticLink semanticLink, TripDirection direction)
+        {
+            return DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMaxOfSemanticLink(" + semanticLink.SemanticLinkId + ", '" + direction.Direction + "')")
+                .AsEnumerable()
+                .Select(x => x.Field<int>("TripID"))
+                .ElementAt(0);
+        }
+
         public static SemanticHistogramDatum GetEnergyInstance(SemanticLink semanticLink, TripDirection direction)
         {
             SemanticHistogramDatum datum = new SemanticHistogramDatum();

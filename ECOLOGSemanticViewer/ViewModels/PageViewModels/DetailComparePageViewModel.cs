@@ -329,43 +329,25 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 {
                     case DetailCompareGraphType.TripCategory.EnergyRepresentativeTrips:
 
-                        tripID = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMinOfSemanticLink(" + SelectedSemanticLink.SemanticLinkId + ", '" + TripDirection.Direction + "')")
-                            .AsEnumerable()
-                            .Select(x => x.Field<int>("TripID"))
-                            .ElementAt(0);
+                        tripID = SemanticHistogramDatum.GetEnergyMinTripID(SelectedSemanticLink, TripDirection);
                         TripIDs.Add(tripID);
 
-                        tripID = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMedianOfSemanticLink(" + SelectedSemanticLink.SemanticLinkId + ", '" + TripDirection.Direction + "')")
-                            .AsEnumerable()
-                            .Select(x => x.Field<int>("TripID"))
-                            .ElementAt(0);
+                        tripID = SemanticHistogramDatum.GetEnergyMedianTripID(SelectedSemanticLink, TripDirection);
                         TripIDs.Add(tripID);
 
-                        tripID = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedEnergyMaxOfSemanticLink(" + SelectedSemanticLink.SemanticLinkId + ", '" + TripDirection.Direction + "')")
-                            .AsEnumerable()
-                            .Select(x => x.Field<int>("TripID"))
-                            .ElementAt(0);
+                        tripID = SemanticHistogramDatum.GetEnergyMaxTripID(SelectedSemanticLink, TripDirection);
                         TripIDs.Add(tripID);
 
                         break;
                     case DetailCompareGraphType.TripCategory.TimeRepresentativeTrips:
 
-                        tripID = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMinOfSemanticLink(" + SelectedSemanticLink.SemanticLinkId + ", '" + TripDirection.Direction + "')")
-                            .AsEnumerable()
-                            .Select(x => x.Field<int>("TripID"))
-                            .ElementAt(0);
+                        tripID = SemanticHistogramDatum.GetTimeMinTripID(SelectedSemanticLink, TripDirection);
                         TripIDs.Add(tripID);
 
-                        tripID = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMedianOfSemanticLink(" + SelectedSemanticLink.SemanticLinkId + ", '" + TripDirection.Direction + "')")
-                            .AsEnumerable()
-                            .Select(x => x.Field<int>("TripID"))
-                            .ElementAt(0);
+                        tripID = SemanticHistogramDatum.GetTimeMedianTripID(SelectedSemanticLink, TripDirection);
                         TripIDs.Add(tripID);
 
-                        tripID = DatabaseAccesserEcolog.GetResult("SELECT * FROM funcNormalizedTimeMaxOfSemanticLink(" + SelectedSemanticLink.SemanticLinkId + ", '" + TripDirection.Direction + "')")
-                            .AsEnumerable()
-                            .Select(x => x.Field<int>("TripID"))
-                            .ElementAt(0);
+                        tripID = SemanticHistogramDatum.GetTimeMaxTripID(SelectedSemanticLink, TripDirection);
                         TripIDs.Add(tripID);
 
                         break;
