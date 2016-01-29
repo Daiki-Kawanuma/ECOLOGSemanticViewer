@@ -78,3 +78,9 @@ function addCircle(latitude, longitude) {
     var circle = new google.maps.Circle(circleOptions);
     circle.setMap(map);
 }
+
+function moveMap(latitude, longitude) {
+
+    var location = new google.maps.LatLng(latitude, longitude);
+    map.setCenter(location);
+}

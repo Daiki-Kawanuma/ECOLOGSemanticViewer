@@ -210,11 +210,13 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             await Task.Run(() =>
             {
-                this.CurrentImage = PhotographicImage.CreatePhotographicImage(this.TripID, this.GraphEcologs[this.CurrentIndex].Jst).ImageSource;
+                this.CurrentImage = PhotographicImage.CreatePhotographicImage(this.TripID, this.CurrentEcolog.Jst).ImageSource;
             });
             
 
             this.DisplayedGraphEcologs = setCurrentGraph(this.CurrentIndex);
+
+            this.invokeScript("moveMap", new object[]{CurrentEcolog.Latitude, CurrentEcolog.Longitude});
         }
 
         private List<GraphEcolog> setCurrentGraph(int index)
