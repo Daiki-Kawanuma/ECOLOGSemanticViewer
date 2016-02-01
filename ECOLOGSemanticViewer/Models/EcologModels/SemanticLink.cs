@@ -239,6 +239,7 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("FROM semantic_links");
             query.AppendLine("  INNER JOIN links ON semantic_links.link_id = links.link_id");
             query.AppendLine("WHERE semantic_link_id = " + this.SemanticLinkId);
+            query.AppendLine("ORDER BY num");
 
             semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
 
@@ -246,10 +247,12 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             {
                 Links.Add(new Link()
                 {
+                    Num = row.Field<int>("num"),
                     LinkId = row.Field<string>("link_id"),
-                    NodeId = row.Field<int>("node_id"),
                     Latitude = row.Field<double>("latitude"),
-                    Longitude = row.Field<double>("longitude")
+                    Longitude = row.Field<double>("longitude"),
+                    NodeId = row.Field<string>("node_id"),
+                    Direction = row.Field<int?>("direction")
                 });
             }
 

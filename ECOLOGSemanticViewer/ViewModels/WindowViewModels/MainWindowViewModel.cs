@@ -43,15 +43,13 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
 
         public MainWindowViewModel()
         {
-            //this.SemanticLinks = SemanticLink.GetAllSemanticLinks();
-            // TODO 戻す
-            // this.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetTestSemanticLinks());
+            this.SemanticLinks = SemanticLink.GetAllSemanticLinks();
+            this.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetTestSemanticLinks());
             this.TripDirection = new TripDirection() { Direction = "outward" };
 
             var page = new MainMapPage();
 
-            // TODO this.ExtractedSemanticLinks.ToList()
-            page.DataContext = new MainMapPageViewModel(null, this.TripDirection, page.InvokeScript);
+            page.DataContext = new MainMapPageViewModel(this.ExtractedSemanticLinks.ToList(), this.TripDirection, page.InvokeScript);
 
             this.CurrentPage = page;
         }

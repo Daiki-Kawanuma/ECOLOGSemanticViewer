@@ -70,7 +70,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         public MainMapPageViewModel(List<SemanticLink> extractedSemanticLinks, TripDirection direction, InvokeScript script)
         {
-            // TODO 戻す
             this.ExtractedSemanticLinks = extractedSemanticLinks;
             this.SelectedSemanticLinks = new ObservableCollection<SemanticLink>();
             this.TripDirection = direction;

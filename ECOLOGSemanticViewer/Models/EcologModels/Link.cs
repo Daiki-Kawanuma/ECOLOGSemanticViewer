@@ -9,6 +9,22 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
 {
     public class Link : NotificationObject
     {
+        #region Num変更通知プロパティ
+        private int _Num;
+
+        public int Num
+        {
+            get
+            { return _Num; }
+            set
+            { 
+                if (_Num == value)
+                    return;
+                _Num = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
 
         #region LinkId変更通知プロパティ
         private string _LinkId;
@@ -22,23 +38,6 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
                 if (_LinkId == value)
                     return;
                 _LinkId = value;
-                RaisePropertyChanged();
-            }
-        }
-        #endregion
-
-        #region NodeId変更通知プロパティ
-        private int _NodeId;
-
-        public int NodeId
-        {
-            get
-            { return _NodeId; }
-            set
-            { 
-                if (_NodeId == value)
-                    return;
-                _NodeId = value;
                 RaisePropertyChanged();
             }
         }
@@ -73,6 +72,40 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
                 if (_Longitude == value)
                     return;
                 _Longitude = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region NodeId変更通知プロパティ
+        private String _NodeId;
+
+        public String NodeId
+        {
+            get
+            { return _NodeId; }
+            set
+            {
+                if (_NodeId == value)
+                    return;
+                _NodeId = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region Direction変更通知プロパティ
+        private int? _Direction;
+
+        public int? Direction
+        {
+            get
+            { return _Direction; }
+            set
+            { 
+                if (_Direction == value)
+                    return;
+                _Direction = value;
                 RaisePropertyChanged();
             }
         }
