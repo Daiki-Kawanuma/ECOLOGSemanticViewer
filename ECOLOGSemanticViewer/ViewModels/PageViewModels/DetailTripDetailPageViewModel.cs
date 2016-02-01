@@ -219,7 +219,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         private void setCurrentIndexData()
         {
-
             this.CurrentEcolog = this.GraphEcologs[this.CurrentIndex];
 
             this.CurrentImage = PhotographicImage.CreatePhotographicImage(this.TripID, this.CurrentEcolog.Jst).ImageSource;
@@ -227,6 +226,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             this.DisplayedGraphEcologs = setCurrentGraph(this.CurrentIndex);
 
             this.invokeScript("moveMap", new object[] { CurrentEcolog.Latitude, CurrentEcolog.Longitude });
+            this.invokeScript("moveCurrentCircle", new object[] { CurrentEcolog.Latitude, CurrentEcolog.Longitude });
         }
 
         private List<GraphEcolog> setCurrentGraph(int index)

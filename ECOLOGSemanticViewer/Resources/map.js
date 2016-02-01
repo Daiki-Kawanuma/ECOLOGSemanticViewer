@@ -5,6 +5,8 @@ var markers = new Array();	//! マーカーのコレクション。
 var nextID = 0;				//! 次に割り当てられるマーカーの識別子。
 var selectedID = -1;				//! 選択されているマーカーの識別子。
 
+var currentCircle;
+
 // Marker に id プロパティを追加 ( 初期値は無効値 )
 google.maps.Marker.prototype.id = -1;
 
@@ -66,7 +68,7 @@ function addCircle(latitude, longitude) {
     // 円を作成
     var circleOptions = {
         center: new google.maps.LatLng(latitude, longitude),
-        radius: 5,
+        radius: 3,
         strokeWeight: 1,
         strokeColor: "#000000",
         strokeOpacity: 1.0,
@@ -77,6 +79,28 @@ function addCircle(latitude, longitude) {
     // 円を設定
     var circle = new google.maps.Circle(circleOptions);
     circle.setMap(map);
+}
+
+function moveCurrentCircle(latitude, longitude) {
+
+    if (currentCircle != null) {
+        currentCircle.setMap(null);
+    }
+
+    circleOptions = {
+        center: new google.maps.LatLng(latitude, longitude),
+        radius: 5,
+        strokeWeight: 1,
+        strokeColor: "#FF0000",
+        strokeOpacity: 1.0,
+        fillColor: "#FF0000",
+        fillOpacity: 1.0,
+        zIndex:4
+    }
+
+    // 円を設定
+    currentCircle = new google.maps.Circle(circleOptions);
+    currentCircle.setMap(map);
 }
 
 function moveMap(latitude, longitude) {
