@@ -20,6 +20,7 @@ using System.Collections.ObjectModel;
 using ECOLOGSemanticViewer.Models.EcologModels;
 using ECOLOGSemanticViewer.Views.Items;
 using MaterialDesignThemes.Wpf;
+using System.Threading.Tasks;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
@@ -34,7 +35,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             get
             { return _ExtractedSemanticLinks; }
             set
-            { 
+            {
                 if (_ExtractedSemanticLinks == value)
                     return;
                 _ExtractedSemanticLinks = value;
@@ -78,32 +79,56 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             Initialize();
         }
 
-        public void Initialize()
+        public  void Initialize()
         {
+            //await Task.Run(() =>
+            //{
+                SetLinks();
+            //});
+
             this.Uri = String.Format("file://{0}Resources\\index.html", AppDomain.CurrentDomain.BaseDirectory);
 
-            this.MapHost = new MapHost() { 
+            this.MapHost = new MapHost()
+            {
                 MainMapPageViewModel = this
             };
+        }
 
+        public void SetLinks()
+        {
+            foreach (SemanticLink semanticLink in this.ExtractedSemanticLinks)
+            {
+                semanticLink.SetLinks();
+            }
         }
 
         public void SetSemanticLine()
         {
-            // test
-            this.invokeScript("addLine", new object[] { 100, 35.681513, 139.765998, 35.691071, 139.699495 });
-
             foreach (SemanticLink semanticLink in this.ExtractedSemanticLinks)
             {
                 for (int i = 0; i < semanticLink.Links.Count - 1; i++)
                 {
-                    this.invokeScript("addLine", 
-                        new object[] { semanticLink.Links[i].Latitude, semanticLink.Links[i].Longitude, semanticLink.Links[i + 1].Latitude, semanticLink.Links[i + 1].Longitude });
+                    this.invokeScript("addLine",
+                        new object[] { semanticLink.SemanticLinkId, 
+                            semanticLink.Links[i].Latitude, 
+                            semanticLink.Links[i].Longitude, 
+                            semanticLink.Links[i + 1].Latitude, 
+                            semanticLink.Links[i + 1].Longitude });
                 }
             }
+
+            Console.WriteLine("LAT:" + this.ExtractedSemanticLinks.Average(v => v.Links.Average(l => l.Latitude)));
+            Console.WriteLine("LONG: " + this.ExtractedSemanticLinks.Average(v => v.Links.Average(l => l.Longitude)));
+
+            this.invokeScript("moveMap",
+                new object[] { 
+                    this.ExtractedSemanticLinks.Average(v => v.Links.Average( l => l.Latitude)),
+                    this.ExtractedSemanticLinks.Average(v => v.Links.Average( l => l.Longitude))
+                });
         }
 
-        public void ShowDialog(int semanticLinkId){
+        public void ShowDialog(int semanticLinkId)
+        {
 
             SemanticLink semanticLink = this.ExtractedSemanticLinks.Where(v => v.SemanticLinkId == semanticLinkId).ElementAt(0);
 
@@ -114,7 +139,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             else
             {
                 showDetailDialog(semanticLink);
-            }  
+            }
 
         }
 

@@ -679,6 +679,8 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("WHERE trip_id = " + tripId);
             query.AppendLine("ORDER BY jst ASC");
 
+            Console.WriteLine(query.ToString());
+
             ecologTable = DatabaseAccesserEcolog.GetResult(query.ToString());
 
             for (int i = 0; i < ecologTable.Rows.Count; i++)

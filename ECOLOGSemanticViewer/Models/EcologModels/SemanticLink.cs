@@ -239,7 +239,7 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("FROM semantic_links");
             query.AppendLine("  INNER JOIN links ON semantic_links.link_id = links.link_id");
             query.AppendLine("WHERE semantic_link_id = " + this.SemanticLinkId);
-            query.AppendLine("ORDER BY num");
+            query.AppendLine("ORDER BY link_id");
 
             semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
 

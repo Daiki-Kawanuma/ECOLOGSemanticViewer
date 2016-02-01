@@ -152,8 +152,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             {
                 if (e.ChangedButton == OxyMouseButton.Left)
                 {
-                    Console.WriteLine("SEMANTICS: " + semanticGraph.SemanticLink.Semantics);
-
                     var dialog = new MainPageShowDetailDialog
                     {
                         Message = { Text = semanticGraph.SemanticLink.Semantics },
@@ -169,7 +167,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
 
-            Debug.WriteLine("createAreaSeries is called ...");
             SemanticHistogramDatum datum = SemanticHistogramDatum.GetTimeInstance(semanticGraph.SemanticLink, this.TripDirection);
 
             sw.Stop();

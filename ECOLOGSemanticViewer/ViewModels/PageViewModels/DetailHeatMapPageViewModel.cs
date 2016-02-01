@@ -173,8 +173,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             query.AppendLine("HAVING COUNT(DISTINCT ECOLOG.LINK_ID) > (@LinksCount * 0.75)");
             query.AppendLine("ORDER BY TRIP_ID");
 
-            Console.WriteLine(query.ToString());
-
             return query.ToString();
         }
 
@@ -194,12 +192,12 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             classWidthEnergy = (maxExcludedEnergy - minExcludedEnergy) / classNumber;
 
-            Console.WriteLine("firstQuartile: " + firstQuartileEnergy);
+            /*Console.WriteLine("firstQuartile: " + firstQuartileEnergy);
             Console.WriteLine("thirdQuartile: " + thirdQuartileEnergy);
             Console.WriteLine("iqr: " + iqrEnergy);
             Console.WriteLine("minExcluded: " + minExcludedEnergy);
             Console.WriteLine("maxExcluded: " + maxExcludedEnergy);
-            Console.WriteLine("classWidth: " + classWidthEnergy);
+            Console.WriteLine("classWidth: " + classWidthEnergy);*/
         }
 
         private void calculateTimeParameter()
@@ -219,12 +217,12 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             classWidthTime = (maxExcludedTime - minExcludedTime) / classNumber;
 
-            Console.WriteLine("firstQuartile: " + firstQuartileTime);
+            /*Console.WriteLine("firstQuartile: " + firstQuartileTime);
             Console.WriteLine("thirdQuartile: " + thirdQuartileTime);
             Console.WriteLine("iqr: " + iqrTime);
             Console.WriteLine("minExcluded: " + minExcludedTime);
             Console.WriteLine("maxExcluded: " + maxExcludedTime);
-            Console.WriteLine("classWidth: " + classWidthTime);
+            Console.WriteLine("classWidth: " + classWidthTime);*/
 
         }
 
@@ -311,8 +309,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
                 currentTimeLevel += classWidthTime;
             }
-
-            Console.WriteLine("COUNT: " + count);
 
             plotModel.Series.Add(heatMapSeries1);
 

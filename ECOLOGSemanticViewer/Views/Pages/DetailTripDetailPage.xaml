@@ -185,12 +185,11 @@
                 <materialDesign:Card Grid.Row="0"
                                      Margin="5,10,10,5"
                                      HorizontalAlignment="Stretch"
-                                     VerticalAlignment="Stretch"
-                                     Background="SkyBlue">
+                                     VerticalAlignment="Stretch">
 
                     <Image HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Source="/ECOLOGSemanticViewer;component/Resources/rin.jpg" />
+                           Source="{Binding CurrentImage}" />
 
                 </materialDesign:Card>
 

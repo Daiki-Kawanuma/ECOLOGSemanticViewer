@@ -277,8 +277,6 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
 
             tripsTable = DatabaseAccesserEcolog.GetResult(query);
 
-            Console.WriteLine("DataTable Count : " + tripsTable.Rows.Count);
-
             var trips = new ObservableCollection<Trip>();
 
             for (int i = 0; i < tripsTable.Rows.Count; i++)

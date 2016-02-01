@@ -316,9 +316,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 setNormalizedStackData();
             });
 
-            Console.WriteLine("SUM:{0}, Number:{1}", this.EnergyHistogramDatumFirst.Sum, this.EnergyHistogramDatumFirst.Number);
-            Console.WriteLine("SUM:{0}, Number:{1}", this.EnergyHistogramDatumSecond.Sum, this.EnergyHistogramDatumSecond.Number);
-
             var item = new CompareStackNormalizedItem()
             {
                 ParentViewModel = this,

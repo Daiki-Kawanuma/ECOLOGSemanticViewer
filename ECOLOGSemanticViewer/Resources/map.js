@@ -66,7 +66,7 @@ function addCircle(latitude, longitude) {
     // 円を作成
     var circleOptions = {
         center: new google.maps.LatLng(latitude, longitude),
-        radius: 100,
+        radius: 5,
         strokeWeight: 1,
         strokeColor: "#000000",
         strokeOpacity: 1.0,

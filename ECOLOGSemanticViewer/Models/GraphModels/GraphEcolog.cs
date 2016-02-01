@@ -347,7 +347,6 @@ namespace ECOLOGSemanticViewer.Models
             query.AppendLine("FROM ecolog");
             query.AppendLine("WHERE trip_id = " + tripId);
             query.AppendLine("ORDER BY jst ASC");
-            Console.WriteLine(query.ToString());
 
             ecologTable = DatabaseAccesserEcolog.GetResult(query.ToString());
 
@@ -381,7 +380,67 @@ namespace ECOLOGSemanticViewer.Models
 
         public static List<GraphEcolog> ExtractGraphEcolog(int tripId, SemanticLink link)
         {
-            return null;
+            var ret = new List<GraphEcolog>();
+
+            DataTable ecologTable = new DataTable();
+
+            StringBuilder query = new StringBuilder();
+            query.AppendLine("SELECT");
+            query.AppendLine("  jst,");
+            query.AppendLine("  latitude,");
+            query.AppendLine("  longitude,");
+            query.AppendLine("  speed,");
+            query.AppendLine("  terrain_altitude,");
+            query.AppendLine("  longitudinal_acc,");
+            query.AppendLine("  CASE WHEN consumed_electric_energy > 0 THEN energy_by_air_resistance * 3600 ELSE 0 END AS energy_by_air_resistance_plus,");
+            query.AppendLine("  CASE WHEN consumed_electric_energy <= 0 THEN energy_by_air_resistance * 3600 ELSE 0 END AS energy_by_air_resistance_minus,");
+            query.AppendLine("  CASE WHEN consumed_electric_energy > 0 THEN energy_by_rolling_resistance * 3600 ELSE 0 END AS energy_by_rolling_resistance_plus,");
+            query.AppendLine("  CASE WHEN consumed_electric_energy <= 0 THEN energy_by_rolling_resistance * 3600 ELSE 0 END AS energy_by_rolling_resistance_minus,");
+            query.AppendLine("  CASE WHEN energy_by_climbing_resistance > 0 THEN energy_by_climbing_resistance * 3600 ELSE 0 END AS energy_by_climbing_resistance,");
+            query.AppendLine("  CASE WHEN consumed_electric_energy > 0 THEN energy_by_acc_resistance * 3600 ELSE 0 END AS energy_by_acc_resistance,");
+            query.AppendLine("  convert_loss * 3600 AS convert_loss,");
+            query.AppendLine("  CASE WHEN consumed_electric_energy <= 0 THEN regene_loss * 3600 ELSE 0 END AS regene_loss,");
+            query.AppendLine("  CASE WHEN consumed_electric_energy <= 0 THEN regene_energy * 3600 ELSE 0 END AS regene_energy,");
+            query.AppendLine("  lost_energy * 3600 AS lost_energy,");
+            query.AppendLine("  consumed_electric_energy * 3600 AS consumed_electric_energy,");
+            query.AppendLine("  ecolog.link_id");
+            query.AppendLine("FROM ecolog");
+            query.AppendLine("INNER JOIN semantic_links");
+            query.AppendLine("  ON ecolog.link_id = semantic_links.link_id");
+            query.AppendLine("WHERE trip_id = " + tripId);
+            query.AppendLine("  AND semantic_link_id = " + link.SemanticLinkId);
+            query.AppendLine("ORDER BY jst ASC");
+
+            Console.WriteLine(query.ToString());
+
+            ecologTable = DatabaseAccesserEcolog.GetResult(query.ToString());
+
+            for (int i = 0; i < ecologTable.Rows.Count; i++)
+            {
+                ret.Add(new GraphEcolog()
+                {
+                    Jst = (DateTime)ecologTable.Rows[i]["jst"],
+                    Latitude = (double)ecologTable.Rows[i]["latitude"],
+                    Longitude = (double)ecologTable.Rows[i]["longitude"],
+                    Speed = (float)ecologTable.Rows[i]["speed"],
+                    TerrainAltitude = (float)ecologTable.Rows[i]["terrain_altitude"],
+                    LongitudinalAcc = (ecologTable.Rows[i]["longitudinal_acc"] == DBNull.Value ? -1 : (float)ecologTable.Rows[i]["longitudinal_acc"]),
+                    EnergyByAirResistancePlus = (float)ecologTable.Rows[i]["energy_by_air_resistance_plus"],
+                    EnergyByAirResistanceMinus = (float)ecologTable.Rows[i]["energy_by_air_resistance_minus"],
+                    EnergyByRollingResistancePlus = (float)ecologTable.Rows[i]["energy_by_rolling_resistance_plus"],
+                    EnergyByRollingResistanceMinus = (float)ecologTable.Rows[i]["energy_by_rolling_resistance_minus"],
+                    EnergyByClimbingResistance = (float)ecologTable.Rows[i]["energy_by_climbing_resistance"],
+                    EnergyByAccResistance = (ecologTable.Rows[i]["energy_by_acc_resistance"] == DBNull.Value ? -1 : (float)ecologTable.Rows[i]["energy_by_acc_resistance"]),
+                    ConvertLoss = (float)ecologTable.Rows[i]["convert_loss"],
+                    RegeneLoss = (float)ecologTable.Rows[i]["regene_loss"],
+                    RegeneEnergy = (float)ecologTable.Rows[i]["regene_energy"],
+                    LostEnergy = (float)ecologTable.Rows[i]["lost_energy"],
+                    ConsumedElectricEnergy = (float)ecologTable.Rows[i]["consumed_electric_energy"],
+                    LinkId = (ecologTable.Rows[i]["link_id"] == DBNull.Value ? null : (string)ecologTable.Rows[i]["link_id"]),
+                });
+            }
+
+            return ret;
         }
     }
 }

@@ -88,8 +88,6 @@ namespace ECOLOGSemanticViewer.Models
 
         private static BitmapImage byteToImageSource(byte[] byteAttay)
         {
-            Console.WriteLine("byteToImageSource is called ...");
-
             BitmapImage bitmapImage = new BitmapImage();
             MemoryStream memoryStream = new MemoryStream(byteAttay);
             bitmapImage.BeginInit();
@@ -130,7 +128,7 @@ namespace ECOLOGSemanticViewer.Models
 
             query.AppendLine("ORDER BY selected_ecolog.jst");
 
-            Console.WriteLine("query : \n" + query);
+            // Console.WriteLine("query : \n" + query);
 
             DataTable pictureTable;
             pictureTable = DatabaseAccesserEcolog.GetResult(query.ToString());

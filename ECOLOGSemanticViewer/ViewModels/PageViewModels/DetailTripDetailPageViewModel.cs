@@ -28,7 +28,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         public SemanticLink SemanticLink { get; set; }
         public TripDirection TripDirection { get; set; }
         public String Uri { get; set; }
-        public MapHost MapHost { get; private set; }
+        public MapHostTripDetail MapHost { get; private set; }
 
         public InvokeScript invokeScript;
 
@@ -81,7 +81,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             get
             { return _SliderMaximum; }
             set
-            { 
+            {
                 if (_SliderMaximum == value)
                     return;
                 _SliderMaximum = value;
@@ -116,7 +116,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             { return _CurrentImage; }
             set
             {
-                Console.WriteLine("image value : " + value.GetHashCode());
                 if (_CurrentImage == value)
                     return;
 
@@ -165,18 +164,18 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             Initialize();
         }
 
-        public async void Initialize()
+        public void Initialize()
         {
             this.Uri = String.Format("file://{0}Resources\\index.html", AppDomain.CurrentDomain.BaseDirectory);
 
-            await Task.Run(() =>
-            {
-                this.TripID = getTripID();
-                GraphEcologs = GraphEcolog.ExtractGraphEcolog(this.TripID, this.SemanticLink);
-                this.CurrentImage = PhotographicImage.CreatePhotographicImage(this.TripID, this.GraphEcologs[0].Jst).ImageSource;
-            });
+            //await Task.Run(() =>
+            //{
+            this.TripID = getTripID();
+            GraphEcologs = GraphEcolog.ExtractGraphEcolog(this.TripID, this.SemanticLink);
+            this.CurrentImage = PhotographicImage.CreatePhotographicImage(this.TripID, this.GraphEcologs[0].Jst).ImageSource;
+            //});
 
-            this.SliderMaximum = this.GraphEcologs.Count;
+            this.SliderMaximum = this.GraphEcologs.Count - 1;
             this.CurrentIndex = 0;
             this.CurrentEcolog = this.GraphEcologs[0];
 
@@ -185,6 +184,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             {
                 DisplayedGraphEcologs.Add(GraphEcologs[i]);
             }
+
+            this.MapHost = new MapHostTripDetail() { PageViewModel = this };
         }
 
         private int getTripID()
@@ -208,19 +209,24 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             }
         }
 
-        private async void setCurrentIndexData(){
+        public void SetCircle()
+        {
+            foreach (GraphEcolog graphEcolog in this.GraphEcologs)
+            {
+                this.invokeScript("addCircle", new object[] { graphEcolog.Latitude, graphEcolog.Longitude });
+            }
+        }
+
+        private void setCurrentIndexData()
+        {
 
             this.CurrentEcolog = this.GraphEcologs[this.CurrentIndex];
 
-            await Task.Run(() =>
-            {
-                this.CurrentImage = PhotographicImage.CreatePhotographicImage(this.TripID, this.CurrentEcolog.Jst).ImageSource;
-            });
-            
+            this.CurrentImage = PhotographicImage.CreatePhotographicImage(this.TripID, this.CurrentEcolog.Jst).ImageSource;
 
             this.DisplayedGraphEcologs = setCurrentGraph(this.CurrentIndex);
 
-            this.invokeScript("moveMap", new object[]{CurrentEcolog.Latitude, CurrentEcolog.Longitude});
+            this.invokeScript("moveMap", new object[] { CurrentEcolog.Latitude, CurrentEcolog.Longitude });
         }
 
         private List<GraphEcolog> setCurrentGraph(int index)

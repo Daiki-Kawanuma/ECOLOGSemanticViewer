@@ -125,7 +125,6 @@ namespace ECOLOGSemanticViewer.Views.Windows
 
             if (context.SelectedSemanticLink != null)
             {
-                Console.WriteLine("Add called ...");
                 context.ExtractedSemanticLinks.Add(context.SelectedSemanticLink);
             }
         }
