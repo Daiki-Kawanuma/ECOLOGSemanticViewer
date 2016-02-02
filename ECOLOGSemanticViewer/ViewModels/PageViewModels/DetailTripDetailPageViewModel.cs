@@ -221,7 +221,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         {
             this.CurrentEcolog = this.GraphEcologs[this.CurrentIndex];
 
-            this.CurrentImage = PhotographicImage.CreatePhotographicImage(this.TripID, this.CurrentEcolog.Jst).ImageSource;
+            // TODO 戻す
+            //this.CurrentImage = PhotographicImage.CreatePhotographicImage(this.TripID, this.CurrentEcolog.Jst).ImageSource;
 
             this.DisplayedGraphEcologs = setCurrentGraph(this.CurrentIndex);
 
