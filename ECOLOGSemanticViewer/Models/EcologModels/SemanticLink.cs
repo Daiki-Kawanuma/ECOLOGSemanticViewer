@@ -209,7 +209,7 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("  semantics,");
             query.AppendLine("  Distance");
             query.AppendLine("FROM default_Outward_SemanticLinks");
-            query.AppendLine("WHERE SemanticLinkID = 187");
+            query.AppendLine("WHERE SemanticLinkID = 187 OR SemanticLinkID = 188");
             query.AppendLine("ORDER BY SemanticLinkID");
 
             semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());

@@ -44,7 +44,7 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
         public MainWindowViewModel()
         {
             this.SemanticLinks = SemanticLink.GetAllSemanticLinks();
-            this.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetDefaultOutwardSemanticLinks());
+            this.ExtractedSemanticLinks = new ObservableCollection<SemanticLink>(SemanticLink.GetTestSemanticLinks());
             this.TripDirection = new TripDirection() { Direction = "outward" };
 
             var page = new MainMapPage();

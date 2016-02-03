@@ -48,10 +48,10 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             this.SemanticGraphs = new List<SemanticGraph>();
             foreach (SemanticLink link in extractedSemanticLinks)
             {
-                this.SemanticGraphs.Add(new SemanticGraph() { SemanticLink = link, SeriesVisibility = true});
+                this.SemanticGraphs.Add(new SemanticGraph() { SemanticLink = link, SeriesVisibility = true });
             }
 
-            this.AreaSeriesList = new List<AreaSeries>();    
+            this.AreaSeriesList = new List<AreaSeries>();
 
             createPlotModel();
         }
@@ -73,6 +73,23 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         }
         #endregion
 
+        #region EnergyHistogramData変更通知プロパティ
+        private List<SemanticHistogramDatum> _EnergyHistogramData;
+
+        public List<SemanticHistogramDatum> EnergyHistogramData
+        {
+            get
+            { return _EnergyHistogramData; }
+            set
+            { 
+                if (_EnergyHistogramData == value)
+                    return;
+                _EnergyHistogramData = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
         #region ProgressBarVisibility変更通知プロパティ
         private System.Windows.Visibility _ProgressBarVisibility;
 
@@ -81,7 +98,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             get
             { return _ProgressBarVisibility; }
             set
-            { 
+            {
                 if (_ProgressBarVisibility == value)
                     return;
                 _ProgressBarVisibility = value;
@@ -98,7 +115,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             get
             { return _AreaSeriesList; }
             set
-            { 
+            {
                 if (_AreaSeriesList == value)
                     return;
                 _AreaSeriesList = value;
@@ -126,9 +143,22 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         private async void createPlotModel()
         {
+            this.EnergyHistogramData = new List<SemanticHistogramDatum>();
+
+            await Task.Run(() =>
+            {
+                foreach (SemanticGraph graph in this.SemanticGraphs)
+                {
+                    this.EnergyHistogramData.Add(SemanticHistogramDatum.GetEnergyInstance(graph.SemanticLink, this.TripDirection) );
+                }
+            });
+
+            CreateNumberModel();
+        }
+
+        public void CreateNumberModel()
+        {
             PlotModel plotModel = new PlotModel();
-            // plotModel.LegendPlacement = LegendPlacement.Outside;
-            // plotModel.LegendPosition = LegendPosition.TopRight;
 
             LinearAxis axisX = new LinearAxis();
             LinearAxis axisY = new LinearAxis();
@@ -138,22 +168,18 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             plotModel.Axes.Add(axisX);
             plotModel.Axes.Add(axisY);
 
-            await Task.Run(() =>
+            foreach (SemanticGraph link in SemanticGraphs)
             {
-                foreach (SemanticGraph link in SemanticGraphs)
-                {
-                    plotModel.Series.Add(createAreaSeries(link));
-                }
-            });
+                plotModel.Series.Add(createNumberSeries(link));
+            }
 
             ProgressBarVisibility = Visibility.Collapsed;
             this.PlotModel = plotModel;
         }
 
-        private AreaSeries createAreaSeries(SemanticGraph semanticGraph)
+        private AreaSeries createNumberSeries(SemanticGraph semanticGraph)
         {
             AreaSeries series = new AreaSeries();
-            //series.TrackerFormatString = series.TrackerFormatString + "\n" + link.Semantics + " : {Tag}";
             series.Title = semanticGraph.SemanticLink.Semantics;
 
             series.MouseDown += (s, e) =>
@@ -186,23 +212,98 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                         };
 
                         DialogHost.Show(dialog, "RootDialog");
-                    }  
+                    }
                 }
             };
 
-            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-            sw.Start();
-
-            SemanticHistogramDatum datum = SemanticHistogramDatum.GetEnergyInstance(semanticGraph.SemanticLink, this.TripDirection);
-
-            sw.Stop();
-            Console.WriteLine("COST: " + sw.Elapsed);
+            SemanticHistogramDatum datum = this.EnergyHistogramData
+                .Where(v => v.SemanticLink.SemanticLinkId == semanticGraph.SemanticLink.SemanticLinkId)
+                .ElementAt(0);
 
             series.Points.Add(new DataPoint(datum.MinLevel - datum.ClassWidth, 0));
-            
+
             foreach (LevelAndValue item in datum.HistogramData)
             {
                 series.Points.Add(new DataPoint(item.Level, item.Value));
+            }
+
+            series.Points.Add(new DataPoint(datum.MaxLevel + datum.ClassWidth, 0));
+
+            AreaSeriesList.Add(series);
+            semanticGraph.Series = series;
+
+            return series;
+        }
+
+        public void CreatePercentModel()
+        {
+            PlotModel plotModel = new PlotModel();
+
+            LinearAxis axisX = new LinearAxis();
+            LinearAxis axisY = new LinearAxis();
+            axisX.Position = AxisPosition.Bottom;
+            axisX.Title = "Lost energy [kWh]";
+            axisY.Title = "Percent [%]";
+            plotModel.Axes.Add(axisX);
+            plotModel.Axes.Add(axisY);
+
+            foreach (SemanticGraph link in SemanticGraphs)
+            {
+                plotModel.Series.Add(createPercentSeries(link));
+            }
+
+            ProgressBarVisibility = Visibility.Collapsed;
+            this.PlotModel = plotModel;
+        }
+
+        private AreaSeries createPercentSeries(SemanticGraph semanticGraph)
+        {
+            AreaSeries series = new AreaSeries();
+            series.Title = semanticGraph.SemanticLink.Semantics;
+
+            series.MouseDown += (s, e) =>
+            {
+                if (e.ChangedButton == OxyMouseButton.Left)
+                {
+                    Console.WriteLine("SEMANTICS: " + semanticGraph.SemanticLink.Semantics);
+
+                    if (SelectedSemanticLinks.Count > 0)
+                    {
+                        var dialog = new MainPageCompareDialog
+                        {
+                            Message = { Text = semanticGraph.SemanticLink.Semantics },
+                            TripDirection = this.TripDirection,
+                            SelectedSemanticLinks = this.SelectedSemanticLinks.ToList(),
+                            SemanticLink = semanticGraph.SemanticLink,
+                            ViewModel = this
+                        };
+
+                        DialogHost.Show(dialog, "RootDialog");
+                    }
+                    else
+                    {
+                        var dialog = new MainPageShowDetailDialog
+                        {
+                            Message = { Text = semanticGraph.SemanticLink.Semantics },
+                            TripDirection = this.TripDirection,
+                            SemanticLink = semanticGraph.SemanticLink,
+                            ViewModel = this
+                        };
+
+                        DialogHost.Show(dialog, "RootDialog");
+                    }
+                }
+            };
+
+            SemanticHistogramDatum datum = this.EnergyHistogramData
+                .Where(v => v.SemanticLink.SemanticLinkId == semanticGraph.SemanticLink.SemanticLinkId)
+                .ElementAt(0);
+
+            series.Points.Add(new DataPoint(datum.MinLevel - datum.ClassWidth, 0));
+
+            foreach (LevelAndValue item in datum.HistogramData)
+            {
+                series.Points.Add(new DataPoint(item.Level, item.Value * 100 / datum.HistogramData.Sum(v => v.Value)));
             }
 
             series.Points.Add(new DataPoint(datum.MaxLevel + datum.ClassWidth, 0));
