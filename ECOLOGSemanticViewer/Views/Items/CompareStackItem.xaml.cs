@@ -38,12 +38,12 @@ namespace ECOLOGSemanticViewer.Views.Items
         public void InitEnergyStringFormat()
         {
             this.LabelTotalNumberSemanticFirst.ContentStringFormat = "Total number：{0:N0} trip";
-            this.LabelTotalValueSemanticFirst.ContentStringFormat = "Total lost energy：{0:N3}kWh";
+            this.LabelTotalValueSemanticFirst.ContentStringFormat = "Total energy：{0:N1}kWh";
             this.LabelTotalNumberSemanticSecond.ContentStringFormat = "Total number：{0:N0} trip";
-            this.LabelTotalValueSemanticSecond.ContentStringFormat = "Total lost energy：{0:N3}kWh";
+            this.LabelTotalValueSemanticSecond.ContentStringFormat = "Total energy：{0:N1}kWh";
             this.LabelNumberDiff.ContentStringFormat = "Number diff：{0:N0} trip";
-            this.LabelValueDiff.ContentStringFormat = "Lost energy diff：{0:N3}kWh";
-            this.LabelValueDiffPercent.ContentStringFormat = "Lost energy diff：{0:N1}%";
+            this.LabelValueDiff.ContentStringFormat = "Energy diff：{0:N1}kWh";
+            this.LabelValueDiffPercent.ContentStringFormat = "Energy diff：{0:N1}%";
         }
 
         public void InitTimeStringFormat()
