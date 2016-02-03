@@ -34,7 +34,9 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <materialDesign:Card Grid.Column="0" Margin="5,5,5,5" VerticalAlignment="Stretch">
+            <materialDesign:Card Grid.Column="0"
+                                 Margin="5,5,5,5"
+                                 VerticalAlignment="Stretch">
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -42,31 +44,68 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <Grid Grid.Column="0">
 
-                        <Label Content="X Axis" />
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
 
-                        <Button Margin="5,5,5,5"
+                        <StackPanel Grid.Row="0"
+                                    VerticalAlignment="Stretch"
+                                    Background="{StaticResource AccentColorBrush}" />
+
+                        <Label Grid.Row="0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Content="X Axis"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Foreground="White" />
+
+                        <Button Grid.Row="1"
+                                Margin="5,5,5,5"
                                 Content="kWh"
                                 Style="{StaticResource MaterialDesignFlatButton}" />
 
-                        <Button Margin="5,0,5,5"
+                        <Button Grid.Row="2"
+                                Margin="5,0,5,5"
                                 Content="kWh/km"
                                 Style="{StaticResource MaterialDesignFlatButton}" />
-                    </StackPanel>
+                    </Grid>
 
-                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <Grid Grid.Column="1">
 
-                        <Label Content="Y Axis" />
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
 
-                        <Button Margin="0,5,5,5"
+                        <StackPanel Grid.Row="0"
+                                    VerticalAlignment="Stretch"
+                                    Background="{StaticResource AccentColorBrush}" />
+
+                        <Label Grid.Row="0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Background="{StaticResource AccentColorBrush}"
+                               Content="Y Axis"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Foreground="White" />
+
+                        <Button Grid.Row="1"
+                                Margin="0,5,5,5"
                                 Content="Number"
                                 Style="{StaticResource MaterialDesignFlatButton}" />
 
-                        <Button Margin="0,0,5,5"
+                        <Button Grid.Row="2"
+                                Margin="0,0,5,5"
                                 Content="Percent"
                                 Style="{StaticResource MaterialDesignFlatButton}" />
-                    </StackPanel>
+                    </Grid>
                 </Grid>
 
             </materialDesign:Card>
@@ -137,9 +176,9 @@
                          Visibility="{Binding ProgressBarVisibility}" />
 
             <materialDesign:DialogHost Grid.Row="1"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Identifier="RootDialog" />
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Identifier="RootDialog" />
 
         </Grid>
 
