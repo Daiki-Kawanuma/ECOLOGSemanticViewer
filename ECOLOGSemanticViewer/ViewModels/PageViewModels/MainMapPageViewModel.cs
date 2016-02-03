@@ -79,19 +79,21 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             Initialize();
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
-            //await Task.Run(() =>
-            //{
-            SetLinks();
-            //});
-
             this.Uri = String.Format("file://{0}Resources\\index.html", AppDomain.CurrentDomain.BaseDirectory);
 
             this.MapHost = new MapHost()
             {
                 MainMapPageViewModel = this
             };
+
+            await Task.Run(() =>
+            {
+                SetLinks();
+            });
+
+            SetSemanticLines();
         }
 
         public void SetLinks()
@@ -102,7 +104,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             }
         }
 
-        public void SetSemanticLine()
+        public void SetSemanticLines()
         {
             foreach (SemanticLink semanticLink in this.ExtractedSemanticLinks)
             {

@@ -16,7 +16,7 @@ namespace ECOLOGSemanticViewer.Models.MapModels
 
         public void OnInitCompleted()
         {
-            this.MainMapPageViewModel.SetSemanticLine();
+            //this.MainMapPageViewModel.SetSemanticLine();
         }
 
         public void OnLineClicked(int semanticLinkID)
