@@ -45,5 +45,25 @@ namespace ECOLOGSemanticViewer.Views.Pages
 
             context.CreatePercentModel();
         }
+
+        private void Button_Raw(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as MainEnergyPageViewModel;
+
+            if (context == null)
+                return;
+
+            context.CreatePlotModel();
+        }
+
+        private void Button_Normalized(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as MainEnergyPageViewModel;
+
+            if (context == null)
+                return;
+
+            context.CreateNormalizedPlotModel();
+        }
     }
 }

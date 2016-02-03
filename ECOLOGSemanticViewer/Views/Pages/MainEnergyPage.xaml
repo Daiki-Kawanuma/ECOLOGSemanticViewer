@@ -67,11 +67,13 @@
                         <Button Grid.Row="1"
                                 Margin="5,5,5,5"
                                 Content="kWh"
+                                Click="Button_Raw"
                                 Style="{StaticResource MaterialDesignFlatButton}" />
 
                         <Button Grid.Row="2"
                                 Margin="5,0,5,5"
                                 Content="kWh/km"
+                                Click="Button_Normalized"
                                 Style="{StaticResource MaterialDesignFlatButton}" />
                     </Grid>
 

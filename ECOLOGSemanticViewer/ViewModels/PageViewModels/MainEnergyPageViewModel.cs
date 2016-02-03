@@ -29,6 +29,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
     public class MainEnergyPageViewModel : AbstMainPageViewModel
     {
+        public enum GraphType { Raw, Normalized };
+
         public void Initialize()
         {
         }
@@ -41,11 +43,9 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         public MainEnergyPageViewModel(List<SemanticLink> extractedSemanticLinks, TripDirection direction)
         {
             SelectedSemanticLinks = new ObservableCollection<SemanticLink>();
-
-            this.ProgressBarVisibility = Visibility.Visible;
             this.TripDirection = direction;
-
             this.SemanticGraphs = new List<SemanticGraph>();
+
             foreach (SemanticLink link in extractedSemanticLinks)
             {
                 this.SemanticGraphs.Add(new SemanticGraph() { SemanticLink = link, SeriesVisibility = true });
@@ -53,7 +53,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             this.AreaSeriesList = new List<AreaSeries>();
 
-            createPlotModel();
+            CreatePlotModel();
         }
 
         #region SemanticGraphs変更通知プロパティ
@@ -107,6 +107,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         }
         #endregion
 
+        public GraphType CurrentGraphType { get; set; }
+
         #region AreaSeriesList変更通知プロパティ
         private List<AreaSeries> _AreaSeriesList;
 
@@ -141,8 +143,11 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         }
         #endregion
 
-        private async void createPlotModel()
+        public async void CreatePlotModel()
         {
+            this.ProgressBarVisibility = Visibility.Visible;
+            this.PlotModel = null;
+
             this.EnergyHistogramData = new List<SemanticHistogramDatum>();
 
             await Task.Run(() =>
@@ -153,6 +158,26 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 }
             });
 
+            CurrentGraphType = GraphType.Raw;
+            CreateNumberModel();
+        }
+
+        public async void CreateNormalizedPlotModel()
+        {
+            this.ProgressBarVisibility = Visibility.Visible;
+            this.PlotModel = null;
+
+            this.EnergyHistogramData = new List<SemanticHistogramDatum>();
+
+            await Task.Run(() =>
+            {
+                foreach (SemanticGraph graph in this.SemanticGraphs)
+                {
+                    this.EnergyHistogramData.Add(SemanticHistogramDatum.GetDistanceNormalizedEnergyInstance(graph.SemanticLink, this.TripDirection));
+                }
+            });
+
+            CurrentGraphType = GraphType.Normalized;
             CreateNumberModel();
         }
 
@@ -163,7 +188,17 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             LinearAxis axisX = new LinearAxis();
             LinearAxis axisY = new LinearAxis();
             axisX.Position = AxisPosition.Bottom;
-            axisX.Title = "Lost energy [kWh]";
+
+            switch (CurrentGraphType)
+            {
+                case GraphType.Raw:
+                    axisX.Title = "Lost energy [kWh]";
+                    break;
+                case GraphType.Normalized:
+                    axisX.Title = "Lost energy [kWh / km]";
+                    break;
+            }
+
             axisY.Title = "Number";
             plotModel.Axes.Add(axisX);
             plotModel.Axes.Add(axisY);
@@ -242,7 +277,17 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             LinearAxis axisX = new LinearAxis();
             LinearAxis axisY = new LinearAxis();
             axisX.Position = AxisPosition.Bottom;
-            axisX.Title = "Lost energy [kWh]";
+
+            switch (CurrentGraphType)
+            {
+                case GraphType.Raw:
+                    axisX.Title = "Lost energy [kWh]";
+                    break;
+                case GraphType.Normalized:
+                    axisX.Title = "Lost energy [kWh / km]";
+                    break;
+            }
+
             axisY.Title = "Percent [%]";
             plotModel.Axes.Add(axisX);
             plotModel.Axes.Add(axisY);
