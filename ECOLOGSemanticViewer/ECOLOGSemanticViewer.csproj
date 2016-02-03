@@ -110,6 +110,7 @@
     <Compile Include="ViewModels\PageViewModels\DetailTimePageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\DetailTripDetailPageViewModel.cs" />
     <Compile Include="ViewModels\PageViewModels\MainTimePageViewModel.cs" />
+    <Compile Include="ViewModels\PageViewModels\TestMainEnergyPageViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModels\SemanticCompareWindowViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModels\SemanticDetailWindowViewModel.cs" />
     <Compile Include="Views\Items\CompareNumberItem.xaml.cs">
