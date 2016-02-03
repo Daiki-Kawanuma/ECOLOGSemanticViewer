@@ -79,11 +79,11 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             Initialize();
         }
 
-        public  void Initialize()
+        public void Initialize()
         {
             //await Task.Run(() =>
             //{
-                SetLinks();
+            SetLinks();
             //});
 
             this.Uri = String.Format("file://{0}Resources\\index.html", AppDomain.CurrentDomain.BaseDirectory);
@@ -108,8 +108,13 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             {
                 for (int i = 0; i < semanticLink.Links.Count - 1; i++)
                 {
-                    this.invokeScript("addLine",
-                        new object[] { semanticLink.SemanticLinkId, 
+                    this.invokeScript("addCircle",
+                        new object[] { semanticLink.Links[i].Latitude, semanticLink.Links[i].Longitude });
+
+                    if (semanticLink.Links[i].LinkId.Equals(semanticLink.Links[i + 1].LinkId))
+
+                        this.invokeScript("addLine",
+                            new object[] { semanticLink.SemanticLinkId, 
                             semanticLink.Links[i].Latitude, 
                             semanticLink.Links[i].Longitude, 
                             semanticLink.Links[i + 1].Latitude, 

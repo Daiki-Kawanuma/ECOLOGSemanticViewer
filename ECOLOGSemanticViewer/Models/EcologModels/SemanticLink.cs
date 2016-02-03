@@ -209,7 +209,7 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("  semantics,");
             query.AppendLine("  Distance");
             query.AppendLine("FROM default_Outward_SemanticLinks");
-            query.AppendLine("WHERE SemanticLinkID = 187 OR SemanticLinkID = 188");
+            query.AppendLine("WHERE SemanticLinkID = 187");
             query.AppendLine("ORDER BY SemanticLinkID");
 
             semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
@@ -239,7 +239,7 @@ namespace ECOLOGSemanticViewer.Models.EcologModels
             query.AppendLine("FROM semantic_links");
             query.AppendLine("  INNER JOIN links ON semantic_links.link_id = links.link_id");
             query.AppendLine("WHERE semantic_link_id = " + this.SemanticLinkId);
-            query.AppendLine("ORDER BY link_id");
+            query.AppendLine("ORDER BY link_id, num");
 
             semanticLinkTable = DatabaseAccesserEcolog.GetResult(query.ToString());
 
