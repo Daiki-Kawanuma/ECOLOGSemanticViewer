@@ -164,16 +164,17 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             Initialize();
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
             this.Uri = String.Format("file://{0}Resources\\index.html", AppDomain.CurrentDomain.BaseDirectory);
+            this.MapHost = new MapHostTripDetail() { PageViewModel = this };
 
-            //await Task.Run(() =>
-            //{
-            this.TripID = getTripID();
-            GraphEcologs = GraphEcolog.ExtractGraphEcolog(this.TripID, this.SemanticLink);
-            this.CurrentImage = PhotographicImage.CreatePhotographicImage(this.TripID, this.GraphEcologs[0].Jst).ImageSource;
-            //});
+            await Task.Run(() =>
+            {
+                this.TripID = getTripID();
+                GraphEcologs = GraphEcolog.ExtractGraphEcolog(this.TripID, this.SemanticLink);
+                this.CurrentImage = PhotographicImage.CreatePhotographicImage(this.TripID, this.GraphEcologs[0].Jst).ImageSource;
+            });
 
             this.SliderMaximum = this.GraphEcologs.Count - 1;
             this.CurrentIndex = 0;
@@ -184,8 +185,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             {
                 DisplayedGraphEcologs.Add(GraphEcologs[i]);
             }
-
-            this.MapHost = new MapHostTripDetail() { PageViewModel = this };
         }
 
         private int getTripID()
