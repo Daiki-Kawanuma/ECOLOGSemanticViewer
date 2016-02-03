@@ -189,7 +189,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
 
-            SemanticHistogramDatum datum = SemanticHistogramDatum.GetEnergyInstance(semanticGraph.SemanticLink, this.TripDirection, sensorID);
+            // SemanticHistogramDatum datum = SemanticHistogramDatum.GetEnergyInstance(semanticGraph.SemanticLink, this.TripDirection, sensorID);
+            SemanticHistogramDatum datum = null;
 
             sw.Stop();
             Console.WriteLine("COST: " + sw.Elapsed);
