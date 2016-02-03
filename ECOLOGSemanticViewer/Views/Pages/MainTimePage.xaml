@@ -66,11 +66,13 @@
 
                         <Button Grid.Row="1"
                                 Margin="5,5,5,5"
+                                Click="Button_Raw"
                                 Content="s"
                                 Style="{StaticResource MaterialDesignFlatButton}" />
 
                         <Button Grid.Row="2"
                                 Margin="5,0,5,5"
+                                Click="Button_Normalized"
                                 Content="s/km"
                                 Style="{StaticResource MaterialDesignFlatButton}" />
                     </Grid>
@@ -98,11 +100,13 @@
 
                         <Button Grid.Row="1"
                                 Margin="0,5,5,5"
+                                Click="Button_Number"
                                 Content="Number"
                                 Style="{StaticResource MaterialDesignFlatButton}" />
 
                         <Button Grid.Row="2"
                                 Margin="0,0,5,5"
+                                Click="Button_Percent"
                                 Content="Percent"
                                 Style="{StaticResource MaterialDesignFlatButton}" />
                     </Grid>

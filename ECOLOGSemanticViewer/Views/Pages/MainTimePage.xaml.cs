@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECOLOGSemanticViewer.ViewModels.PageViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,46 @@ namespace ECOLOGSemanticViewer.Views.Pages
         public MainTimePage()
         {
             InitializeComponent();
+        }
+
+        private void Button_Number(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as MainTimePageViewModel;
+
+            if (context == null)
+                return;
+
+            context.CreateNumberModel();
+        }
+
+        private void Button_Percent(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as MainTimePageViewModel;
+
+            if (context == null)
+                return;
+
+            context.CreatePercentModel();
+        }
+
+        private void Button_Raw(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as MainTimePageViewModel;
+
+            if (context == null)
+                return;
+
+            context.CreatePlotModel();
+        }
+
+        private void Button_Normalized(object sender, RoutedEventArgs e)
+        {
+            var context = this.DataContext as MainTimePageViewModel;
+
+            if (context == null)
+                return;
+
+            context.CreateNormalizedPlotModel();
         }
     }
 }
