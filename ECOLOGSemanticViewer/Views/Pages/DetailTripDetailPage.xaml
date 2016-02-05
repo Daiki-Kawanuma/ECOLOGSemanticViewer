@@ -10,6 +10,8 @@
       Title="DetailTripDetailPage"
       Background="{DynamicResource MaterialDesignPaper}"
       FontFamily="{StaticResource MaterialDesignFont}"
+      PreviewKeyDown="Page_PreviewKeyDown"
+      PreviewMouseWheel="Page_PreviewMouseWheel"
       TextElement.FontSize="13"
       TextElement.FontWeight="Regular"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
