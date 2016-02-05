@@ -36,7 +36,7 @@ function initialize() {
 
 function getRandomColor(number) {
 
-    switch (number % 18) {
+    switch (number % 19) {
         case 0:
             return "#E60012";
         case 1:
@@ -73,6 +73,8 @@ function getRandomColor(number) {
             return "#FFF100";
         case 17:
             return "#009E96";
+        case 18:
+            return "#1D2088";
     }
 
 }
