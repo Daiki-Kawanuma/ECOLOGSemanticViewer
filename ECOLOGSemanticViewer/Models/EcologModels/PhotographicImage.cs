@@ -84,14 +84,16 @@ namespace ECOLOGSemanticViewer.Models
         }
         #endregion
 
-        public BitmapImage ImageSource;
+        public Byte[] ImageSource;
 
-        private static BitmapImage byteToImageSource(byte[] byteAttay)
+        public static BitmapImage ByteToImageSource(byte[] byteAttay)
         {
+            if (byteAttay.Length == 0)
+                return null;
+           
             BitmapImage bitmapImage = new BitmapImage();
             MemoryStream memoryStream = new MemoryStream(byteAttay);
             bitmapImage.BeginInit();
-            //bitmapImage.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
             bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
             bitmapImage.StreamSource = memoryStream;
             bitmapImage.EndInit();
@@ -133,17 +135,13 @@ namespace ECOLOGSemanticViewer.Models
             DataTable pictureTable;
             pictureTable = DatabaseAccesserEcolog.GetResult(query.ToString());
 
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-            bitmapImage.UriSource = new Uri("no-image.jpg", UriKind.Relative);
-
             return new PhotographicImage()
                 {
                     DriverId = (pictureTable.Rows[0]["driver_id"] == DBNull.Value ? -1 : (int)pictureTable.Rows[0]["driver_id"]),
                     CarId = (pictureTable.Rows[0]["car_id"] == DBNull.Value ? -1 : (int)pictureTable.Rows[0]["car_id"]),
                     SensorId = (pictureTable.Rows[0]["sensor_id"] == DBNull.Value ? -1 : (int)pictureTable.Rows[0]["sensor_id"]),
                     Jst = (pictureTable.Rows[0]["jst"] == DBNull.Value ? new DateTime() : (DateTime)pictureTable.Rows[0]["jst"]),
-                    ImageSource = (pictureTable.Rows[0]["picture"] == DBNull.Value ? bitmapImage : byteToImageSource( (Byte[])pictureTable.Rows[0]["picture"]))
+                    ImageSource = (pictureTable.Rows[0]["picture"] == DBNull.Value ? new Byte[0] : (Byte[])pictureTable.Rows[0]["picture"])
                 };
         }
     }

@@ -411,8 +411,6 @@ namespace ECOLOGSemanticViewer.Models
             query.AppendLine("  AND semantic_link_id = " + link.SemanticLinkId);
             query.AppendLine("ORDER BY jst ASC");
 
-            Console.WriteLine(query.ToString());
-
             ecologTable = DatabaseAccesserEcolog.GetResult(query.ToString());
 
             for (int i = 0; i < ecologTable.Rows.Count; i++)

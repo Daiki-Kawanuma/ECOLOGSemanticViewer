@@ -17,6 +17,7 @@ using ECOLOGSemanticViewer.Models.EcologModels;
 using System.Threading.Tasks;
 using ECOLOGSemanticViewer.Models.GraphModels;
 using System.Windows.Media.Imaging;
+using System.Runtime.Remoting.Messaging;
 
 namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 {
@@ -113,15 +114,17 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         public BitmapImage CurrentImage
         {
             get
-            { return _CurrentImage; }
+            {
+                return _CurrentImage;
+            }
             set
             {
                 if (_CurrentImage == value)
                     return;
 
-
-                _CurrentImage = null;
-                GC.Collect();
+                // TODO いる？
+                //_CurrentImage = null;
+                //GC.Collect();
 
                 _CurrentImage = value;
 
@@ -149,8 +152,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         public List<GraphEcolog> GraphEcologs { get; set; }
 
-        public List<PhotographicImage> PhotographicImages { get; set; }
-
         public DetailTripDetailPageViewModel()
         {
         }
@@ -169,16 +170,18 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             this.Uri = String.Format("file://{0}Resources\\index.html", AppDomain.CurrentDomain.BaseDirectory);
             this.MapHost = new MapHostTripDetail() { PageViewModel = this };
 
+            PhotographicImage image = new PhotographicImage();
+
             await Task.Run(() =>
             {
                 this.TripID = getTripID();
                 GraphEcologs = GraphEcolog.ExtractGraphEcolog(this.TripID, this.SemanticLink);
-                this.CurrentImage = PhotographicImage.CreatePhotographicImage(this.TripID, this.GraphEcologs[0].Jst).ImageSource;
             });
 
             this.SliderMaximum = this.GraphEcologs.Count - 1;
             this.CurrentIndex = 0;
             this.CurrentEcolog = this.GraphEcologs[0];
+            getImage();
 
             DisplayedGraphEcologs = new List<GraphEcolog>();
             for (int i = 0; i < GraphIndexLength; i++)
@@ -222,6 +225,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             // TODO 戻す
             //this.CurrentImage = PhotographicImage.CreatePhotographicImage(this.TripID, this.CurrentEcolog.Jst).ImageSource;
+            getImage();
 
             this.DisplayedGraphEcologs = setCurrentGraph(this.CurrentIndex);
 
@@ -247,5 +251,55 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
             return ret;
         }
+
+        #region 画像取得の非同期処理
+        // 非同期実行するためのデリゲート
+        delegate PhotographicImage ImageDelegate(int tripID, DateTime jst);
+
+        private void getImage()
+        {
+            // 実行するデリゲートを作成
+            ImageDelegate imageDelegate =
+                new ImageDelegate(this.DelegatingMethod);
+
+            // コールバック関数
+            AsyncCallback callback = new AsyncCallback(this.CallbackMethod);
+
+            // 非同期実行の呼び出し
+            IAsyncResult ar =
+                imageDelegate.BeginInvoke(this.TripID, CurrentEcolog.Jst, callback, null);
+        }
+
+        // 非同期させたい（重たい）処理
+        private PhotographicImage DelegatingMethod(int tripID, DateTime jst)
+        {
+            return PhotographicImage.CreatePhotographicImage(this.TripID, this.CurrentEcolog.Jst);
+        }
+
+        // コールバック関数：スレッド終了後の処理を記述
+        private void CallbackMethod(IAsyncResult ar)
+        {
+            // AsyncResultに変換
+            AsyncResult asyncResult = ar as AsyncResult;
+
+            // 非同期の呼び出しが行われたデリゲート オブジェクトを取得
+            ImageDelegate imageDelegate =
+                asyncResult.AsyncDelegate as ImageDelegate;
+
+            BitmapImage image = PhotographicImage.ByteToImageSource(imageDelegate.EndInvoke(ar).ImageSource);
+
+            if (image == null)
+            {
+                image = new BitmapImage(
+                    new Uri(String.Format("file://{0}Resources\\NoImage.png", AppDomain.CurrentDomain.BaseDirectory)));
+                image.Freeze();
+                CurrentImage = image;
+            }
+            else
+            {
+                CurrentImage = image;
+            }
+        }
+        #endregion
     }
 }
