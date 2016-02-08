@@ -156,10 +156,10 @@
 
                             </GroupBox>
 
-                            <GroupBox Grid.Column="1" Margin="5,5,5,10">
+                            <GroupBox Grid.Column="1" Margin="5,5,5,10" >
 
                                 <GroupBox.Header>
-                                    <Label Content="Longitudinal Acc" />
+                                    <Label Content="Longitudinal Acc"/>
                                 </GroupBox.Header>
 
                                 <Label Content="{Binding CurrentEcolog.LongitudinalAcc}" />

@@ -30,19 +30,6 @@
 
         <Grid Grid.Column="0">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <Button Grid.Row="0"
-                    Margin="10,0,0,0"
-                    HorizontalAlignment="Left"
-                    Click="Button_Click"
-                    Content="Show map"
-                    Foreground="{StaticResource AccentColorBrush}"
-                    Style="{StaticResource MaterialDesignToolButton}" />
-
             <oxy:PlotView Grid.Row="1"
                           Margin="10"
                           Model="{Binding PlotModel}" />
