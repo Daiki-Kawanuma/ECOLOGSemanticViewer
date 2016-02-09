@@ -74,6 +74,9 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
                 preSpeed = ecolog.Speed;
             }
 
+            // index = 0 は極端な値が出るため除外
+            ret.RemoveAt(0);
+
             return ret;
         }
 
@@ -95,6 +98,9 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
                 preSpeed = ecolog.Speed;
                 sumDistanceDifference += ecolog.DistanceDifference;
             }
+
+            // index = 0 は極端な値が出るため除外
+            ret.RemoveAt(0);
 
             return ret;
         }
