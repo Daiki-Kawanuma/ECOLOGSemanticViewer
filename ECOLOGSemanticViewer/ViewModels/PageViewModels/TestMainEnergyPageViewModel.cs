@@ -34,7 +34,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
         public TestMainEnergyPageViewModel()
         {
             List<SemanticLink> SemanticLinks = new List<SemanticLink>();
-            SemanticLinks.Add(new SemanticLink() { SemanticLinkId = 195, Semantics = "阿久和～桃源台"});
+            SemanticLinks.Add(new SemanticLink() { SemanticLinkId = 19, Semantics = "TEMP"});
 
             SelectedSemanticLinks = new ObservableCollection<SemanticLink>();
 
@@ -130,6 +130,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             LinearAxis axisY = new LinearAxis();
             axisX.Position = AxisPosition.Bottom;
             axisX.Title = "Lost energy [kWh]";
+
             axisY.Title = "Number";
             plotModel.Axes.Add(axisX);
             plotModel.Axes.Add(axisY);
@@ -152,60 +153,29 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             //series.TrackerFormatString = series.TrackerFormatString + "\n" + link.Semantics + " : {Tag}";
             series.Title = "Sensor ID: " + sensorID;
 
-            series.MouseDown += (s, e) =>
-            {
-                if (e.ChangedButton == OxyMouseButton.Left)
-                {
-                    Console.WriteLine("SEMANTICS: " + semanticGraph.SemanticLink.Semantics);
-
-                    if (SelectedSemanticLinks.Count > 0)
-                    {
-                        var dialog = new MainPageCompareDialog
-                        {
-                            Message = { Text = semanticGraph.SemanticLink.Semantics },
-                            TripDirection = this.TripDirection,
-                            SelectedSemanticLinks = this.SelectedSemanticLinks.ToList(),
-                            SemanticLink = semanticGraph.SemanticLink,
-                            ViewModel = this
-                        };
-
-                        DialogHost.Show(dialog, "RootDialog");
-                    }
-                    else
-                    {
-                        var dialog = new MainPageShowDetailDialog
-                        {
-                            Message = { Text = semanticGraph.SemanticLink.Semantics },
-                            TripDirection = this.TripDirection,
-                            SemanticLink = semanticGraph.SemanticLink,
-                            ViewModel = this
-                        };
-
-                        DialogHost.Show(dialog, "RootDialog");
-                    }  
-                }
-            };
-
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
 
-            // SemanticHistogramDatum datum = SemanticHistogramDatum.GetEnergyInstance(semanticGraph.SemanticLink, this.TripDirection, sensorID);
-            SemanticHistogramDatum datum = null;
+            SemanticHistogramDatum datum = SemanticHistogramDatum.GetEnergyInstance(semanticGraph.SemanticLink, this.TripDirection, sensorID);
+            //SemanticHistogramDatum datum = null;
 
             sw.Stop();
             Console.WriteLine("COST: " + sw.Elapsed);
 
-            series.Points.Add(new DataPoint(datum.MinLevel - datum.ClassWidth, 0));
+            //series.Points.Add(new DataPoint(0.02, 0));
             
             foreach (LevelAndValue item in datum.HistogramData)
             {
+                if(item.Level > 0.02 && item.Level < 0.15)
                 series.Points.Add(new DataPoint(item.Level, item.Value));
             }
 
-            series.Points.Add(new DataPoint(datum.MaxLevel + datum.ClassWidth, 0));
+            //series.Points.Add(new DataPoint(0.15, 0));
 
             AreaSeriesList.Add(series);
             semanticGraph.Series = series;
+
+            Console.WriteLine("SENSOR: " + sensorID + ", WIDTH: " + datum.ClassWidth);
 
             return series;
         }

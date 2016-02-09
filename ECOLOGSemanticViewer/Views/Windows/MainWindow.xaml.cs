@@ -59,6 +59,7 @@ namespace ECOLOGSemanticViewer.Views.Windows
 
             MainEnergyPage page = new MainEnergyPage();
             page.DataContext = new MainEnergyPageViewModel(context.ExtractedSemanticLinks.ToList(), context.TripDirection);
+            //page.DataContext = new TestMainEnergyPageViewModel();
 
             context.CurrentPage = page;
         }
