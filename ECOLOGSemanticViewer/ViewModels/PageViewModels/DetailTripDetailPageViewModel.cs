@@ -49,6 +49,9 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 if (_SelectedComboBoxIndex == value)
                     return;
                 _SelectedComboBoxIndex = value;
+
+                Initialize();
+
                 RaisePropertyChanged();
             }
         }

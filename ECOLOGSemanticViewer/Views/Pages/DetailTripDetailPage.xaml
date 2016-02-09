@@ -89,7 +89,7 @@
                         <ComboBox Grid.Row="0"
                                   Margin="10,10,10,0"
                                   HorizontalAlignment="Stretch"
-                                  SelectedIndex="{Binding SelectedIndex}">
+                                  SelectedIndex="{Binding SelectedComboBoxIndex}">
                             <ComboBoxItem Content="Energy Min" />
                             <ComboBoxItem Content="Energy Median" />
                             <ComboBoxItem Content="Energy Max" />
