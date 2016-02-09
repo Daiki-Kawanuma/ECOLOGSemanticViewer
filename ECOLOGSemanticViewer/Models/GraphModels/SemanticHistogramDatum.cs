@@ -209,7 +209,7 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 
             datum.HistogramData.Max(x => x.Level);
 
-            datum.ClassWidth = (datum.MaxLevel - datum.MinLevel) / 10;
+            datum.ClassWidth = (int) ( (datum.MaxLevel - datum.MinLevel) / 10 );
 
             datum.UnderModeData = datum.HistogramData
                 .Where(v => v.Value <= datum.HistogramData.Max(x => x.Value) * 0.75)
@@ -340,7 +340,7 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
 
             datum.HistogramData.Max(x => x.Level);
 
-            datum.ClassWidth = (datum.MaxLevel - datum.MinLevel) / 10;
+            datum.ClassWidth = (int) ( (datum.MaxLevel - datum.MinLevel) / 10 );
 
             datum.UnderModeData = datum.HistogramData
                 .Where(v => v.Value <= datum.HistogramData.Max(x => x.Value) * 0.75)
@@ -440,7 +440,7 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
                 .Select(x => x.Field<int>("Min"))
                 .ElementAt(0);
 
-            datum.ClassWidth = (datum.MaxLevel - datum.MinLevel) / 10;
+            datum.ClassWidth = (int) ( (datum.MaxLevel - datum.MinLevel) / 10 );
 
             return datum;
         }
@@ -518,7 +518,7 @@ namespace ECOLOGSemanticViewer.Models.GraphModels
                 .Select(x => x.Field<int>("Min"))
                 .ElementAt(0);
 
-            datum.ClassWidth = (datum.MaxLevel - datum.MinLevel) / 10;
+            datum.ClassWidth = (int) ( (datum.MaxLevel - datum.MinLevel) / 10 );
 
             return datum;
         }

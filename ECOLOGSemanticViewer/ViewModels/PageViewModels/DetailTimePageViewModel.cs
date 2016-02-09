@@ -395,7 +395,11 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             this.PlotModel.Annotations.Clear();
 
             int index = this.TimeHistogramDatum.HistogramData
-                .FindIndex(v => v.Level == Math.Ceiling(level / this.TimeHistogramDatum.ClassWidth) * this.TimeHistogramDatum.ClassWidth);
+                .FindIndex(v => v.Level == (int) (Math.Ceiling( (level + 0.0f) / this.TimeHistogramDatum.ClassWidth) * this.TimeHistogramDatum.ClassWidth) );
+
+            Console.WriteLine("CLASS_WIDTH: " + this.TimeHistogramDatum.ClassWidth);
+            Console.WriteLine("LEVEL: " + this.TimeHistogramDatum.HistogramData[0].Level);
+            Console.WriteLine("VALUE: " + (int)(Math.Ceiling( (level + 0.0f) / this.TimeHistogramDatum.ClassWidth) * this.TimeHistogramDatum.ClassWidth) );
 
             RectangleAnnotation rectAannotation = new RectangleAnnotation();
             rectAannotation.Fill = OxyColor.FromArgb(100, OxyColors.Orange.R, OxyColors.Orange.G, OxyColors.Orange.B);
