@@ -1,7 +1,7 @@
 var map;							//! マップ オブジェクト。
 var geo;							//! Geo コード取得用オブジェクト。
 var isInitialized = false;			//! 初期化フラグ。
-var markers = new Array();	//! マーカーのコレクション。
+var circles = [];	//! マーカーのコレクション。
 var nextID = 0;				//! 次に割り当てられるマーカーの識別子。
 var selectedID = -1;				//! 選択されているマーカーの識別子。
 
@@ -20,9 +20,10 @@ function initialize() {
     geo = new google.maps.Geocoder();
 
     // マップの中央位置が更新された時のイベント
-    google.maps.event.addListener(map, 'center_changed', function () {
+    /*google.maps.event.addListener(map, 'center_changed', function () {
         
     });
+    */
 
     // マップのタイル読み込みが完了した時のイベント
     google.maps.event.addListener(map, 'tilesloaded', function () {
@@ -32,6 +33,11 @@ function initialize() {
             window.external.OnInitCompleted();
         }
     });
+}
+
+function reInitialize() {
+    isInitialized = false;
+    removeAllCircles();
 }
 
 function getRandomColor(number) {
@@ -122,7 +128,15 @@ function addCircle(latitude, longitude) {
 
     // 円を設定
     var circle = new google.maps.Circle(circleOptions);
+    circles.push(circle);
     circle.setMap(map);
+}
+
+function removeAllCircles() {
+
+    for (var i = 0; i < circles.length; i++) {
+        circles[i].setMap(null);
+    }
 }
 
 function moveCurrentCircle(latitude, longitude) {

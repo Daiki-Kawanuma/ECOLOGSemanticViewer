@@ -50,6 +50,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                     return;
                 _SelectedComboBoxIndex = value;
 
+                this.invokeScript("reInitialize");
                 Initialize();
 
                 RaisePropertyChanged();
@@ -218,17 +219,12 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         public void SetCircle()
         {
-            // for debug
-            int count = 0;
+            Console.WriteLine("SetCircle is called... COUNT: " + GraphEcologs.Count);
 
             foreach (GraphEcolog graphEcolog in this.GraphEcologs)
             {
                 this.invokeScript("addCircle", new object[] { graphEcolog.Latitude, graphEcolog.Longitude });
-                count++;
             }
-
-            Console.WriteLine("MAX_INDEX: " + GraphEcologs.Count);
-            Console.WriteLine("COUNT: " + count);
         }
 
         private void setCurrentIndexData()
