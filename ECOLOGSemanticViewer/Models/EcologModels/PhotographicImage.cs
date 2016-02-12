@@ -130,8 +130,6 @@ namespace ECOLOGSemanticViewer.Models
 
             query.AppendLine("ORDER BY selected_ecolog.jst");
 
-            // Console.WriteLine("query : \n" + query);
-
             DataTable pictureTable;
             pictureTable = DatabaseAccesserEcolog.GetResult(query.ToString());
 

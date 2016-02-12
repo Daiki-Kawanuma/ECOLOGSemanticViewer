@@ -210,7 +210,7 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 case 4:
                     return SemanticHistogramDatum.GetTimeMedianTripID(this.SemanticLink, this.TripDirection);
                 case 5:
-                    return SemanticHistogramDatum.GetTimeMedianTripID(this.SemanticLink, this.TripDirection);
+                    return SemanticHistogramDatum.GetTimeMaxTripID(this.SemanticLink, this.TripDirection);
                 default:
                     return -1;
             }
@@ -218,18 +218,23 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
 
         public void SetCircle()
         {
+            // for debug
+            int count = 0;
+
             foreach (GraphEcolog graphEcolog in this.GraphEcologs)
             {
                 this.invokeScript("addCircle", new object[] { graphEcolog.Latitude, graphEcolog.Longitude });
+                count++;
             }
+
+            Console.WriteLine("MAX_INDEX: " + GraphEcologs.Count);
+            Console.WriteLine("COUNT: " + count);
         }
 
         private void setCurrentIndexData()
         {
             this.CurrentEcolog = this.GraphEcologs[this.CurrentIndex];
 
-            // TODO 戻す
-            //this.CurrentImage = PhotographicImage.CreatePhotographicImage(this.TripID, this.CurrentEcolog.Jst).ImageSource;
             getImage();
 
             this.DisplayedGraphEcologs = setCurrentGraph(this.CurrentIndex);

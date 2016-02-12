@@ -221,7 +221,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             {
                 if (e.ChangedButton == OxyMouseButton.Left)
                 {
-                    Console.WriteLine("SEMANTICS: " + semanticGraph.SemanticLink.Semantics);
 
                     if (SelectedSemanticLinks.Count > 0)
                     {
@@ -310,7 +309,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             {
                 if (e.ChangedButton == OxyMouseButton.Left)
                 {
-                    Console.WriteLine("SEMANTICS: " + semanticGraph.SemanticLink.Semantics);
 
                     if (SelectedSemanticLinks.Count > 0)
                     {

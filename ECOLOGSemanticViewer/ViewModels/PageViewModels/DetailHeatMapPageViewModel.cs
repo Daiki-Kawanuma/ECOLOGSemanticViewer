@@ -191,13 +191,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             maxExcludedEnergy = lostEnergies.Max();
 
             classWidthEnergy = (maxExcludedEnergy - minExcludedEnergy) / classNumber;
-
-            /*Console.WriteLine("firstQuartile: " + firstQuartileEnergy);
-            Console.WriteLine("thirdQuartile: " + thirdQuartileEnergy);
-            Console.WriteLine("iqr: " + iqrEnergy);
-            Console.WriteLine("minExcluded: " + minExcludedEnergy);
-            Console.WriteLine("maxExcluded: " + maxExcludedEnergy);
-            Console.WriteLine("classWidth: " + classWidthEnergy);*/
         }
 
         private void calculateTimeParameter()
@@ -216,13 +209,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             maxExcludedTime = times.Max();
 
             classWidthTime = (maxExcludedTime - minExcludedTime) / classNumber;
-
-            /*Console.WriteLine("firstQuartile: " + firstQuartileTime);
-            Console.WriteLine("thirdQuartile: " + thirdQuartileTime);
-            Console.WriteLine("iqr: " + iqrTime);
-            Console.WriteLine("minExcluded: " + minExcludedTime);
-            Console.WriteLine("maxExcluded: " + maxExcludedTime);
-            Console.WriteLine("classWidth: " + classWidthTime);*/
 
         }
 

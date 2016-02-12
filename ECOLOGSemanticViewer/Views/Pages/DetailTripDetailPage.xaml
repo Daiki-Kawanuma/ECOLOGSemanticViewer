@@ -187,6 +187,7 @@
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Center"
                                     Maximum="{Binding SliderMaximum}"
+
                                     Value="{Binding CurrentIndex}" />
 
                         </Border>

@@ -124,9 +124,6 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
                 }
             }
 
-            Console.WriteLine("LAT:" + this.ExtractedSemanticLinks.Average(v => v.Links.Average(l => l.Latitude)));
-            Console.WriteLine("LONG: " + this.ExtractedSemanticLinks.Average(v => v.Links.Average(l => l.Longitude)));
-
             this.invokeScript("moveMap",
                 new object[] { 
                     this.ExtractedSemanticLinks.Average(v => v.Links.Average( l => l.Latitude)),
