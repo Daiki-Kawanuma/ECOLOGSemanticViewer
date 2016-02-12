@@ -189,6 +189,8 @@ namespace ECOLOGSemanticViewer.ViewModels.PageViewModels
             DisplayedGraphEcologs = new List<GraphEcolog>();
             for (int i = 0; i < GraphIndexLength; i++)
             {
+                if (i > GraphEcologs.Count - 1)
+                    break;
                 DisplayedGraphEcologs.Add(GraphEcologs[i]);
             }
         }
