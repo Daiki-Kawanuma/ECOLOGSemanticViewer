@@ -41,10 +41,7 @@ namespace ECOLOGSemanticViewer.Views.Windows
             var context = this.DataContext as SemanticCompareWindowViewModel;
             if (context == null) { return; }
 
-            CompareEnergyPage page = new CompareEnergyPage();
-            page.DataContext = new CompareEnergyPageViewModel(context.SelectedSemanticLinks, context.TripDirection);
-
-            context.CurrentPage = page;
+            context.CurrentPage = context.EnergyPage;
         }
 
         private void Button_Time(object sender, RoutedEventArgs e)
@@ -52,10 +49,7 @@ namespace ECOLOGSemanticViewer.Views.Windows
             var context = this.DataContext as SemanticCompareWindowViewModel;
             if (context == null) { return; }
 
-            var page = new CompareTimePage();
-            page.DataContext = new CompareTimePageViewModel(context.SelectedSemanticLinks, context.TripDirection);
-
-            context.CurrentPage = page;
+            context.CurrentPage = context.TimePage;
         }
 
         private void Button_HeatMap(object sender, RoutedEventArgs e)

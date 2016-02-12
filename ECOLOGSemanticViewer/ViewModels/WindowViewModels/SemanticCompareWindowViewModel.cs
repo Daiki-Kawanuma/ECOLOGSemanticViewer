@@ -21,6 +21,9 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
 {
     public class SemanticCompareWindowViewModel : ViewModel
     {
+        public CompareEnergyPage EnergyPage;
+        public CompareTimePage TimePage;
+
         #region SelectedSemanticLinks変更通知プロパティ
         private List<SemanticLink> _SelectedSemanticLinks;
 
@@ -74,7 +77,6 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
 
         public SemanticCompareWindowViewModel()
         {
-            this.CurrentPage = new CompareEnergyPage();
         }
 
         public SemanticCompareWindowViewModel(List<SemanticLink> selectedSemanticLink, TripDirection direction)
@@ -82,15 +84,18 @@ namespace ECOLOGSemanticViewer.ViewModels.WindowViewModels
             this.SelectedSemanticLinks = selectedSemanticLink;
             this.TripDirection = direction;
 
-            CompareEnergyPage page = new CompareEnergyPage();
-            page.DataContext = new CompareEnergyPageViewModel(SelectedSemanticLinks, TripDirection);
-
-            this.CurrentPage = page;
+            Initialize();
         }
 
         public void Initialize()
         {
+            EnergyPage = new CompareEnergyPage();
+            EnergyPage.DataContext = new CompareEnergyPageViewModel(SelectedSemanticLinks, TripDirection);
 
+            TimePage = new CompareTimePage();
+            TimePage.DataContext = new CompareTimePageViewModel(SelectedSemanticLinks, TripDirection);
+
+            this.CurrentPage = EnergyPage;
         }
     }
 }
